@@ -9,8 +9,7 @@ mvnw.cmd
 .settings
 .springBeans
 .sts4-cache
-
-app_log
+app_log/
 .idea
 
 
