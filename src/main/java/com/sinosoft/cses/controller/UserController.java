@@ -29,4 +29,10 @@ public class UserController {
         logger.info("开始获取所有用户信息");
         return impl.getUserInfo();
     }
+    @ResponseBody
+    @RequestMapping("/updateUser")
+    public String updateUser(String name,String age){
+        logger.info("修改用户信息");
+        return impl.updateUser(name,age);
+    }
 }

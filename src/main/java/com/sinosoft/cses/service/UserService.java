@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserService {
     public User getUserById(String id);
     public List<User> getUserInfo();
+    public String updateUser(String name,String age);
 }
