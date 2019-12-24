@@ -234,3 +234,217 @@
 2019-12-24 10:24:26.076 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:525 -Initializing Servlet 'dispatcherServlet'
 2019-12-24 10:24:26.082 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:547 -Completed initialization in 6 ms
 2019-12-24 10:24:26.103 INFO [http-nio-8080-exec-1]com.sinosoft.cses.controller.UserController.getAllUsersInfo:29 -开始获取所有用户信息
+2019-12-24 14:13:52.945 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 6476 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:13:52.952 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:13:53.068 INFO [restartedMain]org.springframework.boot.devtools.restart.ChangeableUrls.logTo:225 -The Class-Path manifest attribute in D:\mvn-r\mvn_repo\org\glassfish\jaxb\jaxb-runtime\2.3.2\jaxb-runtime-2.3.2.jar referenced one or more files that do not exist: file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.xml.bind-api-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/txw2-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/istack-commons-runtime-3.0.8.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/stax-ex-1.8.1.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/FastInfoset-1.2.16.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.activation-api-1.2.1.jar
+2019-12-24 14:13:53.069 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-24 14:13:53.069 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-24 14:13:54.234 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:13:54.326 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 78ms. Found 1 JPA repository interfaces.
+2019-12-24 14:13:54.850 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:13:55.602 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:13:55.692 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:13:55.693 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:13:55.694 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:13:55.969 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:13:55.970 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 2900 ms
+2019-12-24 14:13:56.208 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:13:56.310 INFO [restartedMain]org.hibernate.Version.logVersion:46 -HHH000412: Hibernate Core {5.4.9.Final}
+2019-12-24 14:13:56.682 INFO [restartedMain]org.hibernate.annotations.common.Version.<clinit>:49 -HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-12-24 14:13:56.822 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-1 - Starting...
+2019-12-24 14:14:06.725 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-1 - Start completed.
+2019-12-24 14:14:06.835 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:14:09.061 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:14:09.080 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:14:09.190 INFO [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:58 -LiveReload server is running on port 35729
+2019-12-24 14:14:09.658 INFO [main]com.sinosoft.cses.CsesApplicationTests.logStarting:55 -Starting CsesApplicationTests on 7G7PFUK9S2VN9NV with PID 11132 (started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:14:09.662 INFO [main]com.sinosoft.cses.CsesApplicationTests.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:14:10.206 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:14:10.865 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:14:11.565 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:14:11.645 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.start:204 -Tomcat started on port(s): 8080 (http) with context path ''
+2019-12-24 14:14:11.656 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarted:61 -Started CsesApplication in 19.553 seconds (JVM running for 24.536)
+2019-12-24 14:14:12.063 INFO [main]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:14:12.289 INFO [main]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 182ms. Found 1 JPA repository interfaces.
+2019-12-24 14:14:13.196 INFO [main]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:14:13.742 INFO [main]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:14:14.071 INFO [main]org.hibernate.Version.logVersion:46 -HHH000412: Hibernate Core {5.4.9.Final}
+2019-12-24 14:14:14.451 INFO [main]org.hibernate.annotations.common.Version.<clinit>:49 -HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-12-24 14:14:15.513 INFO [main]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-1 - Starting...
+2019-12-24 14:14:15.974 INFO [main]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-1 - Start completed.
+2019-12-24 14:14:16.040 INFO [main]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:14:18.094 INFO [main]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:14:18.106 INFO [main]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:14:20.611 WARN [main]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:14:21.771 INFO [main]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:14:22.839 INFO [main]com.sinosoft.cses.CsesApplicationTests.logStarted:61 -Started CsesApplicationTests in 14.743 seconds (JVM running for 17.418)
+2019-12-24 14:14:24.294 INFO [SpringContextShutdownHook]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.shutdown:208 -Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:14:24.308 INFO [SpringContextShutdownHook]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.destroy:598 -Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:14:24.360 INFO [SpringContextShutdownHook]com.zaxxer.hikari.HikariDataSource.close:350 -HikariPool-1 - Shutdown initiated...
+2019-12-24 14:14:24.475 INFO [SpringContextShutdownHook]com.zaxxer.hikari.HikariDataSource.close:352 -HikariPool-1 - Shutdown completed.
+2019-12-24 14:14:35.016 INFO [http-nio-8080-exec-1]org.apache.tomcat.util.http.parser.Cookie.log:173 -A cookie header was received [1557454679,1557625493,1558353640] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2019-12-24 14:14:35.036 INFO [http-nio-8080-exec-1]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-24 14:14:35.036 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:525 -Initializing Servlet 'dispatcherServlet'
+2019-12-24 14:14:35.056 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:547 -Completed initialization in 20 ms
+2019-12-24 14:14:57.872 INFO [http-nio-8080-exec-8]com.sinosoft.cses.controller.UserController.getAllUsersInfo:29 -开始获取所有用户信息
+2019-12-24 14:33:01.689 INFO [Thread-39]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.shutdown:208 -Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:33:02.446 INFO [Thread-39]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.destroy:598 -Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:33:02.895 INFO [Thread-39]com.zaxxer.hikari.HikariDataSource.close:350 -HikariPool-1 - Shutdown initiated...
+2019-12-24 14:33:02.982 INFO [Thread-39]com.zaxxer.hikari.HikariDataSource.close:352 -HikariPool-1 - Shutdown completed.
+2019-12-24 14:33:07.950 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 6476 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:33:07.951 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:33:08.521 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:33:08.552 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 29ms. Found 1 JPA repository interfaces.
+2019-12-24 14:33:08.703 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:33:08.894 WARN [restartedMain]org.apache.tomcat.util.modeler.Registry.log:173 -The MBean registry cannot be disabled because it has already been initialised
+2019-12-24 14:33:09.178 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:33:09.179 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:33:09.180 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:33:09.180 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:33:09.243 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:33:09.244 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 1281 ms
+2019-12-24 14:33:09.403 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:33:09.445 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-2 - Starting...
+2019-12-24 14:33:09.511 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-2 - Start completed.
+2019-12-24 14:33:09.513 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:33:09.794 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:33:09.795 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:33:09.807 INFO [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:58 -LiveReload server is running on port 35729
+2019-12-24 14:33:09.993 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:33:10.196 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:33:10.556 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:33:10.571 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.start:204 -Tomcat started on port(s): 8080 (http) with context path ''
+2019-12-24 14:33:10.573 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarted:61 -Started CsesApplication in 2.798 seconds (JVM running for 1163.454)
+2019-12-24 14:33:10.579 INFO [restartedMain]o.s.b.d.a.ConditionEvaluationDeltaLoggingListener.onApplicationEvent:63 -Condition evaluation unchanged
+2019-12-24 14:36:23.225 INFO [Thread-51]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.shutdown:208 -Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:36:23.227 INFO [Thread-51]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.destroy:598 -Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:36:23.230 INFO [Thread-51]com.zaxxer.hikari.HikariDataSource.close:350 -HikariPool-2 - Shutdown initiated...
+2019-12-24 14:36:23.247 INFO [Thread-51]com.zaxxer.hikari.HikariDataSource.close:352 -HikariPool-2 - Shutdown completed.
+2019-12-24 14:36:24.359 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 6476 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:36:24.360 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:36:24.793 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:36:24.831 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 37ms. Found 1 JPA repository interfaces.
+2019-12-24 14:36:24.970 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:36:25.090 WARN [restartedMain]org.apache.tomcat.util.modeler.Registry.log:173 -The MBean registry cannot be disabled because it has already been initialised
+2019-12-24 14:36:25.174 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:36:25.175 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:36:25.175 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:36:25.176 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:36:25.207 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:36:25.208 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 841 ms
+2019-12-24 14:36:25.263 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:36:25.275 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-3 - Starting...
+2019-12-24 14:36:25.288 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-3 - Start completed.
+2019-12-24 14:36:25.288 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:36:25.349 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:36:25.349 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:36:25.360 INFO [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:58 -LiveReload server is running on port 35729
+2019-12-24 14:36:25.468 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:36:25.532 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:36:25.661 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:36:25.674 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.start:204 -Tomcat started on port(s): 8080 (http) with context path ''
+2019-12-24 14:36:25.675 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarted:61 -Started CsesApplication in 1.384 seconds (JVM running for 1358.556)
+2019-12-24 14:36:25.677 INFO [restartedMain]o.s.b.d.a.ConditionEvaluationDeltaLoggingListener.onApplicationEvent:63 -Condition evaluation unchanged
+2019-12-24 14:39:21.243 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 4880 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:39:21.248 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:39:21.359 INFO [restartedMain]org.springframework.boot.devtools.restart.ChangeableUrls.logTo:225 -The Class-Path manifest attribute in D:\mvn-r\mvn_repo\org\glassfish\jaxb\jaxb-runtime\2.3.2\jaxb-runtime-2.3.2.jar referenced one or more files that do not exist: file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.xml.bind-api-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/txw2-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/istack-commons-runtime-3.0.8.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/stax-ex-1.8.1.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/FastInfoset-1.2.16.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.activation-api-1.2.1.jar
+2019-12-24 14:39:21.361 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-24 14:39:21.362 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-24 14:39:23.377 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:39:23.648 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 246ms. Found 1 JPA repository interfaces.
+2019-12-24 14:39:24.736 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:39:26.421 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:39:26.444 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:39:26.445 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:39:26.446 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:39:26.719 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:39:26.722 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 5359 ms
+2019-12-24 14:39:27.249 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:39:27.371 INFO [restartedMain]org.hibernate.Version.logVersion:46 -HHH000412: Hibernate Core {5.4.9.Final}
+2019-12-24 14:39:27.683 INFO [restartedMain]org.hibernate.annotations.common.Version.<clinit>:49 -HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-12-24 14:39:28.026 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-1 - Starting...
+2019-12-24 14:39:28.398 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-1 - Start completed.
+2019-12-24 14:39:28.443 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:39:29.918 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:39:29.931 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:39:29.952 WARN [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:61 -Unable to start LiveReload server
+2019-12-24 14:39:30.641 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:39:30.909 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:39:31.723 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:39:31.826 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Pausing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:39:31.827 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Stopping service [Tomcat]
+2019-12-24 14:39:31.840 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Stopping ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:39:31.842 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Destroying ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:39:31.850 INFO [restartedMain]o.s.b.a.logging.ConditionEvaluationReportLoggingListener.logMessage:136 -
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-12-24 14:39:31.866 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.shutdown:208 -Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:39:31.868 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.destroy:598 -Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:39:31.877 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.close:350 -HikariPool-1 - Shutdown initiated...
+2019-12-24 14:39:31.906 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.close:352 -HikariPool-1 - Shutdown completed.
+2019-12-24 14:41:43.809 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 7484 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:41:43.815 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:41:43.962 INFO [restartedMain]org.springframework.boot.devtools.restart.ChangeableUrls.logTo:225 -The Class-Path manifest attribute in D:\mvn-r\mvn_repo\org\glassfish\jaxb\jaxb-runtime\2.3.2\jaxb-runtime-2.3.2.jar referenced one or more files that do not exist: file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.xml.bind-api-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/txw2-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/istack-commons-runtime-3.0.8.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/stax-ex-1.8.1.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/FastInfoset-1.2.16.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.activation-api-1.2.1.jar
+2019-12-24 14:41:43.964 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-24 14:41:43.964 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-24 14:41:45.559 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:41:45.731 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 151ms. Found 1 JPA repository interfaces.
+2019-12-24 14:41:46.459 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:41:47.945 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:41:47.972 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:41:47.974 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:41:47.975 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:41:48.225 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:41:48.228 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 4263 ms
+2019-12-24 14:41:48.735 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:41:48.872 INFO [restartedMain]org.hibernate.Version.logVersion:46 -HHH000412: Hibernate Core {5.4.9.Final}
+2019-12-24 14:41:49.204 INFO [restartedMain]org.hibernate.annotations.common.Version.<clinit>:49 -HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-12-24 14:41:49.423 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-1 - Starting...
+2019-12-24 14:41:49.740 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-1 - Start completed.
+2019-12-24 14:41:49.779 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:41:50.969 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:41:50.981 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:41:51.002 WARN [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:61 -Unable to start LiveReload server
+2019-12-24 14:41:51.744 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:41:52.607 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:41:53.210 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:41:53.235 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Pausing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:41:53.235 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Stopping service [Tomcat]
+2019-12-24 14:41:53.247 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Stopping ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:41:53.249 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Destroying ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:41:53.256 INFO [restartedMain]o.s.b.a.logging.ConditionEvaluationReportLoggingListener.logMessage:136 -
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-12-24 14:41:53.316 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.shutdown:208 -Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:41:53.320 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.destroy:598 -Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:41:53.332 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.close:350 -HikariPool-1 - Shutdown initiated...
+2019-12-24 14:41:53.362 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.close:352 -HikariPool-1 - Shutdown completed.
+2019-12-24 14:42:18.127 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarting:55 -Starting CsesApplication on 7G7PFUK9S2VN9NV with PID 11036 (E:\workplacee\cses1.0\target\classes started by Administrator in E:\workplacee\cses1.0)
+2019-12-24 14:42:18.132 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStartupProfileInfo:655 -The following profiles are active: dev
+2019-12-24 14:42:18.248 INFO [restartedMain]org.springframework.boot.devtools.restart.ChangeableUrls.logTo:225 -The Class-Path manifest attribute in D:\mvn-r\mvn_repo\org\glassfish\jaxb\jaxb-runtime\2.3.2\jaxb-runtime-2.3.2.jar referenced one or more files that do not exist: file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.xml.bind-api-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/txw2-2.3.2.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/istack-commons-runtime-3.0.8.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/stax-ex-1.8.1.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/FastInfoset-1.2.16.jar,file:/D:/mvn-r/mvn_repo/org/glassfish/jaxb/jaxb-runtime/2.3.2/jakarta.activation-api-1.2.1.jar
+2019-12-24 14:42:18.249 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-24 14:42:18.250 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-24 14:42:19.830 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:127 -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2019-12-24 14:42:19.997 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:187 -Finished Spring Data repository scanning in 145ms. Found 1 JPA repository interfaces.
+2019-12-24 14:42:20.819 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-24 14:42:22.248 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:92 -Tomcat initialized with port(s): 8080 (http)
+2019-12-24 14:42:22.272 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:42:22.274 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-12-24 14:42:22.274 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-24 14:42:22.472 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-12-24 14:42:22.475 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:284 -Root WebApplicationContext: initialization completed in 4224 ms
+2019-12-24 14:42:23.103 INFO [restartedMain]org.hibernate.jpa.internal.util.LogHelper.logPersistenceUnitInformation:31 -HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-12-24 14:42:23.267 INFO [restartedMain]org.hibernate.Version.logVersion:46 -HHH000412: Hibernate Core {5.4.9.Final}
+2019-12-24 14:42:23.497 INFO [restartedMain]org.hibernate.annotations.common.Version.<clinit>:49 -HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-12-24 14:42:23.709 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:110 -HikariPool-1 - Starting...
+2019-12-24 14:42:24.147 INFO [restartedMain]com.zaxxer.hikari.HikariDataSource.getConnection:123 -HikariPool-1 - Start completed.
+2019-12-24 14:42:24.204 INFO [restartedMain]org.hibernate.dialect.Dialect.<init>:172 -HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2019-12-24 14:42:25.287 INFO [restartedMain]o.h.e.t.jta.platform.internal.JtaPlatformInitiator.initiateService:52 -HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-12-24 14:42:25.298 INFO [restartedMain]o.s.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory:416 -Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-24 14:42:25.327 INFO [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:58 -LiveReload server is running on port 35729
+2019-12-24 14:42:26.227 WARN [restartedMain]o.s.b.a.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor:220 -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-12-24 14:42:26.866 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-24 14:42:27.448 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-12-24 14:42:27.566 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.start:204 -Tomcat started on port(s): 8080 (http) with context path ''
+2019-12-24 14:42:27.572 INFO [restartedMain]com.sinosoft.cses.CsesApplication.logStarted:61 -Started CsesApplication in 10.398 seconds (JVM running for 11.169)
