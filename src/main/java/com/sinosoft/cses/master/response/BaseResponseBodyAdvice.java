@@ -1,8 +1,8 @@
-package com.sinosoft.cses.response;
+package com.sinosoft.cses.master.response;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.sinosoft.cses.enums.ErrorType;
+import com.sinosoft.cses.master.enums.ErrorType;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

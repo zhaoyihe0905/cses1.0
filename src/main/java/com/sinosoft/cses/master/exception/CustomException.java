@@ -1,4 +1,4 @@
-package com.sinosoft.cses.exception;
+package com.sinosoft.cses.master.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

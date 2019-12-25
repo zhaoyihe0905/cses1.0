@@ -1,4 +1,4 @@
-package com.sinosoft.cses.enums;
+package com.sinosoft.cses.master.enums;
 
 /**
  * @program: workspace

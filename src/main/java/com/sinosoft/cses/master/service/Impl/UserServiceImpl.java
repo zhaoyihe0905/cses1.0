@@ -1,8 +1,8 @@
-package com.sinosoft.cses.service.serviceImpl;
+package com.sinosoft.cses.master.service.Impl;
 
-import com.sinosoft.cses.dao.UserDao;
-import com.sinosoft.cses.entity.User;
-import com.sinosoft.cses.service.UserService;
+import com.sinosoft.cses.master.dao.UserDao;
+import com.sinosoft.cses.master.entity.SysUser;
+import com.sinosoft.cses.master.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,16 +15,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public User getUserById(String id) {
-        Optional<User> user = userDao.findById(id);
-        User userInfo = new User();
+    public SysUser getUserById(Integer id) {
+        Optional<SysUser> user = userDao.findById(id);
+        SysUser userInfo = new SysUser();
         return  userInfo;
 
     }
 
     @Override
-    public List<User> getUserInfo() {
-        List<User> userList = userDao.findAll();
+    public List<SysUser> getUserInfo() {
+        List<SysUser> userList = userDao.findAll();
         return userList;
     }
 

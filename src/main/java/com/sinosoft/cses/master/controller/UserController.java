@@ -1,8 +1,9 @@
-package com.sinosoft.cses.controller;
+package com.sinosoft.cses.master.controller;
 
 
-import com.sinosoft.cses.entity.User;
-import com.sinosoft.cses.service.serviceImpl.UserServiceImpl;
+import com.sinosoft.cses.master.entity.SysUser;
+import com.sinosoft.cses.master.service.Impl.UserServiceImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ public class UserController {
     private UserServiceImpl impl;
     @ResponseBody
     @RequestMapping("/user")
-    public String userInfo(String id){
+    public String userInfo(Integer id){
         return impl.getUserById(id).toString();
     }
     @ResponseBody
     @RequestMapping("/getUsers")
-    public List<User> getAllUsersInfo(){
+    public List<SysUser> getAllUsersInfo(){
         logger.info("开始获取所有用户信息");
         return impl.getUserInfo();
     }

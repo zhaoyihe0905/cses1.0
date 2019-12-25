@@ -1,7 +1,7 @@
-package com.sinosoft.cses.response;
+package com.sinosoft.cses.master.response;
 
 
-import com.sinosoft.cses.enums.ErrorType;
+import com.sinosoft.cses.master.enums.ErrorType;
 
 /**
  * @program: workspace

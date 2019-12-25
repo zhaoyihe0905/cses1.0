@@ -1,7 +1,7 @@
-package com.sinosoft.cses.exception;
+package com.sinosoft.cses.master.exception;
 
-import com.sinosoft.cses.enums.ErrorType;
-import com.sinosoft.cses.response.BaseResponse;
+import com.sinosoft.cses.master.enums.ErrorType;
+import com.sinosoft.cses.master.response.BaseResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
