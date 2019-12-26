@@ -1,9 +1,24 @@
 package com.sinosoft.cses.view.cses;
 
 import javax.swing.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sinosoft.cses.master.config.MD5;
+import com.sinosoft.cses.master.controller.LoginControl;
+import com.sinosoft.cses.master.dao.SysUserDao;
+import com.sinosoft.cses.master.entity.SysUser;
+import com.sinosoft.cses.master.service.SysUserService;
+
 import java.awt.*;
 
+@Service
 public class Login extends JFrame {
+	
+	@Autowired
+	private SysUserService sysUserService ;
+	
     public Login(){
         //第一步：设置窗口
         this.setTitle("客服服务体验系统");
@@ -99,6 +114,17 @@ public class Login extends JFrame {
     }
         if("".equals(passwordText)||passwordText==null){
             JOptionPane.showMessageDialog(null,"密码不能为空");
+            return;
+        }
+       SysUser sysUser =  sysUserService.findByUserCode(usernameText);
+        
+        if(sysUser == null){
+            JOptionPane.showMessageDialog(null,"用户名不存在");
+            return;
+        }
+         String md5 = MD5.backMD5(passwordText).toLowerCase();
+        if(!md5.equals(sysUser.getPassword().toLowerCase())){
+            JOptionPane.showMessageDialog(null,"密码不正确");
             return;
         }
         //关闭登录界面

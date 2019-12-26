@@ -11,14 +11,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sinosoft.cses.master.entity.support.BaseEntity;
+
 @Entity
 @Table(name="tb_sys_users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysUser {
+public class SysUser extends BaseEntity{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
     private Integer id;
     /** 用户代码 */
