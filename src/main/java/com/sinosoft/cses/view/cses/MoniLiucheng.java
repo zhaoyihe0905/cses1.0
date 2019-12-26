@@ -1,10 +1,16 @@
 package com.sinosoft.cses.view.cses;
 
 
+import lombok.Data;
+
 import javax.swing.*;
 import java.awt.*;
-
+@Data
 public class MoniLiucheng extends JFrame{
+    //获取窗口的值
+     private static String areaName="";
+     private static String coverageName="";
+     private static String flowName="";
 
     JPanel north = new JPanel();
     JPanel center = new JPanel();
@@ -46,9 +52,6 @@ public class MoniLiucheng extends JFrame{
         this.northPanel();
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
-        /*this.add(south, BorderLayout.SOUTH);
-        this.add(eaet, BorderLayout.EAST);
-        this.add(west, BorderLayout.WEST);*/
     }
 
     /**
@@ -108,10 +111,12 @@ public class MoniLiucheng extends JFrame{
         FlowLayout flowLayout = new FlowLayout();
         area.setLayout(flowLayout);
         flowLayout.setAlignment(FlowLayout.LEFT);
-        area.add(new Label("Province:"));
+        area.add(new Label("Area:"));
         JComboBox jTextCombo =this.getComboBox();
         jTextCombo.addItem("北京");
         jTextCombo.addItem("上海");
+        //添加下拉框监听，获取选项值
+        jTextCombo.addActionListener(Event->this.setAreaName(jTextCombo.getSelectedItem().toString()));
         area.add(jTextCombo);
         return area;
     }
@@ -129,6 +134,8 @@ public class MoniLiucheng extends JFrame{
         JComboBox jTextCombo =this.getComboBox();
         jTextCombo.addItem("商业险");
         jTextCombo.addItem("交强险");
+        //添加下拉框监听，获取选项值
+        jTextCombo.addActionListener(Event->this.setCoverageName(jTextCombo.getSelectedItem().toString()));
         coverage.add(jTextCombo);
         return  coverage;
     }
@@ -147,6 +154,8 @@ public class MoniLiucheng extends JFrame{
         jTextCombo.addItem("投保环节");
         jTextCombo.addItem("批改环节");
         jTextCombo.addItem("全流程");
+        //添加下拉框监听，获取选项值
+        jTextCombo.addActionListener(Event-> this.setFlowName(jTextCombo.getSelectedItem().toString()));
         interfaceJpanel.add(jTextCombo);
         return  interfaceJpanel;
     }
@@ -162,7 +171,8 @@ public class MoniLiucheng extends JFrame{
         //定时启动
         JButton button =new JButton("执行任务");
         button.doClick();
-        button.addActionListener(Event-> new Task());
+        //参数依次是：地区、险种、流程
+        button.addActionListener(Event-> new Task(areaName,coverageName,flowName));
         quartz.add(button);
         return quartz;
     }
@@ -175,5 +185,19 @@ public class MoniLiucheng extends JFrame{
         jTextCombo.setPreferredSize(new java.awt.Dimension(70, 25));
         jTextCombo.addItem("-请选择-");
         return jTextCombo;
+    }
+
+    /**
+     * 赋值
+     * @param areaName
+     */
+    public void setAreaName(String areaName){
+        this.areaName = areaName;
+    }
+    public void setCoverageName(String coverageName){
+        this.coverageName = coverageName;
+    }
+    public void setFlowName(String flowName){
+        this.flowName = flowName;
     }
 }
