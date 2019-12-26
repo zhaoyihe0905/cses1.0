@@ -77,6 +77,10 @@
             <version>RELEASE</version><!--$NO-MVN-MAN-VER$-->
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
