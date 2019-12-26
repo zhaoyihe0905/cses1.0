@@ -41,6 +41,7 @@ public class MoniLiucheng extends JFrame{
         this.textArea = new JTextArea(20,80);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
         Font f = new Font("宋体", Font.PLAIN, 12);
         textArea.setForeground(Color.blue);
         textArea.setFont(f);
@@ -172,7 +173,7 @@ public class MoniLiucheng extends JFrame{
         JButton button =new JButton("执行任务");
         button.doClick();
         //参数依次是：地区、险种、流程
-        button.addActionListener(Event-> new Task(areaName,coverageName,flowName));
+        button.addActionListener(Event-> new Task(areaName,coverageName,flowName,textArea));
         quartz.add(button);
         return quartz;
     }
