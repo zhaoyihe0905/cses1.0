@@ -51,8 +51,10 @@ public class MoniLiucheng extends JFrame{
         center.add(jScorollPane);
         this.setLayout(new BorderLayout());
         this.northPanel();
+        this.southPanel();
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
+        this.add(south,BorderLayout.SOUTH);
     }
 
     /**
@@ -84,7 +86,11 @@ public class MoniLiucheng extends JFrame{
         //执行任务
         north.add(this.doIt());
     }
-
+    void southPanel(){
+        south.setLayout(new BoxLayout(south,BoxLayout.X_AXIS));
+        //清除
+        south.add(this.remove());
+    }
 
     /**
      * 获取定时启动按钮JPanel
@@ -173,7 +179,7 @@ public class MoniLiucheng extends JFrame{
         JButton button =new JButton("执行任务");
         button.doClick();
         //参数依次是：地区、险种、流程
-        button.addActionListener(Event-> new Task(areaName,coverageName,flowName,textArea));
+        button.addActionListener(Event-> new Task(areaName,coverageName,flowName,textArea,button));
         quartz.add(button);
         return quartz;
     }
@@ -186,6 +192,22 @@ public class MoniLiucheng extends JFrame{
         jTextCombo.setPreferredSize(new java.awt.Dimension(70, 25));
         jTextCombo.addItem("-请选择-");
         return jTextCombo;
+    }
+    /**
+     * 获取清除输出框内容按钮JPanel
+     * @return
+     */
+    JPanel remove (){
+        JPanel quartz = new JPanel();
+        FlowLayout flowLayout = new FlowLayout();
+        quartz.setLayout(flowLayout);
+        flowLayout.setAlignment(FlowLayout.LEFT);
+        //定时启动
+        JButton button =new JButton("清除");
+        button.doClick();
+        button.addActionListener(Event-> textArea.setText(""));
+        quartz.add(button);
+        return quartz;
     }
 
     /**
