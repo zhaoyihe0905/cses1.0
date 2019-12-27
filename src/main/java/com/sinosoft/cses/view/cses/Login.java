@@ -8,8 +8,12 @@ import org.springframework.stereotype.Service;
 import com.sinosoft.cses.master.config.MD5;
 import com.sinosoft.cses.master.controller.LoginControl;
 import com.sinosoft.cses.master.dao.SysUserDao;
+import com.sinosoft.cses.master.entity.SysConfig;
 import com.sinosoft.cses.master.entity.SysUser;
+import com.sinosoft.cses.master.service.SysConfigService;
 import com.sinosoft.cses.master.service.SysUserService;
+import com.sinosoft.cses.master.util.BusinessFun;
+import com.sinosoft.cses.master.util.SystemConfig;
 
 import java.awt.*;
 
@@ -18,6 +22,8 @@ public class Login extends JFrame {
 	
 	@Autowired
 	private SysUserService sysUserService ;
+	@Autowired
+	private SysConfigService sysConfigService;
 	
     public Login(){
         //第一步：设置窗口
@@ -80,7 +86,8 @@ public class Login extends JFrame {
         JLabel password = new JLabel("密     码:");
         password.setBounds(50,135,80,25);
         panel.add(password);
-        JTextField passText = new JTextField();
+        JPasswordField  passText = new JPasswordField ();
+//        JTextField passText = new JTextField();
         passText.setBounds(100,135,150,25);
         panel.add(passText);
 
@@ -110,10 +117,18 @@ public class Login extends JFrame {
 
         if("".equals(usernameText)||usernameText==null){
             JOptionPane.showMessageDialog(null,"用户名不能为空");
+            username.setText("");
+            password.setText("");
+            username.requestFocus();//获取焦点
+            password.requestFocus();//获取焦点
             return;
     }
         if("".equals(passwordText)||passwordText==null){
             JOptionPane.showMessageDialog(null,"密码不能为空");
+            username.setText("");
+            password.setText("");
+            username.requestFocus();//获取焦点
+            password.requestFocus();//获取焦点
             return;
         }
        SysUser sysUser =  sysUserService.findByUserCode(usernameText);
@@ -130,6 +145,9 @@ public class Login extends JFrame {
         //关闭登录界面
         this.dispose();
         //验证通过，打开系统界面
+        String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
+        String lala = BusinessFun.doPost(value, "");
+        
         new MoniLiucheng();
     }
 }

@@ -1,4 +1,4 @@
-insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('LIHI5100', '510000', 'LIHI接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'LIHI', '1', '1', '1');
+insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('s', '510000', 'LIHI接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'LIHI', '1', '1', '1');
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('ZGBXtest', '510000', 'ZGBX测试', 'E10ADC3949BA59ABBE56E057F20F883E', 'ZGBX', '1', '1', '1');
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('FPIC5100', '510000', 'FPIC接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'FPIC', '1', '1', '1');
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('ACIC5100_NEW', '510000', 'ACIC接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'ACIC', '1', '1', '1');
@@ -79,3 +79,8 @@ insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, C
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('XAIC5100', '510000', 'XAIC接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'XAIC', '1', '1', '1');
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('CHAC5100', '510000', 'CHAC接口用户', 'E10ADC3949BA59ABBE56E057F20F883E', 'CHAC', '1', '1', '1');
 insert into tb_sys_users (USERCODE, AREACODE, USERNAME, PASSWORD, COMPANYCODE, COMPANYTYPE, USERGRADE, VALIDSTATUS) values ('qwe', '510000', 'qwe', 'E10ADC3949BA59ABBE56E057F20F883E', 'ZYIC', '1', '0', '1');
+
+
+
+insert into tb_sysconfig (id, areacode, companycode, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, validstatus) values (1, '420000', 'ALL', '', 'IaciUrl', 'http://localhost:8080/sinoiaci/commserver', '00', 'http://localhost:8080/sinoiaci/commserver', '', '1');
+insert into tb_sysconfig (id, areacode, companycode, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, validstatus) values (2, '420000', 'ALL', '', 'IacaUrl', 'http://localhost:8080/sinoiaca/commserver', '00', 'http://localhost:8080/sinoiaci/commserver', '', '1');
