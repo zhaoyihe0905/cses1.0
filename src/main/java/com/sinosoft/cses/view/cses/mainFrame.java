@@ -9,7 +9,7 @@ import java.awt.*;
 public class mainFrame {
 	
     public mainFrame() {
-		super();new Login();
+		super();
 	}
 
 

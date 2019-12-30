@@ -1,4 +1,4 @@
-package com.sinosoft.cses.view.cses;
+package com.sinosoft.cses.view.cses.login;
 
 import javax.swing.*;
 
@@ -10,22 +10,25 @@ import com.sinosoft.cses.master.controller.LoginControl;
 import com.sinosoft.cses.master.dao.SysUserDao;
 import com.sinosoft.cses.master.entity.SysConfig;
 import com.sinosoft.cses.master.entity.SysUser;
+import com.sinosoft.cses.master.response.Response;
 import com.sinosoft.cses.master.service.SysConfigService;
 import com.sinosoft.cses.master.service.SysUserService;
 import com.sinosoft.cses.master.util.BusinessFun;
 import com.sinosoft.cses.master.util.SystemConfig;
+import com.sinosoft.cses.view.cses.Message;
+import com.sinosoft.cses.view.cses.moniliucheng.MoniLiuchengView;
 
 import java.awt.*;
 
 @Service
-public class Login extends JFrame {
+public class LoginView extends JFrame {
 	
 	@Autowired
 	private SysUserService sysUserService ;
 	@Autowired
 	private SysConfigService sysConfigService;
 	
-    public Login(){
+    public LoginView(){
         //第一步：设置窗口
         this.setTitle("客服服务体验系统");
         this.setSize(350,250);
@@ -95,7 +98,8 @@ public class Login extends JFrame {
         JButton login = new JButton("登录");
         login.setBounds(70,170,100,25);
         login.doClick();
-        login.addActionListener(Event->this.verifyLogin(userText,passText));
+        LoginController loginController = new LoginController();
+        login.addActionListener(Event->loginController.verifyLogin(userText, passText,this));
         panel.add(login);
         //联系管理员按钮
         JButton admin = new JButton("联系管理员");
@@ -107,47 +111,5 @@ public class Login extends JFrame {
 
     }
 
-    /**
-     * 校验用户名密码是否正确
-     */
-    void verifyLogin(JTextField username,JTextField password){
-        //获取输入的用户名和密码
-        String usernameText = username.getText();
-        String passwordText = password.getText();
 
-        if("".equals(usernameText)||usernameText==null){
-            JOptionPane.showMessageDialog(null,"用户名不能为空");
-            username.setText("");
-            password.setText("");
-            username.requestFocus();//获取焦点
-            password.requestFocus();//获取焦点
-            return;
-    }
-        if("".equals(passwordText)||passwordText==null){
-            JOptionPane.showMessageDialog(null,"密码不能为空");
-            username.setText("");
-            password.setText("");
-            username.requestFocus();//获取焦点
-            password.requestFocus();//获取焦点
-            return;
-        }
-       SysUser sysUser =  sysUserService.findByUserCode(usernameText);
-        
-        if(sysUser == null){
-            JOptionPane.showMessageDialog(null,"用户名不存在");
-            return;
-        }
-         String md5 = MD5.backMD5(passwordText).toLowerCase();
-        if(!md5.equals(sysUser.getPassword().toLowerCase())){
-            JOptionPane.showMessageDialog(null,"密码不正确");
-            return;
-        }
-        //关闭登录界面
-        this.dispose();
-        //验证通过，打开系统界面
-        String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
-        String lala = BusinessFun.doPost(value, "");
-        
-        new MoniLiucheng();
-    }
 }

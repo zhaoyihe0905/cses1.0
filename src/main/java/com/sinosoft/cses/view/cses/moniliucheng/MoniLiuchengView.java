@@ -1,12 +1,16 @@
-package com.sinosoft.cses.view.cses;
+package com.sinosoft.cses.view.cses.moniliucheng;
 
 
 import lombok.Data;
 
 import javax.swing.*;
+
+import com.sinosoft.cses.view.cses.Quartz;
+import com.sinosoft.cses.view.cses.Task;
+
 import java.awt.*;
 @Data
-public class MoniLiucheng extends JFrame{
+public class MoniLiuchengView extends JFrame{
     //获取窗口的值
      private static String areaName="";
      private static String coverageName="";
@@ -21,7 +25,7 @@ public class MoniLiucheng extends JFrame{
     private JTextArea textArea =null;
     private JScrollPane jScorollPane;
     //初始化模块
-    public MoniLiucheng() {
+    public MoniLiuchengView() {
         //初始化界面
         this.init();
         this.setTitle("客服服务体验系统");

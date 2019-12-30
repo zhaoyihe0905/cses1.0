@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.sinosoft.cses.view.cses.Login;
-import com.sinosoft.cses.view.cses.mainFrame;
+import com.sinosoft.cses.view.cses.login.LoginView;
 
 @SpringBootApplication
 public class CsesApplication {
@@ -27,7 +26,7 @@ public class CsesApplication {
     	ConfigurableApplicationContext context = new SpringApplicationBuilder(
     			CsesApplication.class).headless(false).run(args);
 
-    	Login appFrame = context.getBean(Login.class);
+    	LoginView appFrame = context.getBean(LoginView.class);
     	appFrame.setVisible(true);
 //		appFrame.setVisible(true);
     }

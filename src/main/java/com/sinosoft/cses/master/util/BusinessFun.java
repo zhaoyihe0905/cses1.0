@@ -10,10 +10,18 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.sinosoft.cses.master.response.Response;
+
 public class BusinessFun {
 	
+	
+	private String ss ;
+	
 //	public static String doPost(String url, String file, String logFile){
-	public static String doPost(String url, String file){
+//	public static String doPost(String url, String file){
+//	public static Response doPost(String url, String file){
+	public static Response doPost(String url, String file){
+		Response response = new Response();
 			String line0 = "";
 			String line1 = "--------------------------------------------------------------------------------";
 			String line2 = "================================================================================";
@@ -85,8 +93,15 @@ public class BusinessFun {
 				/*******************************************************************
 				 * 3、接收数据
 				 ******************************************************************/
+				Date startTime = new Date();
+				//请求开始时间
+				response.setStartTime(startTime);
 				inputStreamReader = new InputStreamReader(httpConnection
 						.getInputStream());
+				Date stopTime = new Date();
+				//请求结束时间
+				response.setStopTime(stopTime );
+				response.setResponseTime((int)(stopTime.getTime() - startTime.getTime()));
 				bufferedReader2 = new BufferedReader(inputStreamReader);
 
 				StringBuffer sbOutput = new StringBuffer(1024);
@@ -98,6 +113,9 @@ public class BusinessFun {
 				 * 4、记录日志
 				 ******************************************************************/
 				lineString = sbOutput.toString();
+				
+				//设置投保确认码
+				response.setQueryPolicyNo(lineString);
 
 //				writeLog(lineString, logFile, true, true);
 //				writeLog(line1, logFile, true, true);
@@ -105,7 +123,8 @@ public class BusinessFun {
 //						logFile, true, true);
 //				writeLog(line2, logFile, true, true);
 //				writeLog(lineString, logFile + ".o.xml", false, false);
-				return lineString;
+//				return lineString;
+				return response;
 			} catch (Exception e) {
 				e.printStackTrace();
 
