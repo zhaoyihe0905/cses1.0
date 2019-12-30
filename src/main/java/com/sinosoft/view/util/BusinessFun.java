@@ -15,7 +15,6 @@ import com.sinosoft.master.response.Response;
 public class BusinessFun {
 	
 	
-	private String ss ;
 	
 //	public static String doPost(String url, String file, String logFile){
 //	public static String doPost(String url, String file){

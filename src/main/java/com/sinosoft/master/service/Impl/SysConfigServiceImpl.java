@@ -21,6 +21,7 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfig, Integer> im
 		return this.sysConfigDao;
 	}
 
+	/** 根据配置项名字查询数据库*/
 	@Override
 	public String findvalueByCode(String parametercode) {
 		// TODO Auto-generated method stub
