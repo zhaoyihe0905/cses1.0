@@ -49,7 +49,7 @@ public class CsesLog extends BaseEntity{
 	private long responseTime = 0L;
 	
 	/** 业务代码*/
-	private String businessType = "";
+	private String requestType = "";
 
 	/** 请求接口名*/
 	private String reqServiceName = "";

@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.swing.*;
+
+import com.alibaba.fastjson.JSON;
+import com.sinosoft.master.entity.SysUser;
+
 import java.awt.*;
 import java.util.Date;
 
@@ -69,5 +73,18 @@ public class Task {
 
 
 
+    }
+    
+    
+    
+    public static void main(String[] args){
+    	    	SysUser user = new SysUser();
+    	    	user.setAreacode("51000");
+    	    	user.setCompanycode("PICC");
+    	    	user.setCompanytype("1");
+    	    	user.setId(1);
+    	    	user.setPassword("123456");
+    	    	System.out.println(JSON.toJSONString(user));
+    	    	
     }
 }
