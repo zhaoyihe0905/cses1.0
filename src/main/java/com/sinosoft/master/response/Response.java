@@ -3,23 +3,26 @@ package com.sinosoft.master.response;
 import java.util.Date;
 
 public class Response {
+	//请求开始时间
 	private Date startTime;
-	
+	//请求结束时间
 	private Date stopTime;
-	
-	private String queryPolicyNo;
-	
+	//请求结果
+	private String result;
+	//相应使劲按
 	private Integer responseTime;
-	
+	//返回报文
 	private String resXml;
+	//日志对象
+	private StringBuffer strBuff;
 	
 
-	public String getResXml() {
-		return resXml;
+	public StringBuffer getStrBuff() {
+		return strBuff;
 	}
 
-	public void setResXml(String resXml) {
-		this.resXml = resXml;
+	public void setStrBuff(StringBuffer strBuff) {
+		this.strBuff = strBuff;
 	}
 
 	public Date getStartTime() {
@@ -38,12 +41,12 @@ public class Response {
 		this.stopTime = stopTime;
 	}
 
-	public String getQueryPolicyNo() {
-		return queryPolicyNo;
+	public String getResult() {
+		return result;
 	}
 
-	public void setQueryPolicyNo(String queryPolicyNo) {
-		this.queryPolicyNo = queryPolicyNo;
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	public Integer getResponseTime() {
@@ -54,8 +57,15 @@ public class Response {
 		this.responseTime = responseTime;
 	}
 
+	public String getResXml() {
+		return resXml;
+	}
 
+	public void setResXml(String resXml) {
+		this.resXml = resXml;
+	}
 	
 	
+
 
 }
