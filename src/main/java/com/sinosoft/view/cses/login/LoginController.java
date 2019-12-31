@@ -12,6 +12,7 @@ import com.sinosoft.master.response.Response;
 import com.sinosoft.master.service.SysConfigService;
 import com.sinosoft.master.service.SysUserService;
 import com.sinosoft.view.cses.moniliucheng.MoniLiuchengView;
+import com.sinosoft.view.util.BusinessFun;
 import com.sinosoft.view.util.SystemConfig;
 
 @Controller
@@ -62,7 +63,8 @@ public class LoginController {
         //验证通过，打开系统界面
         String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
 //        String lala = BusinessFun.doPost(value, "");
-//        Response lala = BusinessFun.doPost(value, "");
+        StringBuffer strBuff = new StringBuffer();
+        Response lala = (new BusinessFun()).doPost(value, "", strBuff);
         
         new MoniLiuchengView();
     }

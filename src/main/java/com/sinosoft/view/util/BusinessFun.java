@@ -10,9 +10,12 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.entity.CsesLog;
+import com.sinosoft.master.response.Response;
 
 /**
  * 公共类
@@ -21,7 +24,9 @@ import com.sinosoft.master.entity.CsesLog;
  */
 @Component
 public class BusinessFun {
-
+	
+	/** 日志*/
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * 此方法post请求调用核心系统
@@ -34,20 +39,17 @@ public class BusinessFun {
 	 */
 	// public static String doPost(String url, String file, String logFile){
 	// public static String doPost(String url, String file){
-	// public static Response doPost(String url, String file){
-	public static CsesLog doPost(String url, String file, String requestType, String reqType) {
-		CsesLog response = new CsesLog();
-		// 交强or商业
-		response.setReqType(reqType);
-		// 接口标识
-		response.setRequestType(requestType);
-
+	 public  Response doPost(String url, String file, StringBuffer strBuff){
+		 Response response = new Response();
+		 logger.info("开始调用核心接口，url: " + url);
 		file = "C:\\Users\\Administrator\\Desktop\\交强险V6.2.0测试工具sc\\XML\\insureconfirm1.xml";
 		HttpURLConnection httpConnection = null;
 		OutputStream outputStream = null;
 		BufferedReader bufferedReader1 = null;
 		BufferedReader bufferedReader2 = null;
 		InputStreamReader inputStreamReader = null;
+		strBuff.append(" 请求核心系统URL: " + url);
+		
 
 		try {
 			String lineString = "";
@@ -58,16 +60,7 @@ public class BusinessFun {
 			 * 0、参数信息
 			 ******************************************************************/
 
-			// writeLog(line0, logFile, true, true);
-			// writeLog(line2, logFile, true, true);
-			// writeLog(formatter.format(new Date()) + "CommClient start! ",
-			// logFile, true, true);
-			// writeLog(line1, logFile, true, true);
-			//
-			// writeLog("args[0] = " + url, logFile, true, true);
-			// writeLog("args[1] = " + file, logFile, true, true);
-			// writeLog("args[2] = " + logFile, logFile, true, true);
-			// writeLog(line1, logFile, true, true);
+//		   strBuff.append(" 请求XLML：" + file);
 
 			/*******************************************************************
 			 * 1、打开连接
@@ -79,7 +72,7 @@ public class BusinessFun {
 			httpConnection.setDoOutput(true);
 			httpConnection.setDoInput(true);
 			httpConnection.setAllowUserInteraction(true);
-
+			logger.info("");
 			httpConnection.connect();
 
 			/*******************************************************************
@@ -93,6 +86,7 @@ public class BusinessFun {
 			// - 写入输出
 			while ((lineString = bufferedReader1.readLine()) != null) {
 				byte readByte[] = lineString.getBytes("GBK");
+//				byte readByte[] = lineString.getBytes("GBK");
 				outputStream.write(readByte, 0, readByte.length);
 				sbInput.append(lineString.replaceAll("\t", "").trim());
 			}
@@ -109,13 +103,15 @@ public class BusinessFun {
 			 * 3、接收数据
 			 ******************************************************************/
 			Date startTime = new Date();
+			strBuff.append("请求核心系统接口开始时间 " + startTime);
 			// 请求开始时间
-			response.setReqStartTime(startTime);
+			response.setStartTime(startTime);
 			//开始调用接口 
 			inputStreamReader = new InputStreamReader(httpConnection.getInputStream());
 			Date stopTime = new Date();
+			strBuff.append("请求核心系统接口结束时间" + stopTime);
 			// 请求结束时间
-			response.setReqEndTime(stopTime);
+			response.setStopTime(stopTime);
 			response.setResponseTime((int) (stopTime.getTime() - startTime.getTime()));
 			bufferedReader2 = new BufferedReader(inputStreamReader);
 
@@ -124,105 +120,53 @@ public class BusinessFun {
 				sbOutput.append(lineString);
 			}
 
+			
 			/*******************************************************************
 			 * 4、记录日志
 			 ******************************************************************/
 			lineString = sbOutput.toString();
+			strBuff.append("接口返回数据： " + lineString);
 
 			// 设置投保确认码
-			response.setQuerySequenceNo(lineString);
-			response.setResInfo("1");
+			response.setResXml(lineString);
+			//成功
+			response.setResult("1");
+			//日志strBuff
+			response.setStrBuff(strBuff);
 
-			// writeLog(lineString, logFile, true, true);
-			// writeLog(line1, logFile, true, true);
-			// writeLog(formatter.format(new Date()) + "CommClient finish! ",
-			// logFile, true, true);
-			// writeLog(line2, logFile, true, true);
-			// writeLog(lineString, logFile + ".o.xml", false, false);
-			// return lineString;
 			return response;
 		} catch (Exception e) {
+			strBuff.append("调用接口失败，错误信息：" + e.getMessage());
+			//日志strBuff
+			response.setStrBuff(strBuff);
 			e.printStackTrace();
-			response.setResInfo("0");
+			response.setResult("0");
 			return response;
 
-			// 记录错误信息。
-			// if (logFile != null) {
-			// try {
-			// writeLog(e.toString(), logFile, true, true);
-			// } catch (Exception e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
-			// }
 		} finally {
 			try {
 				outputStream.close();
 			} catch (Exception e) {
-				// Nothing;
 			}
-
 			try {
 				bufferedReader1.close();
 			} catch (Exception e) {
-				// Nothing;
 			}
-
 			try {
 				bufferedReader2.close();
 			} catch (Exception e) {
-				// Nothing;
 			}
-
 			try {
 				inputStreamReader.close();
 			} catch (Exception e) {
-				// Nothing;
 			}
-
 			try {
 				httpConnection.disconnect();
 			} catch (Exception e) {
-				// Nothing;
 			}
 		}
 	}
 
-	/**
-	 * 记录日志
-	 * 
-	 * @param text
-	 * @return
-	 * @throws Exception
-	 */
-	public static void writeLog(String text, String file, boolean append, boolean console) throws Exception {
 
-		FileWriter fileWriter = null;
-
-		try {
-			fileWriter = new FileWriter(file, append);
-
-			// 记录控制台
-			if (console) {
-				System.out.println(text);
-			}
-
-			// 记录文本
-			fileWriter.write(text + System.getProperty("line.separator"));
-			fileWriter.flush();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		} finally {
-			if (fileWriter != null) {
-				try {
-					fileWriter.close();
-				} catch (Exception e) {
-					// Nothing.
-				}
-			}
-		}
-	}
 
 }
