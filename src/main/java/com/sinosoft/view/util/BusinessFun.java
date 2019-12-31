@@ -189,14 +189,13 @@ public class BusinessFun {
 
 	/**
 	 * xml 转为 dto
-	 * @param path xml文件的地址，精确到文件名后缀
+	 * @param result xml报文
 	 * @param c xml对应的对象类，通过类.class获取，或者对象.getClass()获取
 	 * @return 返回对象为Object，需要转换
 	 * @throws Exception
 	 */
-	public Object xmlToObject(String path,Class c) throws Exception{
+	public Object xmlToObject(String result,Class c) throws Exception{
 		Object o = null;
-		String result = new BusinessFun().readFile(path);
 		JAXBContext context = JAXBContext.newInstance(c);
 		Unmarshaller unmarshal = context.createUnmarshaller();
 		StringReader sr = new StringReader(result.trim());
