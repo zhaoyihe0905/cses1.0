@@ -1,10 +1,6 @@
 package com.sinosoft.view.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -33,8 +29,7 @@ public class BusinessFun {
 	 * 
 	 * @param url url
 	 * @param file
-	 * @param 接口标识
-	 * @param 请求险种(1商业 0 交强)
+	 * @param strBuff
 	 * @return
 	 */
 	// public static String doPost(String url, String file, String logFile){
@@ -166,7 +161,22 @@ public class BusinessFun {
 			}
 		}
 	}
-
+	public String readFile(String path){
+		File file = new File(path);
+		StringBuilder result = new StringBuilder();
+		try {
+			InputStreamReader isr = new InputStreamReader(new FileInputStream(file),"GBK");
+			BufferedReader  br = new BufferedReader(isr);
+			String s = null;
+			while((s=br.readLine())!=null){
+				result.append(System.lineSeparator()+s);
+			}
+			br.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return result.toString();
+	}
 
 
 }
