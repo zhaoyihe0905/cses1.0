@@ -1,16 +1,24 @@
 package com.sinosoft.view.cses.moniliucheng;
 
 
+import com.sinosoft.master.service.SysConfigService;
 import lombok.Data;
 
 import javax.swing.*;
 
 import com.sinosoft.view.cses.Quartz;
 import com.sinosoft.view.cses.Task;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 @Data
+@Service
 public class MoniLiuchengView extends JFrame{
+    //注入需要的类
+    @Autowired
+    private SysConfigService sysConfigService;
     //获取窗口的值
      private static String areaName="";
      private static String coverageName="";
@@ -24,18 +32,22 @@ public class MoniLiuchengView extends JFrame{
 
     private JTextArea textArea =null;
     private JScrollPane jScorollPane;
+    public MoniLiuchengView(){
+    }
     //初始化模块
-    public MoniLiuchengView() {
-        //初始化界面
-        this.init();
-        this.setTitle("客服服务体验系统");
-        this.setResizable(true);
-        //this.setLocation(210, 210);
-        this.setSize(680, 440);
-        this.setResizable(false);
-        this.CenterWin();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
+    public MoniLiuchengView(boolean flag) {
+       if(flag==true){
+           //初始化界面
+           this.init();
+           this.setTitle("客服服务体验系统");
+           this.setResizable(true);
+           //this.setLocation(210, 210);
+           this.setSize(680, 440);
+           this.setResizable(false);
+           this.CenterWin();
+           this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+           this.setVisible(true);
+       }
     }
 
     /**
@@ -183,7 +195,7 @@ public class MoniLiuchengView extends JFrame{
         JButton button =new JButton("执行任务");
         button.doClick();
         //参数依次是：地区、险种、流程
-        button.addActionListener(Event-> new Task(areaName,coverageName,flowName,textArea,button));
+        button.addActionListener(Event-> new Task(areaName,coverageName,flowName,textArea,button,sysConfigService));
         quartz.add(button);
         return quartz;
     }
@@ -227,4 +239,5 @@ public class MoniLiuchengView extends JFrame{
     public void setFlowName(String flowName){
         this.flowName = flowName;
     }
+
 }

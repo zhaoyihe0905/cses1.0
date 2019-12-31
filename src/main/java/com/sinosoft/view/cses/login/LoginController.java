@@ -22,7 +22,7 @@ public class LoginController {
 	@Autowired
 	private SysConfigService sysConfigService;
 
-	
+
 	/**
      * 校验用户名密码是否正确
      */
@@ -61,11 +61,11 @@ public class LoginController {
         //关闭登录界面
         loginView.dispose();
         //验证通过，打开系统界面
-        String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
+/*        String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
 //        String lala = BusinessFun.doPost(value, "");
         StringBuffer strBuff = new StringBuffer();
-        Response lala = (new BusinessFun()).doPost(value, "", strBuff);
+       // Response lala = (new BusinessFun()).doPost(value, "", strBuff);*/
         
-        new MoniLiuchengView();
+        new MoniLiuchengView(true);
     }
 }
