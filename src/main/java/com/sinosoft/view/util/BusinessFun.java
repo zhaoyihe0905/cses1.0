@@ -36,7 +36,7 @@ public class BusinessFun {
 	// public static String doPost(String url, String file){
 	 public  Response doPost(String url, String file, StringBuffer strBuff){
 		 Response response = new Response();
-		 logger.info("开始调用核心接口，url: " + url);
+		 strBuff.append("开始调用核心接口，url: " + url);
 		file = "C:\\Users\\Administrator\\Desktop\\交强险V6.2.0测试工具sc\\XML\\insureconfirm1.xml";
 		HttpURLConnection httpConnection = null;
 		OutputStream outputStream = null;
@@ -67,7 +67,6 @@ public class BusinessFun {
 			httpConnection.setDoOutput(true);
 			httpConnection.setDoInput(true);
 			httpConnection.setAllowUserInteraction(true);
-			logger.info("");
 			httpConnection.connect();
 
 			/*******************************************************************
@@ -75,7 +74,8 @@ public class BusinessFun {
 			 ******************************************************************/
 			outputStream = httpConnection.getOutputStream();
 
-			bufferedReader1 = new BufferedReader(new FileReader(file));
+//			bufferedReader1 = new BufferedReader(new FileReader(file));
+			bufferedReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)), "GBK"));
 			StringBuilder sbInput = new StringBuilder();
 
 			// - 写入输出
@@ -102,7 +102,7 @@ public class BusinessFun {
 			// 请求开始时间
 			response.setStartTime(startTime);
 			//开始调用接口 
-			inputStreamReader = new InputStreamReader(httpConnection.getInputStream());
+			inputStreamReader = new InputStreamReader(httpConnection.getInputStream(), "GBK");
 			Date stopTime = new Date();
 			strBuff.append("请求核心系统接口结束时间" + stopTime);
 			// 请求结束时间
