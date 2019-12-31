@@ -1,13 +1,20 @@
 package com.sinosoft.view.cses;
 
+import com.sinosoft.master.response.Response;
+import com.sinosoft.master.service.SysConfigService;
+import com.sinosoft.view.util.BusinessFun;
+import com.sinosoft.view.util.SystemConfig;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import javax.swing.*;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 
 import com.alibaba.fastjson.JSON;
 import com.sinosoft.master.entity.SysUser;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.Date;
@@ -34,14 +41,25 @@ public class Task {
      * 组件对象按钮
      */
     private JButton button = null;
+    /**
+     * 数据库配置对象
+     */
+    private SysConfigService sysConfigService;
+    /**
+     * 日志存储
+     */
+    private StringBuffer logs = new StringBuffer();
 
+    BusinessFun fun = new BusinessFun();
 
-    public Task(String areaName, String coverageName,String flowName,JTextArea textArea,JButton button) {
+    public Task(String areaName, String coverageName,String flowName,JTextArea textArea,
+                JButton button,SysConfigService sysConfigService) {
         this.areaName = areaName;
         this.flowName = flowName;
         this.coverageName = coverageName;
         this.textArea = textArea;
         this.button = button;
+        this.sysConfigService = sysConfigService;
         this.doIt();
 }
 
@@ -69,22 +87,10 @@ public class Task {
          * 根据coverageName获取对应的项目名称
          * 根据flowName选择调用方法：1、投保；2、投批；3、投批退；
          */
-
-
-
-
+        String url = sysConfigService.findvalueByCode(SystemConfig.IACI_URL);
+        String xml = fun.readFile("./XML/insurequery.xml");
+        Response response = fun.doPost(url, xml, logs);
+        textArea.append("返回报文:"+response.getResXml());
     }
-    
-    
-    
-    public static void main(String[] args){
-    	    	SysUser user = new SysUser();
-    	    	user.setAreacode("51000");
-    	    	user.setCompanycode("PICC");
-    	    	user.setCompanytype("1");
-    	    	user.setId(1);
-    	    	user.setPassword("123456");
-    	    	System.out.println(JSON.toJSONString(user));
-    	    	
-    }
+
 }
