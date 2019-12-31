@@ -31,16 +31,13 @@ public class BusinessFun {
 	 * 此方法post请求调用核心系统
 	 * 
 	 * @param url url
-	 * @param file
+	 * @param xml
 	 * @param strBuff
 	 * @return
 	 */
-	// public static String doPost(String url, String file, String logFile){
-	// public static String doPost(String url, String file){
-	 public  Response doPost(String url, String file, StringBuffer strBuff){
+	 public  Response doPost(String url, String xml, StringBuffer strBuff){
 		 Response response = new Response();
 		 strBuff.append("开始调用核心接口，url: " + url);
-		file = "C:\\Users\\Administrator\\Desktop\\交强险V6.2.0测试工具sc\\XML\\insureconfirm1.xml";
 		HttpURLConnection httpConnection = null;
 		OutputStream outputStream = null;
 		BufferedReader bufferedReader1 = null;
@@ -51,20 +48,12 @@ public class BusinessFun {
 
 		try {
 			String lineString = "";
-
-			SimpleDateFormat formatter = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.SSS] - ");
-
-			/*******************************************************************
-			 * 0、参数信息
-			 ******************************************************************/
-
 //		   strBuff.append(" 请求XLML：" + file);
 
 			/*******************************************************************
 			 * 1、打开连接
 			 ******************************************************************/
 			httpConnection = (HttpURLConnection) new URL(url).openConnection();
-			
 			//设置请求POST
 			httpConnection.setRequestMethod("POST");
 			httpConnection.setDoOutput(true);
@@ -76,27 +65,7 @@ public class BusinessFun {
 			 * 2、发送数据
 			 ******************************************************************/
 			outputStream = httpConnection.getOutputStream();
-
-//			bufferedReader1 = new BufferedReader(new FileReader(file));
-			bufferedReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)), "GBK"));
-			StringBuilder sbInput = new StringBuilder();
-
-			// - 写入输出
-			while ((lineString = bufferedReader1.readLine()) != null) {
-				byte readByte[] = lineString.getBytes("GBK");
-//				byte readByte[] = lineString.getBytes("GBK");
-				outputStream.write(readByte, 0, readByte.length);
-				sbInput.append(lineString.replaceAll("\t", "").trim());
-			}
-			outputStream.flush();
-
-			// - 记录文件
-			lineString = sbInput.toString();
-
-			// writeLog(lineString, logFile, true, true);
-			// writeLog(line1, logFile, true, true);
-			// writeLog(lineString, logFile + ".i.xml", false, false);
-
+			lineString = xml;
 			/*******************************************************************
 			 * 3、接收数据
 			 ******************************************************************/
