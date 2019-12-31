@@ -14,6 +14,8 @@ import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.response.Response;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
@@ -203,4 +205,18 @@ public class BusinessFun {
 		return  o;
 	}
 
+	/**
+	 * dto 转 xml
+	 * @param o 组织好的需要转换为xml的实体类对象
+	 * @return 返回xml报文
+	 * @throws Exception
+	 */
+	public String objectToXml(Object o) throws Exception {
+		JAXBContext context = JAXBContext.newInstance(o.getClass());
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		StringWriter writer = new StringWriter();
+		marshaller.marshal(o, writer);
+		return  o.toString();
+	}
 }
