@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.response.Response;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+
 /**
  * 公共类
  * @author xujian
@@ -161,6 +164,12 @@ public class BusinessFun {
 			}
 		}
 	}
+
+	/**
+	 * 读取本地文件
+	 * @param path
+	 * @return
+	 */
 	public String readFile(String path){
 		File file = new File(path);
 		StringBuilder result = new StringBuilder();
@@ -178,5 +187,21 @@ public class BusinessFun {
 		return result.toString();
 	}
 
+	/**
+	 * xml 转为 dto
+	 * @param path xml文件的地址，精确到文件名后缀
+	 * @param c xml对应的对象类，通过类.class获取，或者对象.getClass()获取
+	 * @return 返回对象为Object，需要转换
+	 * @throws Exception
+	 */
+	public Object xmlToObject(String path,Class c) throws Exception{
+		Object o = null;
+		String result = new BusinessFun().readFile(path);
+		JAXBContext context = JAXBContext.newInstance(c);
+		Unmarshaller unmarshal = context.createUnmarshaller();
+		StringReader sr = new StringReader(result.trim());
+		o =  unmarshal.unmarshal(sr);
+		return  o;
+	}
 
 }
