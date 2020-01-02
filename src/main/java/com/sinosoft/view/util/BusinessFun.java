@@ -68,6 +68,7 @@ public class BusinessFun {
 			 ******************************************************************/
 			outputStream = httpConnection.getOutputStream();
 			lineString = xml;
+			outputStream.write(xml.getBytes()); 
 			/*******************************************************************
 			 * 3、接收数据
 			 ******************************************************************/
@@ -103,9 +104,11 @@ public class BusinessFun {
 			//日志strBuff
 			response.setStrBuff(strBuff);
 
+			logger.info(strBuff.toString());
 			return response;
 		} catch (Exception e) {
 			strBuff.append("调用接口失败，错误信息：" + e.getMessage());
+			logger.info(strBuff.toString());
 			//日志strBuff
 			response.setStrBuff(strBuff);
 			e.printStackTrace();
