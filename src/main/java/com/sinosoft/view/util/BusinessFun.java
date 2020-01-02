@@ -103,16 +103,19 @@ public class BusinessFun {
 			response.setResult("1");
 			//日志strBuff
 			response.setStrBuff(strBuff);
+			
+			response.setResMessage("success");
 
-			logger.info(strBuff.toString());
+//			logger.info(strBuff.toString());
 			return response;
 		} catch (Exception e) {
 			strBuff.append("调用接口失败，错误信息：" + e.getMessage());
-			logger.info(strBuff.toString());
+//			logger.info(strBuff.toString());
 			//日志strBuff
 			response.setStrBuff(strBuff);
 			e.printStackTrace();
 			response.setResult("0");
+			response.setResMessage(e.getMessage());
 			return response;
 
 		} finally {

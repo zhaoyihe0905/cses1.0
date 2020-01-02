@@ -15,7 +15,18 @@ public class Response {
 	private String resXml;
 	//日志对象
 	private StringBuffer strBuff;
+	// 错误信息
+	private String resMessage;
 	
+	
+
+	public String getResMessage() {
+		return resMessage;
+	}
+
+	public void setResMessage(String resMessage) {
+		this.resMessage = resMessage;
+	}
 
 	public StringBuffer getStrBuff() {
 		return strBuff;
