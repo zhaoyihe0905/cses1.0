@@ -21,7 +21,8 @@ public class LoginController {
 	private SysUserService sysUserService ;
 	@Autowired
 	private SysConfigService sysConfigService;
-
+    @Autowired
+    private MoniLiuchengView moniLiuchengView;
 
 	/**
      * 校验用户名密码是否正确
@@ -65,7 +66,6 @@ public class LoginController {
 //        String lala = BusinessFun.doPost(value, "");
         StringBuffer strBuff = new StringBuffer();
        // Response lala = (new BusinessFun()).doPost(value, "", strBuff);*/
-        
-        new MoniLiuchengView(true);
+        moniLiuchengView.MoniLiuchengView(true);
     }
 }

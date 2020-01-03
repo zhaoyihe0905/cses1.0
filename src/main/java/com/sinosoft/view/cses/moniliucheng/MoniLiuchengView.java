@@ -3,9 +3,7 @@ package com.sinosoft.view.cses.moniliucheng;
 
 import com.sinosoft.master.service.SysConfigService;
 import lombok.Data;
-
 import javax.swing.*;
-
 import com.sinosoft.view.cses.Quartz;
 import com.sinosoft.view.cses.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class MoniLiuchengView extends JFrame{
     public MoniLiuchengView(){
     }
     //初始化模块
-    public MoniLiuchengView(boolean flag) {
+    public void MoniLiuchengView(boolean flag) {
        if(flag==true){
            //初始化界面
            this.init();
