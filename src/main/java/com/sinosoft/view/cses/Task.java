@@ -88,9 +88,14 @@ public class Task {
          * 根据flowName选择调用方法：1、投保；2、投批；3、投批退；
          */
         String url = sysConfigService.findvalueByCode(SystemConfig.IACI_URL);
-        String xml = fun.readFile("./XML/insurequery.xml");
+        String xml = fun.readFile("./src/main/resources/xmlFiles/insurequery.xml").trim();
         Response response = fun.doPost(url, xml, logs);
-        textArea.append("返回报文:"+response.getResXml());
+        if("1".equals(response.getResult())){
+            textArea.append("响应时间:"+response.getResponseTime()+"毫秒\n");
+            textArea.append("返回报文:"+response.getResXml()+"\n");
+        }else{
+            textArea.append("请求失败，错误信息【:"+response.getResMessage()+"】\n");
+        }
     }
 
 }
