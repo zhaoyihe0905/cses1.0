@@ -2,7 +2,6 @@ package com.sinosoft.master.config;
 
 import java.security.MessageDigest;
 
-import org.junit.Test;
 
 /**
  * md5生成类
