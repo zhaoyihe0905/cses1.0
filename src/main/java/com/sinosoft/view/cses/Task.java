@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAnyAttribute;
 
 import com.alibaba.fastjson.JSON;
 import com.sinosoft.master.entity.SysUser;
+import com.sinosoft.master.pojo.iaci.insureconfirm.req.BASE_PART;
+
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -100,6 +102,12 @@ public class Task {
         String ressml = response.getResXml().trim();
         try {
         	com.sinosoft.master.pojo.iaci.insurequery.res.PACKET o = (com.sinosoft.master.pojo.iaci.insurequery.res.PACKET)fun.xmlToObject(ressml, com.sinosoft.master.pojo.iaci.insurequery.res.PACKET.class);
+        	String query_SEQUENCE_NO = o.getBODY().getBASE_PART().getQUERY_SEQUENCE_NO();
+        	String xml1 = fun.readFile("./src/main/resources/xmlFiles/insureconfirm.xml").trim();
+        	com.sinosoft.master.pojo.iaci.insureconfirm.req.PACKET pack = (com.sinosoft.master.pojo.iaci.insureconfirm.req.PACKET)fun.xmlToObject(xml1, com.sinosoft.master.pojo.iaci.insureconfirm.req.PACKET.class);
+        	BASE_PART base_PART = pack.getBODY().getBASE_PART();
+        	base_PART.setQUERY_SEQUENCE_NO(query_SEQUENCE_NO);
+        	pack.getBODY().setBASE_PART(base_PART);
         	System.out.println();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

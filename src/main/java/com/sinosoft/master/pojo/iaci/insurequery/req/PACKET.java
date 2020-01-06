@@ -12,14 +12,12 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @website http://www.bejson.com/java2pojo/
  */
 public class PACKET {
-	@XmlAttribute
-	private String type = "RESPONSE";
-	private String version = "1.0";
 
     private HEAD HEAD;
     private BODY BODY;
 
 
+    
     public com.sinosoft.master.pojo.iaci.insurequery.req.HEAD getHEAD() {
         return HEAD;
     }
