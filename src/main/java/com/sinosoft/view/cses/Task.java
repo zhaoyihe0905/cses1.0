@@ -96,6 +96,15 @@ public class Task {
         }else{
             textArea.append("请求失败，错误信息【:"+response.getResMessage()+"】\n");
         }
+        //返回报文
+        String ressml = response.getResXml().trim();
+        try {
+        	com.sinosoft.master.pojo.iaci.insurequery.res.PACKET o = (com.sinosoft.master.pojo.iaci.insurequery.res.PACKET)fun.xmlToObject(ressml, com.sinosoft.master.pojo.iaci.insurequery.res.PACKET.class);
+        	System.out.println();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 }

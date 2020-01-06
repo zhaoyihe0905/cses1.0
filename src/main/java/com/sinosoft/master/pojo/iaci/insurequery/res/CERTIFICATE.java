@@ -1,0 +1,30 @@
+/**
+  * Copyright 2020 bejson.com 
+  */
+package com.sinosoft.master.pojo.iaci.insurequery.res;
+
+/**
+ * Auto-generated: 2020-01-06 11:17:17
+ *
+ * @author bejson.com (i@bejson.com)
+ * @website http://www.bejson.com/java2pojo/
+ */
+public class CERTIFICATE {
+
+    private String CERTIFICATE_VALID_DATE;
+    private String CERTIFICATE_EXPIRE_DATE;
+    public void setCERTIFICATE_VALID_DATE(String CERTIFICATE_VALID_DATE) {
+         this.CERTIFICATE_VALID_DATE = CERTIFICATE_VALID_DATE;
+     }
+     public String getCERTIFICATE_VALID_DATE() {
+         return CERTIFICATE_VALID_DATE;
+     }
+
+    public void setCERTIFICATE_EXPIRE_DATE(String CERTIFICATE_EXPIRE_DATE) {
+         this.CERTIFICATE_EXPIRE_DATE = CERTIFICATE_EXPIRE_DATE;
+     }
+     public String getCERTIFICATE_EXPIRE_DATE() {
+         return CERTIFICATE_EXPIRE_DATE;
+     }
+
+}
