@@ -11,7 +11,7 @@
 			<!--投保询价号-->
 			<CHECK_TYPE>2</CHECK_TYPE>
 			<!--投保查询校验方法代码-->
-			<CAR_MARK>民航苏A959</CAR_MARK>
+			<CAR_MARK>JA95669</CAR_MARK>
 			<!--号牌号码-->
 			<VEHICLE_TYPE>01</VEHICLE_TYPE>
 			<!--号牌种类代码-->
@@ -19,9 +19,9 @@
 			<!--车辆种类代码-->
 			<USE_TYPE>210</USE_TYPE>
 			<!--车辆使用性质代码-->
-			<ENGINE_NO>PWJHPWEH201AA0W34</ENGINE_NO>
+			<ENGINE_NO>CWJHPWEH201AA0W30</ENGINE_NO>
 			<!--发动机号-->
-			<RACK_NO>PWJHPWEH201AA0W34</RACK_NO>
+			<RACK_NO>CWJHPWEH201AA0W30</RACK_NO>
 			<!--车架号/VIN码-->
 			<USE_AGES></USE_AGES>
 			<!--已使用年限-->
@@ -103,11 +103,11 @@
 				<!--险种代码-->
 				<LIMIT_AMOUNT>-40000</LIMIT_AMOUNT>
 				<!--总赔偿限额-->
-<START_DATE>201905281011</START_DATE>
+<START_DATE>202002281011</START_DATE>
 <!--保险起期-->
-<END_DATE>202004281011</END_DATE>
+<END_DATE>202101281011</END_DATE>
 <!--保险止期-->
-				<BILL_DATE>20190411</BILL_DATE>
+				<BILL_DATE>20191211</BILL_DATE>
 				<!--出单/签单日期-->
 				<CITY_CODE>999999</CITY_CODE>
 				<!--保单归属地（地市）-->
