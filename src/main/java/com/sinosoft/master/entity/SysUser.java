@@ -29,20 +29,20 @@ public class SysUser extends BaseEntity{
 	@Column(name = "id", nullable = false)
     private Integer id;
     /** 用户代码 */
-    private String usercode;
+    private String userCode;
     /** 地区代码 */
-    private String areacode;
+    private String areaCode;
     /** 用户名称 */
     private String username;
     /** 密码 */
     private String password;
     /** 公司代码 */
-    private String companycode;
+    private String companyCode;
     /** 机构类型 1保险公司 2 杨业协会 3 交管员*/
-    private String companytype;
+    private String companyType;
     /** 人员级别  0普通  1管理员*/
-    private String usergrade;
+    private String userGrade;
     /** 有效失效 0失效 1有效*/
-    private String validstatus;
+    private String validStatus;
 
 }
