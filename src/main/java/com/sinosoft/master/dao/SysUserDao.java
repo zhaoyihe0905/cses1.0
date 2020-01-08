@@ -15,7 +15,7 @@ import com.sinosoft.master.entity.SysUser;
 public interface SysUserDao extends IBaseDao<SysUser, Integer>{
 
 	/** 根据用户名去查*/
-	@Query( "select new com.sinosoft.master.entity.SysUser(id, areacode, companycode, companytype, password, usercode, usergrade, username, validstatus) from SysUser where usercode = ?1 and validstatus = '1'")
+	@Query( "select new com.sinosoft.master.entity.SysUser(id, userCode, areaCode, username, password, companyCode, companyType, userGrade, validStatus) from SysUser where userCode = ?1 and valid_status = '1'")
 	SysUser findByUserCode(String usernameText);
 
 }

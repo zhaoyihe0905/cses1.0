@@ -31,11 +31,11 @@ public class SysConfig extends BaseEntity{
 
 	private String parametertype = "";
 
-	private String companycode = "";
+	private String companyCode = "";
 
 	private String parametervalue = "";
 
-	private String areacode = "";
+	private String areaCode = "";
 
 	private String parameterdesc = "";
 

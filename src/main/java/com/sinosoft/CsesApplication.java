@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.sinosoft.view.cses.login.LoginView;
+import com.sinosoft.cses.view.login.LoginView;
 
 @SpringBootApplication
 public class CsesApplication {
