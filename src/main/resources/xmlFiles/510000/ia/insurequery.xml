@@ -2,8 +2,8 @@
 <PACKET type="REQUEST" version="1.0" >
 	<HEAD>
 		<REQUEST_TYPE>01</REQUEST_TYPE>
-		<USER>${username}</USER>
-		<PASSWORD>${password}</PASSWORD>
+		<USER>PICC5100</USER>
+		<PASSWORD>123456</PASSWORD>
 	</HEAD>
 	<BODY>
 		<BASE_PART>

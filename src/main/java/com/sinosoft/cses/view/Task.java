@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
+import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.BusinessFun;
 import com.sinosoft.master.service.SysConfigService;
 
@@ -82,6 +83,7 @@ public class Task {
          * 根据flowName选择调用方法：1、投保；2、投批；3、投批退；
          */
         //接口访问路径，根据地区和险种信息去拿访问路劲
+        String areaCode = AppCache.areaEng.get(areaName);
         String url = "";
       if("交强".equals(coverageName)){
     	  

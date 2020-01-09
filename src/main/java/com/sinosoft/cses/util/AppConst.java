@@ -6,7 +6,7 @@ package com.sinosoft.cses.util;
  * @Data 2019-12-30
  *
  */
-public class Appconst implements CARequestTypeConst, CIRequestTypeConst{
+public class AppConst implements CARequestTypeConst, CIRequestTypeConst{
 	
 }
 	

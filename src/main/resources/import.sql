@@ -45,5 +45,7 @@ insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_
 insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_status) values ('InsurerArea', '640000', '宁夏',  0, '', 1);
 insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_status) values ('InsurerArea', '650000', '新疆',  0, '', 1);
 
---insert into DB2INST1.IABIZCODE (CODETYPE, CODECODE, CODENAME, CODEFLAG, REMARK, VALIDSTATUS) values ('InsurerArea', '350200', '厦门', '', 0, '', 1);
+insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', null, null, '', '0', '1', 'insurequery');
+insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('02', '投保确认', null, null, '', '0', '1', 'insureconfirm');
+
 

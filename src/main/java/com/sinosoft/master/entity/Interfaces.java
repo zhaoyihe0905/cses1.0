@@ -1,5 +1,6 @@
 package com.sinosoft.master.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -28,8 +29,14 @@ public class Interfaces extends BaseEntity{
 	private String requestType;
 	/** 有效标识*/
 	private String validStatus;
+	/** 报文名字*/
+	private String xmlName;
+	/** 接口描述*/
+	@Column(length = 50)
+	private String bussiness_desc;
 	/** 备注*/
 	private String remark;
+	
 	
 	
 	

@@ -52,7 +52,13 @@ public abstract class BaseServiceImpl<T extends BaseEntity, ID extends Serializa
         return getBaseDao().count();
     }
 
-    @Override
+//    @Override
+//	public List<T> findAll(T t) {
+//		// TODO Auto-generated method stub
+//		return getBaseDao().findAll(example)
+//	}
+
+	@Override
     public long count(Specification<T> spec) {
         return getBaseDao().count(spec);
     }

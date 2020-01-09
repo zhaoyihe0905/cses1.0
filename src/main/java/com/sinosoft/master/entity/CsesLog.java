@@ -38,7 +38,7 @@ public class CsesLog extends BaseEntity{
 	
 	/** 投保查询码*/
 	private String querySequenceNo = "";
-
+	
 	/** 请求开始时间*/
 	private Date reqStartTime = new Date();
 	

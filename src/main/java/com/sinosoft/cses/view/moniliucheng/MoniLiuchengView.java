@@ -1,6 +1,7 @@
 package com.sinosoft.cses.view.moniliucheng;
 
 
+import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.view.Quartz;
 import com.sinosoft.cses.view.Task;
 import com.sinosoft.master.service.SysConfigService;
@@ -26,7 +27,7 @@ public class MoniLiuchengView extends JFrame{
     JPanel north = new JPanel();
     JPanel center = new JPanel();
     JPanel south = new JPanel();
-    JPanel eaet = new JPanel();
+    JPanel east = new JPanel();
     JPanel west = new JPanel();
 
     private JTextArea textArea =null;
@@ -67,6 +68,7 @@ public class MoniLiuchengView extends JFrame{
         this.setLayout(new BorderLayout());
         this.northPanel();
         this.southPanel();
+        this.eastPanel();
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
         this.add(south,BorderLayout.SOUTH);
@@ -106,6 +108,12 @@ public class MoniLiuchengView extends JFrame{
         //清除
         south.add(this.remove());
     }
+    void eastPanel(){
+    	east.setLayout(new BoxLayout(east,BoxLayout.X_AXIS));
+    	//
+    	east.add(this.refresh());
+    
+    }
 
     /**
      * 获取定时启动按钮JPanel
@@ -135,8 +143,11 @@ public class MoniLiuchengView extends JFrame{
         flowLayout.setAlignment(FlowLayout.LEFT);
         area.add(new Label("Area:"));
         JComboBox jTextCombo =this.getComboBox();
-        jTextCombo.addItem("北京");
-        jTextCombo.addItem("上海");
+//        jTextCombo.addItem("北京");
+//        jTextCombo.addItem("上海");
+        for(String key : AppCache.areaEng.keySet()){
+        	jTextCombo.addItem(key);
+        }
         //添加下拉框监听，获取选项值
         jTextCombo.addActionListener(Event->this.setAreaName(jTextCombo.getSelectedItem().toString()));
         area.add(jTextCombo);
@@ -223,6 +234,23 @@ public class MoniLiuchengView extends JFrame{
         button.addActionListener(Event-> textArea.setText(""));
         quartz.add(button);
         return quartz;
+    }
+    
+    /**
+     * 获取清除输出框内容按钮JPanel
+     * @return
+     */
+    JPanel refresh (){
+    	JPanel quartz = new JPanel();
+    	FlowLayout flowLayout = new FlowLayout();
+    	quartz.setLayout(flowLayout);
+    	flowLayout.setAlignment(FlowLayout.LEFT);
+    	//定时启动
+    	JButton button =new JButton("刷新缓存");
+    	button.doClick();
+    	button.addActionListener(Event-> textArea.setText(""));
+    	quartz.add(button);
+    	return quartz;
     }
 
     /**
