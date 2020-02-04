@@ -28,13 +28,23 @@ import java.awt.event.HierarchyListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.JList;
+import javax.swing.JTree;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 public class mainFrame {
 
 	private JFrame frame;
 	private JTable table;
 	private DefaultTableModel tablemodle = null;
+	private DefaultTableModel tablemodle_1 = null;
 	private JTable table_1;
+	
+	//静态变量
+	private String listValue = null;
 
 	/**
 	 * Launch the application.
@@ -126,8 +136,75 @@ public class mainFrame {
 		panel1.add(scrollPane);
 		
 		JPanel panel2 = new JPanel();
-
-		mainPanel.addTab("业务场景", null, panel2, null);
+		
+				mainPanel.addTab("业务场景", null, panel2, null);
+				panel2.setLayout(null);
+				
+				JLabel lblNewLabel = new JLabel("险种");
+				lblNewLabel.setBounds(204, 37, 54, 15);
+				panel2.add(lblNewLabel);
+				
+				JLabel lblNewLabel_1 = new JLabel("地区");
+				lblNewLabel_1.setBounds(334, 37, 54, 15);
+				panel2.add(lblNewLabel_1);
+				
+				JComboBox comboBox = new JComboBox();
+				comboBox.setBounds(249, 34, 75, 21);
+				comboBox.addItem("--请选择--");
+				panel2.add(comboBox);
+				
+				JComboBox comboBox_1 = new JComboBox();
+				comboBox_1.setBounds(382, 34, 82, 21);
+				comboBox_1.addItem("--请选择--");
+				panel2.add(comboBox_1);
+				
+				JButton btnNewButton_6 = new JButton("新增场景");
+				btnNewButton_6.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+				btnNewButton_6.setBounds(601, 10, 93, 23);
+				panel2.add(btnNewButton_6);
+				String[] listData = new String[7];
+		        listData[0] = "交强险投批退场景";
+		        listData[1] = "商业险投批退场景";
+		        listData[2] = "交强险退保场景";
+		        listData[3] = "商业险退保场景";
+				
+				JScrollPane scrollPane_2 = new JScrollPane();
+				scrollPane_2.setBounds(42, 84, 556, 280);
+				panel2.add(scrollPane_2);
+				
+				JList list = new JList();
+				list.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						listValue = (String) list.getSelectedValue();
+						System.out.println(listValue);
+					}
+				});
+				scrollPane_2.setColumnHeaderView(list);
+				list.setListData(listData);
+				list.setBounds(80, 106, 505, 246);
+				
+				JButton btnNewButton_7 = new JButton("执    行");
+				btnNewButton_7.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+				btnNewButton_7.setBounds(601, 82, 93, 23);
+				panel2.add(btnNewButton_7);
+				
+				JButton btnNewButton_8 = new JButton("删    除");
+				btnNewButton_8.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						System.out.println(list.getSelectedIndex());
+						
+					}
+				});
+				btnNewButton_8.setBounds(601, 49, 93, 23);
+				panel2.add(btnNewButton_8);
 		
 		JPanel panel3 = new JPanel();
 		mainPanel.addTab("定时任务", null, panel3, null);
@@ -145,6 +222,7 @@ public class mainFrame {
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				tablemodle_1.addRow(new Vector<>());
 			}
 		});
 		btnNewButton_3.setBounds(380, 23, 93, 23);
@@ -162,15 +240,13 @@ public class mainFrame {
 		scrollPane_1.setBounds(10, 70, 669, 314);
 		panel6.add(scrollPane_1);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"xmlUrl", "投保查询",null,"QUERY_SEQUENCE_NO"}
-			},
-			new String[] {
-				"xml路径", "接口名","变量字段","取值字段"
-			}
-		));
+		tablemodle_1 = new DefaultTableModel(new Object[][] {
+			{"xmlUrl", "投保查询",null,"QUERY_SEQUENCE_NO"}
+		},
+		new String[] {
+			"xml路径", "接口名","变量字段","取值字段"
+		});
+		table_1 = new JTable(tablemodle_1);
 		scrollPane_1.setViewportView(table_1);
 		
 	}

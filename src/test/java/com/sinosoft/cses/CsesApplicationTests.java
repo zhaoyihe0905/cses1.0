@@ -11,7 +11,6 @@ class CsesApplicationTests {
 
     @Test
     void contextLoads() {
-
     }
 
 }
