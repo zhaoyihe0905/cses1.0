@@ -5,6 +5,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.response.Response;
 
+import javax.swing.JTable;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -194,4 +198,40 @@ public class BusinessFun {
 		marshaller.marshal(o, writer);
 		return  o.toString();
 	}
+	
+	/**
+	 * 此方法， hashmap转化为objects 
+	 * @param map
+	 * @author xujian
+	 * @Date 2020-02-04
+	 * @return
+	 */
+	public Object[][] mapToObject(Map<String, String> map){
+//		Object[][] objects = new Object[1][map.size()-1];
+//		Object[][] objects = new Object[map.size()][2];
+		Object[][] objects = new Object[map.size()][2];
+		int i = 0;
+		for (String key : map.keySet()) {
+			objects[i][0] = key;
+			objects[i][1] = map.get(key);
+			i++;
+		}
+		return objects;
+	}
+	
+	/**
+	 * 此方法为获取新增的全局变量值，然后存入数据库中
+	 * @param table
+	 * @param list
+	 * @return
+	 */
+	public Object saveGlobalVariable(JTable table, List<Integer> list) {
+		for (Integer row : list) {
+			String value1 = (String)table.getValueAt(row, 0);
+			String value2 = (String)table.getValueAt(row, 1);
+			System.out.println();
+		}
+		return null;
+	}
+
 }
