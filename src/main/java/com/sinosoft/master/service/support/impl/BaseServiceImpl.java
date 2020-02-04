@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,11 +53,11 @@ public abstract class BaseServiceImpl<T extends BaseEntity, ID extends Serializa
         return getBaseDao().count();
     }
 
-//    @Override
-//	public List<T> findAll(T t) {
-//		// TODO Auto-generated method stub
-//		return getBaseDao().findAll(example)
-//	}
+    @Override
+	public List<T> findAll(Example example) {
+		// TODO Auto-generated method stub
+		return getBaseDao().findAll(example);
+	}
 
 	@Override
     public long count(Specification<T> spec) {

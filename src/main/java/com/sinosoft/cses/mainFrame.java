@@ -14,6 +14,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.springframework.stereotype.Component;												
+
 import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
@@ -23,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;						   				  
 import java.util.Vector;
 import java.awt.event.HierarchyListener;
 import java.awt.event.HierarchyEvent;
@@ -35,6 +40,7 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
+@Component		  
 public class mainFrame {
 
 	private JFrame frame;
@@ -42,7 +48,7 @@ public class mainFrame {
 	private DefaultTableModel tablemodle = null;
 	private DefaultTableModel tablemodle_1 = null;
 	private JTable table_1;
-	
+	private List<Integer> list = new ArrayList<>();	
 	//静态变量
 	private String listValue = null;
 
@@ -100,6 +106,7 @@ public class mainFrame {
 			public void mouseClicked(MouseEvent var1) {
 				tablemodle.addRow(new Vector<>());
 				System.out.println(tablemodle.getRowCount());
+				list.add(tablemodle.getRowCount() -1);						  
 			}
 		});
 		btnNewButton.setBounds(301, 13, 113, 27);
@@ -111,6 +118,7 @@ public class mainFrame {
 		String[] names={"变量名","变量值"};
 		
 		JButton btnNewButton_1 = new JButton("保存");
+		btnNewButton_1.addActionListener(Event->lala(table, list));													 
 		btnNewButton_1.setBounds(551, 13, 113, 27);
 		panel1.add(btnNewButton_1);
 		
@@ -240,7 +248,9 @@ public class mainFrame {
 		scrollPane_1.setBounds(10, 70, 669, 314);
 		panel6.add(scrollPane_1);
 		
+						 
 		tablemodle_1 = new DefaultTableModel(new Object[][] {
+				   
 			{"xmlUrl", "投保查询",null,"QUERY_SEQUENCE_NO"}
 		},
 		new String[] {
@@ -250,4 +260,21 @@ public class mainFrame {
 		scrollPane_1.setViewportView(table_1);
 		
 	}
-}
+	
+	/**
+	 * 此方法为获取新增的全局变量值，然后存入数据库中
+	 * @param table
+	 * @param list
+	 * @return
+	 */
+	private Object lala(JTable table, List<Integer> list) {
+		for (Integer row : list) {
+			String value1 = (String)table.getValueAt(row, 0);
+			String value2 = (String)table.getValueAt(row, 1);
+			System.out.println();
+		}
+		return null;
+	}
+}																		 
+
+

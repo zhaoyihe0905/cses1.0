@@ -6,12 +6,9 @@ import javax.swing.JTextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.sinosoft.cses.util.BusinessFun;
-import com.sinosoft.cses.util.SystemConfig;
 import com.sinosoft.cses.view.moniliucheng.MoniLiuchengView;
 import com.sinosoft.master.config.MD5;
 import com.sinosoft.master.entity.SysUser;
-import com.sinosoft.master.response.Response;
 import com.sinosoft.master.service.SysConfigService;
 import com.sinosoft.master.service.SysUserService;
 
@@ -23,6 +20,8 @@ public class LoginController {
 	private SysConfigService sysConfigService;
     @Autowired
     private MoniLiuchengView moniLiuchengView;
+    @Autowired
+    private com.sinosoft.cses.mainFrame mainFrame;
 
 	/**
      * 校验用户名密码是否正确
@@ -66,6 +65,6 @@ public class LoginController {
 //        String lala = BusinessFun.doPost(value, "");
         StringBuffer strBuff = new StringBuffer();
        // Response lala = (new BusinessFun()).doPost(value, "", strBuff);*/
-        moniLiuchengView.MoniLiuchengView(true);
+        mainFrame.main(null);
     }
 }

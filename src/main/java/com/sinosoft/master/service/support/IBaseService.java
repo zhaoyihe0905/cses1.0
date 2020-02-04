@@ -1,5 +1,6 @@
 package com.sinosoft.master.service.support;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,7 +20,7 @@ public interface IBaseService<T, ID extends Serializable> {
 
     public abstract Page<T> findAll(Pageable pageable);
     
-//    public abstract List<T> findAll(T t);
+    public abstract List<T> findAll(Example example);
 
     public abstract Page<T> findAll(Specification<T> spec, Pageable pageable);
 
