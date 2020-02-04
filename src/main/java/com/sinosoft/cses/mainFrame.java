@@ -17,11 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 import org.springframework.stereotype.Component;												
 
-import javax.swing.JMenuItem;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -29,16 +26,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;						   				  
 import java.util.Vector;
-import java.awt.event.HierarchyListener;
-import java.awt.event.HierarchyEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JList;
-import javax.swing.JTree;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 
 @Component		  
 public class mainFrame {
@@ -51,7 +43,14 @@ public class mainFrame {
 	private List<Integer> list = new ArrayList<>();	
 	//静态变量
 	private String listValue = null;
-
+	
+	//================= 临时变量 =================
+	/**
+	 * 全局变量界面-临时变量
+	 */
+	private int selectedColumn = -1;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -106,7 +105,8 @@ public class mainFrame {
 			public void mouseClicked(MouseEvent var1) {
 				tablemodle.addRow(new Vector<>());
 				System.out.println(tablemodle.getRowCount());
-				list.add(tablemodle.getRowCount() -1);						  
+				list.add(tablemodle.getRowCount() -1);
+				System.out.println(tablemodle.getRowCount());
 			}
 		});
 		btnNewButton.setBounds(301, 13, 113, 27);
@@ -123,10 +123,20 @@ public class mainFrame {
 		panel1.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("删除");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("删除");
+				System.out.println(selectedColumn);
+				//tablemodle.removeRow(selectedColumn);
+			}
+		});
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent var1) {
+				selectedColumn =table.getSelectedColumn();
 				System.out.println(table.getSelectedColumn());
+				//tablemodle.removeRow(selectedColumn);
+				
 			}
 		});
 
