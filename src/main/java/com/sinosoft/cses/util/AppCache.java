@@ -17,9 +17,9 @@ import com.sinosoft.master.service.CsCodeService;
 
 import lombok.Data;
 
-@Data
+//@Data
 @Component
-@Order(2) //指定顺序
+@Order(1) //指定顺序
 public class AppCache implements CommandLineRunner{
 	/** 日志*/
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -40,6 +40,8 @@ public class AppCache implements CommandLineRunner{
 	
 	@Autowired
 	private CsCodeService csCodeService;
+	
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -82,6 +84,12 @@ public class AppCache implements CommandLineRunner{
 		}
 		
 	}
+
+
+
+
+	
+	
 	
 	
 	

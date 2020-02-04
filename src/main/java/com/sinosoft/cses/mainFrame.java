@@ -15,7 +15,13 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import org.springframework.stereotype.Component;												
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import com.sinosoft.cses.util.AppCache;
+import com.sinosoft.cses.util.BusinessFun;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -32,8 +38,9 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+@Order(3)
 @Component		  
-public class mainFrame {
+public class mainFrame  implements CommandLineRunner{
 
 	private JFrame frame;
 	private JTable table;
@@ -41,6 +48,9 @@ public class mainFrame {
 	private DefaultTableModel tablemodle_1 = null;
 	private JTable table_1;
 	private List<Integer> list = new ArrayList<>();	
+	
+	@Autowired
+	private BusinessFun businessFun;
 	//静态变量
 	private String listValue = null;
 	
@@ -66,12 +76,27 @@ public class mainFrame {
 			}
 		});
 	}
+	/**
+	 * Launch the application.
+	 */
+	public  void init(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+//					mainFrame window = new mainFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
 	 */
 	public mainFrame() {
-		initialize();
+//		initialize();
 	}
 
 	/**
@@ -113,12 +138,13 @@ public class mainFrame {
 		panel1.add(btnNewButton);
 		
 		//读取数据库
-		Object[][] playerInfo={{"name","value"},{"aa","bb"}};
+//		Object[][] playerInfo={{"name","value"},{"aa","bb"}};
+		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
 		
 		String[] names={"变量名","变量值"};
 		
 		JButton btnNewButton_1 = new JButton("保存");
-		btnNewButton_1.addActionListener(Event->lala(table, list));													 
+		btnNewButton_1.addActionListener(Event->businessFun.saveGlobalVariable(table, list));													 
 		btnNewButton_1.setBounds(551, 13, 113, 27);
 		panel1.add(btnNewButton_1);
 		
@@ -271,19 +297,13 @@ public class mainFrame {
 		
 	}
 	
-	/**
-	 * 此方法为获取新增的全局变量值，然后存入数据库中
-	 * @param table
-	 * @param list
-	 * @return
-	 */
-	private Object lala(JTable table, List<Integer> list) {
-		for (Integer row : list) {
-			String value1 = (String)table.getValueAt(row, 0);
-			String value2 = (String)table.getValueAt(row, 1);
-			System.out.println();
-		}
-		return null;
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		initialize();
+		
 	}
 }																		 
 

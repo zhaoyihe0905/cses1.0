@@ -65,6 +65,7 @@ public class LoginController {
 //        String lala = BusinessFun.doPost(value, "");
         StringBuffer strBuff = new StringBuffer();
        // Response lala = (new BusinessFun()).doPost(value, "", strBuff);*/
-        mainFrame.main(null);
+//        mainFrame.main(null);
+        mainFrame.init(null);
     }
 }
