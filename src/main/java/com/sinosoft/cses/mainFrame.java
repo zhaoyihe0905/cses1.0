@@ -60,6 +60,7 @@ public class mainFrame  implements CommandLineRunner{
 	
 	/**
 	 * Launch the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -75,6 +76,7 @@ public class mainFrame  implements CommandLineRunner{
 	}
 	/**
 	 * Launch the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public  void init(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -91,13 +93,15 @@ public class mainFrame  implements CommandLineRunner{
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public mainFrame() {
-//		initialize();
+		//initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
 		frame = new JFrame("客服服务体验系统");
@@ -138,13 +142,6 @@ public class mainFrame  implements CommandLineRunner{
 		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
 		String[] names={"变量名","变量值"};
 		
-		JButton btnNewButton_1 = new JButton("保存");
-		btnNewButton_1.addActionListener(Event->this.saveAll(table));													 
-		btnNewButton_1.setBounds(551, 13, 113, 27);
-		panel1.add(btnNewButton_1);		
-		JButton btnNewButton_2 = new JButton("删除");
-		btnNewButton_2.setBounds(428, 13, 113, 27);
-		panel1.add(btnNewButton_2);
 		
 		//全局自定义变量表格模型
 		tablemodle = new DefaultTableModel(playerInfo,names);
@@ -152,26 +149,18 @@ public class mainFrame  implements CommandLineRunner{
 		table.setBorder(UIManager.getBorder("Table.scrollPaneBorder"));
 		table.setBounds(14, 55, 655, 326);	
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 83, 664, 298);
+		scrollPane.setBounds(14, 83, 664, 298);
 		scrollPane.setViewportView(table);
 		panel1.add(scrollPane);
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-
-			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
-				selectedColumn =table.getSelectedColumn();
-				System.out.println(selectedColumn);
-				
-			}
-			
-		});
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("删除");
-				System.out.println(selectedColumn);
-				tablemodle.removeRow(selectedColumn);
-			}
-		});
+		JButton btnNewButton_1 = new JButton("保存");
+		btnNewButton_1.addActionListener(Event->this.saveAll(table));													 
+		btnNewButton_1.setBounds(551, 13, 113, 27);
+		panel1.add(btnNewButton_1);		
+		JButton btnNewButton_2 = new JButton("删除");
+		btnNewButton_2.addActionListener(Event->this.deleteSelected(table,tablemodle));	
+		btnNewButton_2.setBounds(428, 13, 113, 27);
+		panel1.add(btnNewButton_2);
+		
 		JPanel panel2 = new JPanel();
 		
 				mainPanel.addTab("业务场景", null, panel2, null);
@@ -292,6 +281,9 @@ public class mainFrame  implements CommandLineRunner{
 	
 
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
@@ -301,6 +293,7 @@ public class mainFrame  implements CommandLineRunner{
 	/**
 	 * 全局变量数据保存
 	 * @param table
+	 * @wbp.parser.entryPoint
 	 */
 	public void saveAll(JTable table){
 		System.out.println("点击保存");
@@ -316,6 +309,19 @@ public class mainFrame  implements CommandLineRunner{
 		}
 		//调用方法进行数据保存
 		businessFun.saveGlobalVariable(infoMap);
+	}
+	/**
+	 * 全局变量数据删除
+	 * @param table
+	 * @param model
+	 */
+	public void deleteSelected(JTable table,DefaultTableModel model){
+		System.out.println("点击删除");
+		System.out.println("删除行"+table.getSelectedRow());
+		System.out.println((String)table.getValueAt(table.getSelectedRow(), 0));
+		//删除数据库中数据
+		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
+		model.removeRow(table.getSelectedRow());
 	}
 }																		 
 
