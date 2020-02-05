@@ -12,6 +12,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,7 +32,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;						   				  
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -138,33 +142,17 @@ public class mainFrame  implements CommandLineRunner{
 		panel1.add(btnNewButton);
 		
 		//读取数据库
-//		Object[][] playerInfo={{"name","value"},{"aa","bb"}};
 		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
 		
 		String[] names={"变量名","变量值"};
 		
 		JButton btnNewButton_1 = new JButton("保存");
-		btnNewButton_1.addActionListener(Event->businessFun.saveGlobalVariable(table, list));													 
+		btnNewButton_1.addActionListener(Event->this.saveAll(table));													 
 		btnNewButton_1.setBounds(551, 13, 113, 27);
 		panel1.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("删除");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("删除");
-				System.out.println(selectedColumn);
-				//tablemodle.removeRow(selectedColumn);
-			}
-		});
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent var1) {
-				selectedColumn =table.getSelectedColumn();
-				System.out.println(table.getSelectedColumn());
-				//tablemodle.removeRow(selectedColumn);
-				
-			}
-		});
+
 
 		btnNewButton_2.setBounds(428, 13, 113, 27);
 		panel1.add(btnNewButton_2);
@@ -178,7 +166,23 @@ public class mainFrame  implements CommandLineRunner{
 		scrollPane.setBounds(0, 83, 664, 298);
 		scrollPane.setViewportView(table);
 		panel1.add(scrollPane);
-		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				selectedColumn =table.getSelectedColumn();
+				System.out.println(selectedColumn);
+				
+			}
+			
+		});
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("删除");
+				System.out.println(selectedColumn);
+				tablemodle.removeRow(selectedColumn);
+			}
+		});
 		JPanel panel2 = new JPanel();
 		
 				mainPanel.addTab("业务场景", null, panel2, null);
@@ -303,6 +307,19 @@ public class mainFrame  implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		initialize();
+		
+	}
+	/**
+	 * 全局变量数据保存
+	 * @param table
+	 */
+	public void saveAll(JTable table){
+		//获取table值，存储为map<String，String>
+		Map<String, String> infoMap = new HashMap<>();
+		for(int row=0;row<table.getColumnCount();row++){
+			infoMap.put((String)table.getValueAt(row, 0), (String)table.getValueAt(row, 1));
+		}
+		//调用方法进行数据保存
 		
 	}
 }																		 
