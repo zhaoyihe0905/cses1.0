@@ -23,7 +23,8 @@ public class GlobalVariableServiceImpl extends BaseServiceImpl<GlobalVariable, I
 
 	@Override
 	public void replave(GlobalVariable global) {
-		globalVariableDao.replave(global);
+//		globalVariableDao.replave(global);
+		globalVariableDao.replave(global.getVariable_code(), global.getVariable_name());
 		
 	}
 

@@ -16,8 +16,11 @@ import com.sinosoft.master.entity.GlobalVariable;
 public interface GlobalVariableDao extends IBaseDao<GlobalVariable, Integer>{
 
 	
+//	@Modifying
+//	@Query(value = "replace into tb_variable (variable_code, remark, valide_status, variable_name) values(:#{#global.variable_code}, \"\", 1 ,:#{#global.variable_name})"  , nativeQuery=true)
+//	void replave(GlobalVariable global);
 	@Modifying
-	@Query(value = "replace into tb_variable (variable_code, remark, valide_status, variable_name) values(:#{#global.variable_code}, \"\", 1 ,:#{#global.variable_name})"  , nativeQuery=true)
-	void replave(GlobalVariable global);
+	@Query(value = "replace into tb_variable (variable_code, remark, valide_status, variable_name) values(?1, \"\", 1 ,?2)"  , nativeQuery=true)
+	void replave(String variable_code, String variable_name);
 
 }
