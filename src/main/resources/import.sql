@@ -45,9 +45,14 @@ insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_
 insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_status) values ('InsurerArea', '640000', '宁夏',  0, '', 1);
 insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_status) values ('InsurerArea', '650000', '新疆',  0, '', 1);
 
-insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (37, '<USER>', '0', 'PICC5100', 'GlobalVariable', '', '1');
-insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (38, '<PASSWORD>', '0', 'e10adc3949ba59abbe56e057f20f883e', 'GlobalVariable', '', '1');
-insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (39, '<CITYCODE>', '0', '420000', 'GlobalVariable', '', '1');
+--insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (37, '<USER>', '0', 'PICC5100', 'GlobalVariable', '', '1');
+--insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (38, '<PASSWORD>', '0', 'e10adc3949ba59abbe56e057f20f883e', 'GlobalVariable', '', '1');
+--insert into tb_code (id, code_code, code_flag, code_name, code_type, remark, valid_status) values (39, '<CITYCODE>', '0', '420000', 'GlobalVariable', '', '1');
+
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<C>', '0', 1, '45535');
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<CITYCODE>', '0', 1, 'PICC5100');
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<PASSWORD>', '0', 1, 'e10adc3949ba59abbe56e057f20f883e');
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<USER>', '0', 1, '420000');
 
 
 insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', null, null, '', '0', '1', 'insurequery');
