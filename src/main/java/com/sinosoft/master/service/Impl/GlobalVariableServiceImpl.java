@@ -10,13 +10,13 @@ import com.sinosoft.master.service.GlobalVariableService;
 import com.sinosoft.master.service.support.impl.BaseServiceImpl;
 
 @Service
-public class GlobalVariableServiceImpl extends BaseServiceImpl<GlobalVariable, Integer> implements GlobalVariableService{
+public class GlobalVariableServiceImpl extends BaseServiceImpl<GlobalVariable, String> implements GlobalVariableService{
 	
 	@Autowired
 	private GlobalVariableDao globalVariableDao;
 
 	@Override
-	public IBaseDao<GlobalVariable, Integer> getBaseDao() {
+	public IBaseDao<GlobalVariable, String> getBaseDao() {
 		// TODO Auto-generated method stub
 		return globalVariableDao;
 	}

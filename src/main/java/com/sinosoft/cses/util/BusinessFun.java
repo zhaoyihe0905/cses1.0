@@ -39,6 +39,9 @@ public class BusinessFun {
 	@Autowired
 	private GlobalVariableService globalVariableService;
 	
+	@Autowired
+	private AppCache appCache;
+	
 	/**
 	 * 此方法post请求调用核心系统
 	 * 
@@ -262,8 +265,25 @@ public class BusinessFun {
 			global.setVariable_code(key);
 			global.setVariable_name(map.get(key));
 			globalVariableService.replave(global);
+			
+		}
+		//刷新缓存
+		appCache.initGlobalVariable();
+		
+		
+	}
+	
+	
+	
+	public void deleteGlobalVariable(String key) {
+		try {
+			globalVariableService.delete(key);
+		} catch (Exception e) {
+			logger.info("删除失败， 该数据可能不存在");
 		}
 		
+		//刷新缓存
+		appCache.initGlobalVariable();
 	}
 
 }

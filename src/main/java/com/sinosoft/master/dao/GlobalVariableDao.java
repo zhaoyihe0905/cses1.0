@@ -13,7 +13,7 @@ import com.sinosoft.master.entity.GlobalVariable;
  * @Date 2019-12-30
  */
 @Repository
-public interface GlobalVariableDao extends IBaseDao<GlobalVariable, Integer>{
+public interface GlobalVariableDao extends IBaseDao<GlobalVariable, String>{
 
 	
 //	@Modifying

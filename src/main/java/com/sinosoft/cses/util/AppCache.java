@@ -50,20 +50,26 @@ public class AppCache implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-//		csCodeService.find
 		try {
-			//清空
+			logger.info("开始初始化数据");
+			initAreaCode();
+			initGlobalVariable();
+			logger.info("开始初始化数据成功");
+		} catch (Exception e) {
+			logger.info("初始化数据失败");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	public  void initAreaCode() {
+		try {
+			logger.info("开始地区代码初始化");
 			areaChin.clear();
 			areaEng.clear();
-			globalVariable.clear();
-			logger.info("开始进行通用代码表的初始化");
-			//查询条件对象
 			
-			
-			
-			
-			//查询数据
-			//地区代码
 			List<CsCode> cscCodes = csCodeService.findAll();
 			for (CsCode csCode : cscCodes) {
 				if("1".equals((csCode.getValidStatus())) && INSURE_AREA.equals(csCode.getCodeType())){
@@ -71,26 +77,27 @@ public class AppCache implements CommandLineRunner{
 					areaEng.put(csCode.getCodeName(), csCode.getCodeCode());
 				}
 			}
-			//全局变量
-			List<GlobalVariable> variables = globalVariableService.findAll();
-			for (GlobalVariable global : variables) {
-				this.globalVariable.put(global.getVariable_code(), global.getVariable_name());
-			}
-			
-			
-			
-			
-			logger.info("通用代码表初始化成功");
-			
-			
-			
+			logger.info("地区代码初始化成功");
 		} catch (Exception e) {
-			logger.info("通用代码表初始化失败");
-			e.printStackTrace();
+			logger.info("地区代码初始化失败");
 		}
 		
 	}
 
+	public  void initGlobalVariable() {
+		try {
+			logger.info("开始全局变量初始化");
+			globalVariable.clear();
+			//全局变量
+			List<GlobalVariable> variables = globalVariableService.findAll();
+			for (GlobalVariable global : variables) {
+				globalVariable.put(global.getVariable_code(), global.getVariable_name());
+			}
+			logger.info("全局变量初始化成功");
+		} catch (Exception e) {
+			logger.info("全局变量初始化失败");
+		}
+	}
 
 
 
