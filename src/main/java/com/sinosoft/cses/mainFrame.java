@@ -4,17 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import javax.swing.JDesktopPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +28,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -121,7 +114,7 @@ public class mainFrame  implements CommandLineRunner{
 		panel1.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent var1) {
-				System.out.println("111111111111");
+				System.out.println("切換界面");
 			}
 		});
 
@@ -141,23 +134,19 @@ public class mainFrame  implements CommandLineRunner{
 		btnNewButton.setBounds(301, 13, 113, 27);
 		panel1.add(btnNewButton);
 		
-		//读取数据库
+		//初始化全局自定义变量界面数据
 		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
-		
 		String[] names={"变量名","变量值"};
 		
 		JButton btnNewButton_1 = new JButton("保存");
 		btnNewButton_1.addActionListener(Event->this.saveAll(table));													 
 		btnNewButton_1.setBounds(551, 13, 113, 27);
-		panel1.add(btnNewButton_1);
-		
+		panel1.add(btnNewButton_1);		
 		JButton btnNewButton_2 = new JButton("删除");
-
-
 		btnNewButton_2.setBounds(428, 13, 113, 27);
 		panel1.add(btnNewButton_2);
 		
-		//表格模型
+		//全局自定义变量表格模型
 		tablemodle = new DefaultTableModel(playerInfo,names);
 		table = new JTable(tablemodle);
 		table.setBorder(UIManager.getBorder("Table.scrollPaneBorder"));
@@ -314,13 +303,19 @@ public class mainFrame  implements CommandLineRunner{
 	 * @param table
 	 */
 	public void saveAll(JTable table){
+		System.out.println("点击保存");
 		//获取table值，存储为map<String，String>
-		Map<String, String> infoMap = new HashMap<>();
-		for(int row=0;row<table.getColumnCount();row++){
-			infoMap.put((String)table.getValueAt(row, 0), (String)table.getValueAt(row, 1));
+		HashMap<String, String> infoMap = new HashMap<>();
+		System.out.println(table.getRowCount());
+		for(int row=0;row<table.getRowCount();row++){
+			System.out.println(table.getValueAt(row, 0));
+			System.out.println(table.getValueAt(row, 1));
+			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){
+				infoMap.put((String)table.getValueAt(row, 0), (String)table.getValueAt(row, 1));
+			}		
 		}
 		//调用方法进行数据保存
-		
+		businessFun.saveGlobalVariable(infoMap);
 	}
 }																		 
 
