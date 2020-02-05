@@ -13,7 +13,9 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.entity.CsCode;
+import com.sinosoft.master.entity.GlobalVariable;
 import com.sinosoft.master.service.CsCodeService;
+import com.sinosoft.master.service.GlobalVariableService;
 
 import lombok.Data;
 
@@ -41,6 +43,9 @@ public class AppCache implements CommandLineRunner{
 	@Autowired
 	private CsCodeService csCodeService;
 	
+	@Autowired
+	private GlobalVariableService globalVariableService;
+	
 	
 
 	@Override
@@ -58,18 +63,19 @@ public class AppCache implements CommandLineRunner{
 			
 			
 			//查询数据
-			List<CsCode> findAll = csCodeService.findAll();
-			for (CsCode csCode : findAll) {
+			//地区代码
+			List<CsCode> cscCodes = csCodeService.findAll();
+			for (CsCode csCode : cscCodes) {
 				if("1".equals((csCode.getValidStatus())) && INSURE_AREA.equals(csCode.getCodeType())){
 					areaChin.put(csCode.getCodeCode(), csCode.getCodeName());
 					areaEng.put(csCode.getCodeName(), csCode.getCodeCode());
 				}
-				if("1".equals((csCode.getValidStatus())) && GLOBAL_VAIBALE.equals(csCode.getCodeType())){
-					globalVariable.put(csCode.getCodeCode(), csCode.getCodeName());
-				}
 			}
-			
-		
+			//全局变量
+			List<GlobalVariable> variables = globalVariableService.findAll();
+			for (GlobalVariable global : variables) {
+				this.globalVariable.put(global.getVariable_code(), global.getVariable_name());
+			}
 			
 			
 			

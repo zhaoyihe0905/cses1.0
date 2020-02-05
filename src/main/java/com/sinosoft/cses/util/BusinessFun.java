@@ -11,10 +11,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.entity.CsesLog;
+import com.sinosoft.master.entity.GlobalVariable;
 import com.sinosoft.master.response.Response;
+import com.sinosoft.master.service.GlobalVariableService;
 
 import javax.swing.JTable;
 import javax.xml.bind.JAXBContext;
@@ -32,6 +35,9 @@ public class BusinessFun {
 	
 	/** 日志*/
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private GlobalVariableService globalVariableService;
 	
 	/**
 	 * 此方法post请求调用核心系统
@@ -207,16 +213,21 @@ public class BusinessFun {
 	 * @return
 	 */
 	public Object[][] mapToObject(Map<String, String> map){
-//		Object[][] objects = new Object[1][map.size()-1];
-//		Object[][] objects = new Object[map.size()][2];
-		Object[][] objects = new Object[map.size()][2];
-		int i = 0;
-		for (String key : map.keySet()) {
-			objects[i][0] = key;
-			objects[i][1] = map.get(key);
-			i++;
+		
+		try {
+			Object[][] objects = new Object[map.size()][2];
+			int i = 0;
+			for (String key : map.keySet()) {
+				objects[i][0] = key;
+				objects[i][1] = map.get(key);
+				i++;
+			}
+			return objects;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return objects;
+		return null;
 	}
 	
 	/**
@@ -231,7 +242,28 @@ public class BusinessFun {
 			String value2 = (String)table.getValueAt(row, 1);
 			System.out.println();
 		}
+		System.out.println("2222");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("<ss>", "sdfsdfsdfd");
+		saveGlobalVariable(map);
 		return null;
+	}
+	
+	/**
+	 * 此方法为获取新增的全局变量值，然后存入数据库中
+	 * @param table
+	 * @param list
+	 * @return
+	 */
+	public void saveGlobalVariable(HashMap<String, String> map) {
+		for (String key : map.keySet()) {
+			
+			GlobalVariable global = new GlobalVariable();
+			global.setVariable_code(key);
+			global.setVariable_name(map.get(key));
+			globalVariableService.replave(global);
+		}
+		
 	}
 
 }
