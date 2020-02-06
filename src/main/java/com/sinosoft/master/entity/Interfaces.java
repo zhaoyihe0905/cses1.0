@@ -2,6 +2,8 @@ package com.sinosoft.master.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -38,6 +40,10 @@ public class Interfaces extends BaseEntity{
 //	private String remark;
 	
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+    private Integer id;
 	/** 需要从该环节取出的字段*/
 	private String outconfigField;
 	/** 需要从该环节存入的字段*/
@@ -47,7 +53,7 @@ public class Interfaces extends BaseEntity{
 	private String validStatus;
 	/** 报文名字*/
 	private String xmlName;
-	@Id
+//	@Id
 	/** 接口描述*/
 	private String bussiness_desc;
 	/** 备注*/

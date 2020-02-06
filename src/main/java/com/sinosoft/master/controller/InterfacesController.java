@@ -26,7 +26,7 @@ public class InterfacesController {
 	 * 此方法， List<Interfaces>转化为objects 
 	 * @param lis
 	 * @author xujian
-	 * @param <T>
+	 * @param column 
 	 * @Date 2020-02-04
 	 * @return
 	 */
@@ -40,7 +40,7 @@ public class InterfacesController {
 				objects[i][1] = key.getBussiness_desc();
 				objects[i][2] = key.getInconfigField();
 				objects[i][3] = key.getOutconfigField();
-				
+				objects[i][4] = key.getId();
 				i++;
 			}
 			return objects;
@@ -71,9 +71,9 @@ public class InterfacesController {
 	 * @author xujian
 	 * @Date 2020-02-04
 	 */
-	public void deleteInterfaces(String name) {
+	public void deleteInterfaces(Integer id) {
 		try {
-			interfacesService.delete(name);
+			interfacesService.delete(id);
 		} catch (Exception e) {
 			logger.info("接口数据删除失败");
 		}

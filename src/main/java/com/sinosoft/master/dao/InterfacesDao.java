@@ -13,12 +13,12 @@ import com.sinosoft.master.entity.Interfaces;
  * @Date 2019-12-30
  */
 @Repository
-public interface InterfacesDao extends IBaseDao<Interfaces, String>{
+public interface InterfacesDao extends IBaseDao<Interfaces, Integer>{
 
 	
 	
 	@Modifying
-	@Query(value = "replace into tb_interfaces (bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values (?1, ?3, ?4, '', '1', ?2)", nativeQuery = true)
-	void replace(String bussiness_desc, String xmlName, String inconfigField, String outconfigField);
+	@Query(value = "replace into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values (?5, ?1, ?3, ?4, '', '1', ?2)", nativeQuery = true)
+	void replace(String bussiness_desc, String xmlName, String inconfigField, String outconfigField, Integer id);
 
 }
