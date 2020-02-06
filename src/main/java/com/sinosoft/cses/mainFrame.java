@@ -7,18 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
 import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.BusinessFun;
-
+import com.sinosoft.master.entity.Interfaces;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -34,24 +30,44 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-
+/**
+ * 主界面
+ * @author zyh
+ *
+ */
 @Order(3)
 @Component		  
 public class mainFrame  implements CommandLineRunner{
 
 	private JFrame frame;
+	/**
+	 * 全局自定义变量table
+	 */
 	private JTable table;
-	private DefaultTableModel tablemodle = null;
-	private DefaultTableModel tablemodle_1 = null;
+	/**
+	 * 接口列表table
+	 */
 	private JTable table_1;
-	private List<Integer> list = new ArrayList<>();	
+	
+	/**
+	 * 全局自定义变量tableModel
+	 */
+	private DefaultTableModel tablemodle = null;
+	/**
+	 * 接口列表tableModel
+	 */
+	private DefaultTableModel tablemodle_1 = null;
+
+	//private List<Integer> list = new ArrayList<>();	
 	
 	@Autowired
 	private BusinessFun businessFun;
+	@Autowired
+	private Interfaces interfaces;
 	//静态变量
 	private String listValue = null;
 	
-	//================= 临时变量 =================
+	//================================== 临时变量 ==================================
 	/**
 	 * 全局变量界面-临时变量
 	 */
@@ -126,13 +142,15 @@ public class mainFrame  implements CommandLineRunner{
 		panel1.setLayout(null);
 		
 		JButton btnNewButton = new JButton("新增变量");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent var1) {
+			}
+		});
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent var1) {
 				tablemodle.addRow(new Vector<>());
-				System.out.println(tablemodle.getRowCount());
-				list.add(tablemodle.getRowCount() -1);
-				System.out.println(tablemodle.getRowCount());
+				//list.add(tablemodle.getRowCount() -1);
 			}
 		});
 		btnNewButton.setBounds(301, 13, 113, 27);
@@ -245,6 +263,21 @@ public class mainFrame  implements CommandLineRunner{
 		mainPanel.addTab("接口列表", null, panel6, null);	
 		panel6.setLayout(null);
 		
+		
+		//================================== 接口列表 ==================================	
+
+		//加载接口列表界面			
+		//需要获取new Object[][]数组
+		tablemodle_1 = new DefaultTableModel(new Object[][] {
+				   
+			{"xmlUrl", "投保查询",null,"QUERY_SEQUENCE_NO"}
+		},
+		new String[] {
+			"xml路径", "接口名","变量字段","取值字段"
+		});
+		table_1 = new JTable(tablemodle_1);
+		
+		
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -255,10 +288,12 @@ public class mainFrame  implements CommandLineRunner{
 		panel6.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("删除");
+		btnNewButton_4.addActionListener(Event->this.deleteInterface(table,tablemodle));
 		btnNewButton_4.setBounds(483, 23, 93, 23);
 		panel6.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("保存");
+		btnNewButton_5.addActionListener(Event->this.saveInterface(table_1));
 		btnNewButton_5.setBounds(586, 23, 93, 23);
 		panel6.add(btnNewButton_5);
 		
@@ -266,17 +301,7 @@ public class mainFrame  implements CommandLineRunner{
 		scrollPane_1.setBounds(10, 70, 669, 314);
 		panel6.add(scrollPane_1);
 		
-						 
-		tablemodle_1 = new DefaultTableModel(new Object[][] {
-				   
-			{"xmlUrl", "投保查询",null,"QUERY_SEQUENCE_NO"}
-		},
-		new String[] {
-			"xml路径", "接口名","变量字段","取值字段"
-		});
-		table_1 = new JTable(tablemodle_1);
-		scrollPane_1.setViewportView(table_1);
-		
+		scrollPane_1.setViewportView(table_1);		
 	}
 	
 
@@ -296,13 +321,9 @@ public class mainFrame  implements CommandLineRunner{
 	 * @wbp.parser.entryPoint
 	 */
 	public void saveAll(JTable table){
-		System.out.println("点击保存");
 		//获取table值，存储为map<String，String>
 		HashMap<String, String> infoMap = new HashMap<>();
-		System.out.println(table.getRowCount());
 		for(int row=0;row<table.getRowCount();row++){
-			System.out.println(table.getValueAt(row, 0));
-			System.out.println(table.getValueAt(row, 1));
 			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){
 				infoMap.put((String)table.getValueAt(row, 0), (String)table.getValueAt(row, 1));
 			}		
@@ -316,11 +337,41 @@ public class mainFrame  implements CommandLineRunner{
 	 * @param model
 	 */
 	public void deleteSelected(JTable table,DefaultTableModel model){
-		System.out.println("点击删除");
-		System.out.println("删除行"+table.getSelectedRow());
-		System.out.println((String)table.getValueAt(table.getSelectedRow(), 0));
 		//删除数据库中数据
 		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
+		model.removeRow(table.getSelectedRow());
+	}
+	/**
+	 * 接口列表数据保存
+	 * @param table
+	 */
+	public void saveInterface(JTable table){
+		//定义参数list
+		List<Interfaces> interfacesList = new ArrayList<>();
+		for(int row=0;row<table.getRowCount();row++){
+			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null
+					&&table.getValueAt(row, 2)!=null&&table.getValueAt(row, 3)!=null){			
+				interfaces.setXmlName((String)table.getValueAt(row, 0));
+				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
+				interfaces.setInconfigField((String)table.getValueAt(row, 2));
+				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
+				interfacesList.add(interfaces);
+			}		
+		}
+		//调用方法进行数据保存
+		System.out.println("保存接口列表数据");
+		for(int i =0;i<interfacesList.size();i++){
+			System.out.println(interfacesList.get(i).toString());
+		}
+	}
+	/**
+	 * 接口列表数据删除
+	 * @param table
+	 * @param model
+	 */
+	public void deleteInterface(JTable table,DefaultTableModel model){
+		//删除这个接口名为(String)table.getValueAt(table.getSelectedRow(), 1)
+		System.out.println("删除接口列表选定项");
 		model.removeRow(table.getSelectedRow());
 	}
 }																		 
