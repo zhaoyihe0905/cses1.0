@@ -48,8 +48,8 @@ public class BusinessFun {
 	@Autowired
 	private AppCache appCache;
 	
-	@Autowired
-	private InterfacesController interfacesController;
+//	@Autowired
+//	private InterfacesController interfacesController;
 	
 	
 	/**
@@ -271,7 +271,7 @@ public class BusinessFun {
 		//刷新缓存
 		appCache.initGlobalVariable();
 		
-		interfacesController.interfacesListToObject(4);
+//		interfacesController.interfacesListToObject(4);
 		
 	}
 	
