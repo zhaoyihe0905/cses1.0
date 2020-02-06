@@ -10,15 +10,22 @@ import com.sinosoft.master.service.InterfacesService;
 import com.sinosoft.master.service.support.impl.BaseServiceImpl;
 
 @Service
-public class InterfacesServiceImpl extends BaseServiceImpl<Interfaces, Integer> implements InterfacesService {
+public class InterfacesServiceImpl extends BaseServiceImpl<Interfaces, String> implements InterfacesService {
 	
 	@Autowired
 	private InterfacesDao interfacesDao;
 
 	@Override
-	public IBaseDao<Interfaces, Integer> getBaseDao() {
+	public IBaseDao<Interfaces, String> getBaseDao() {
 		// TODO Auto-generated method stub
 		return this.interfacesDao;
+	}
+
+	@Override
+	public void replace(Interfaces interfaces) {
+		// TODO Auto-generated method stub
+		interfacesDao.replace(interfaces.getBussiness_desc(), interfaces.getXmlName(), interfaces.getInconfigField(), interfaces.getOutconfigField());
+		
 	}
 
  

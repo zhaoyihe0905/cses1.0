@@ -1,5 +1,6 @@
 package com.sinosoft.cses.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.entity.CsCode;
 import com.sinosoft.master.entity.GlobalVariable;
+import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.service.CsCodeService;
 import com.sinosoft.master.service.GlobalVariableService;
+import com.sinosoft.master.service.InterfacesService;
 
 import lombok.Data;
 
@@ -39,12 +42,17 @@ public class AppCache implements CommandLineRunner{
 	public static Map<String, String> areaEng = new HashMap<>();
 	/** 全局变量*/
 	public static Map<String, String> globalVariable = new HashMap<>();
+	/** 接口 */
+	public static List<Interfaces> interfaces = new ArrayList<>();
 	
 	@Autowired
 	private CsCodeService csCodeService;
 	
 	@Autowired
 	private GlobalVariableService globalVariableService;
+	
+	@Autowired
+	private InterfacesService InterfacesService;
 	
 	
 
@@ -54,6 +62,7 @@ public class AppCache implements CommandLineRunner{
 			logger.info("开始初始化数据");
 			initAreaCode();
 			initGlobalVariable();
+			initInterface();
 			logger.info("开始初始化数据成功");
 		} catch (Exception e) {
 			logger.info("初始化数据失败");
@@ -64,6 +73,21 @@ public class AppCache implements CommandLineRunner{
 	
 	
 	
+	public void initInterface() {
+		try {
+			logger.info("开始接口初始化");
+			interfaces.clear();
+			
+			interfaces = InterfacesService.findAll();
+			logger.info("接口初始化成功");
+		} catch (Exception e) {
+			logger.info("接口初始化失败");
+		}
+		
+	}
+
+
+
 	public  void initAreaCode() {
 		try {
 			logger.info("开始地区代码初始化");

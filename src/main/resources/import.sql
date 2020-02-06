@@ -55,7 +55,14 @@ insert into tb_variable (variable_code, remark, valide_status, variable_name) va
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<USER>', '0', 1, '420000');
 
 
-insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', null, null, '', '0', '1', 'insurequery');
-insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('02', '投保确认', null, null, '', '0', '1', 'insureconfirm');
+--insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\XML\insurequery.xml');
+--insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('02', '投保预确认', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\insureconfirm.xml');
+--insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('03', '投保查询校验', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\yuquef.xml');
+--insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('04', '投保注销', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\zhuxiao.xml');
+
+insert into tb_interfaces (bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values ('投保查询', '<user>', '<user>', '', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\XML\insurequery.xml');
+insert into tb_interfaces (bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values ('投保预确认', '<user>', '<user>', '', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\insureconfirm.xml');
+insert into tb_interfaces (bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values ('投保查询校验', '<user>', '<user>', '', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\yuquef.xml');
+insert into tb_interfaces (bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name) values ('投保注销', '<user>', '<user>', '', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\zhuxiao.xml');
 
 

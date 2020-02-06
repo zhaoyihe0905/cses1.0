@@ -14,10 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.entity.GlobalVariable;
+import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.response.Response;
 import com.sinosoft.master.service.GlobalVariableService;
+import com.sinosoft.master.service.InterfacesService;
 
 import javax.swing.JTable;
 import javax.xml.bind.JAXBContext;
@@ -40,7 +43,14 @@ public class BusinessFun {
 	private GlobalVariableService globalVariableService;
 	
 	@Autowired
+	private InterfacesService interfacesService;
+	
+	@Autowired
 	private AppCache appCache;
+	
+	@Autowired
+	private InterfacesController interfacesController;
+	
 	
 	/**
 	 * 此方法post请求调用核心系统
@@ -233,48 +243,45 @@ public class BusinessFun {
 		return null;
 	}
 	
-	/**
-	 * 此方法为获取新增的全局变量值，然后存入数据库中
-	 * @param table
-	 * @param list
-	 * @return
-	 */
-	public Object saveGlobalVariable(JTable table, List<Integer> list) {
-		for (Integer row : list) {
-			String value1 = (String)table.getValueAt(row, 0);
-			String value2 = (String)table.getValueAt(row, 1);
-			System.out.println();
-		}
-		System.out.println("2222");
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("<ss>", "sdfsdfsdfd");
-		saveGlobalVariable(map);
-		return null;
-	}
+	
+	
+	
 	
 	/**
 	 * 此方法为获取新增的全局变量值，然后存入数据库中
 	 * @param table
 	 * @param list
 	 * @return
+	 * @author xujian
+	 * @Data 2020-02-06
 	 */
 	public void saveGlobalVariable(HashMap<String, String> map) {
-		for (String key : map.keySet()) {
-			
-			GlobalVariable global = new GlobalVariable();
-			global.setVariable_code(key);
-			global.setVariable_name(map.get(key));
-			globalVariableService.replave(global);
-			
+		try {
+			for (String key : map.keySet()) {
+				
+				GlobalVariable global = new GlobalVariable();
+				global.setVariable_code(key);
+				global.setVariable_name(map.get(key));
+				globalVariableService.replave(global);
+				
+			}
+		} catch (Exception e) {
+			logger.info("全局变量保存失败");
 		}
 		//刷新缓存
 		appCache.initGlobalVariable();
 		
+		interfacesController.interfacesListToObject(4);
 		
 	}
 	
 	
-	
+	/**
+	 * 删除全局变量数据
+	 * @param key
+	 * @author xujian
+	 * @date 2020-02-06
+	 */
 	public void deleteGlobalVariable(String key) {
 		try {
 			globalVariableService.delete(key);
@@ -285,5 +292,8 @@ public class BusinessFun {
 		//刷新缓存
 		appCache.initGlobalVariable();
 	}
+	
+	
+
 
 }
