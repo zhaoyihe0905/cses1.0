@@ -17,6 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.BusinessFun;
+import com.sinosoft.cses.view.windows.businessView;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
 import javax.swing.JTable;
@@ -117,7 +118,7 @@ public class mainFrame  implements CommandLineRunner{
 	 * @wbp.parser.entryPoint
 	 */
 	public mainFrame() {
-		//initialize();
+		initialize();
 	}
 
 	/**
@@ -189,30 +190,22 @@ public class mainFrame  implements CommandLineRunner{
 				mainPanel.addTab("业务场景", null, panel2, null);
 				panel2.setLayout(null);
 				
-				JLabel lblNewLabel = new JLabel("险种");
-				lblNewLabel.setBounds(204, 37, 54, 15);
-				panel2.add(lblNewLabel);
-				
-				JLabel lblNewLabel_1 = new JLabel("地区");
-				lblNewLabel_1.setBounds(334, 37, 54, 15);
+				JLabel lblNewLabel_1 = new JLabel("地区:");
+				lblNewLabel_1.setBounds(54, 37, 54, 15);
 				panel2.add(lblNewLabel_1);
 				
-				JComboBox comboBox = new JComboBox();
-				comboBox.setBounds(249, 34, 75, 21);
-				comboBox.addItem("--请选择--");
-				panel2.add(comboBox);
-				
 				JComboBox comboBox_1 = new JComboBox();
-				comboBox_1.setBounds(382, 34, 82, 21);
+				comboBox_1.setBounds(102, 34, 106, 21);
 				comboBox_1.addItem("--请选择--");
 				panel2.add(comboBox_1);
 				
 				JButton btnNewButton_6 = new JButton("新增场景");
 				btnNewButton_6.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						new businessView();
 					}
 				});
-				btnNewButton_6.setBounds(601, 10, 93, 23);
+				btnNewButton_6.setBounds(235, 33, 93, 23);
 				panel2.add(btnNewButton_6);
 				String[] listData = new String[7];
 		        listData[0] = "交强险投批退场景";
@@ -236,12 +229,12 @@ public class mainFrame  implements CommandLineRunner{
 				list.setListData(listData);
 				list.setBounds(80, 106, 505, 246);
 				
-				JButton btnNewButton_7 = new JButton("执    行");
+				JButton btnNewButton_7 = new JButton("执   行");
 				btnNewButton_7.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 					}
 				});
-				btnNewButton_7.setBounds(601, 82, 93, 23);
+				btnNewButton_7.setBounds(479, 33, 106, 23);
 				panel2.add(btnNewButton_7);
 				
 				JButton btnNewButton_8 = new JButton("删    除");
@@ -252,7 +245,7 @@ public class mainFrame  implements CommandLineRunner{
 						
 					}
 				});
-				btnNewButton_8.setBounds(601, 49, 93, 23);
+				btnNewButton_8.setBounds(352, 33, 106, 23);
 				panel2.add(btnNewButton_8);
 		
 		JPanel panel3 = new JPanel();
@@ -278,8 +271,16 @@ public class mainFrame  implements CommandLineRunner{
 			"xml路径", "接口名","变量字段","取值字段",""
 		});
 		table_1 = new JTable(tablemodle_1);
+		//隐藏最后一列id
 		TableColumnModel tcm = table_1.getColumnModel();
-		TableColumn tc = tcm.getColumn(4) ;  
+		TableColumn tc = tcm.getColumn(4) ; 
+		tc.setMaxWidth(0);
+		tc.setPreferredWidth(0);
+		tc.setMinWidth(0);
+		tc.setWidth(0);
+		table_1.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0); 
+		table_1.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0); 
+
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -357,7 +358,9 @@ public class mainFrame  implements CommandLineRunner{
 				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
 				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
-				interfaces.setId((Integer)table.getValueAt(row, 4));
+				if(table.getValueAt(row, 4)!=null){
+					interfaces.setId((Integer)table.getValueAt(row, 4));
+				}
 				interfacesList.add(interfaces);
 			}		
 		}
