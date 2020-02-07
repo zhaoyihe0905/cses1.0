@@ -32,6 +32,7 @@ import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 /**
@@ -68,7 +69,6 @@ public class mainFrame  implements CommandLineRunner{
 	private BusinessFun businessFun;
 	@Autowired
 	private InterfacesController interfacesC;
-	private Interfaces interfaces = new Interfaces();
 	//静态变量
 	private String listValue = null;
 	
@@ -351,7 +351,8 @@ public class mainFrame  implements CommandLineRunner{
 		//定义参数list
 		List<Interfaces> interfacesList = new ArrayList<>();
 		for(int row=0;row<table.getRowCount();row++){
-			if(table.getValueAt(row, 1)!=null&&table.getValueAt(row, 2)!=null){
+			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){
+				Interfaces interfaces = new Interfaces();
 				interfaces.setXmlName((String)table.getValueAt(row, 0));
 				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
@@ -362,7 +363,13 @@ public class mainFrame  implements CommandLineRunner{
 		}
 		//调用方法进行数据保存
 		System.out.println("保存接口列表数据");
-		interfacesC.saveInterfaces(interfacesList);
+		try {
+			interfacesC.saveInterfaces(interfacesList);
+			JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.toString(), "标题", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 	}
 	/**
 	 * 接口列表数据删除
@@ -370,6 +377,7 @@ public class mainFrame  implements CommandLineRunner{
 	 * @param model
 	 */
 	public void deleteInterface(JTable table,DefaultTableModel model){
+
 		System.out.println(table.getColumnCount());
 		System.out.println(table.getRowCount());
 		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 4));
