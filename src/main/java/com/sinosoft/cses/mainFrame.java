@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -270,13 +273,14 @@ public class mainFrame  implements CommandLineRunner{
 
 		//加载接口列表界面			
 		//需要获取new Object[][]数组
-		Object[][] interfaceInfo = interfacesC.interfacesListToObject(4);
+		Object[][] interfaceInfo = interfacesC.interfacesListToObject(5);
 		tablemodle_1 = new DefaultTableModel(interfaceInfo,new String[] {
-			"xml路径", "接口名","变量字段","取值字段"
+			"xml路径", "接口名","变量字段","取值字段",""
 		});
 		table_1 = new JTable(tablemodle_1);
-		
-		
+		TableColumnModel tcm = table_1.getColumnModel();
+		TableColumn tc = tcm.getColumn(4) ; 
+		tcm.removeColumn(tc); 
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -349,15 +353,12 @@ public class mainFrame  implements CommandLineRunner{
 		System.out.println(table.getRowCount());
 		List<Interfaces> interfacesList = new ArrayList<>();
 		for(int row=0;row<table.getRowCount();row++){
-			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){	
-				System.out.println((String)table.getValueAt(row, 0));
-				System.out.println((String)table.getValueAt(row, 1));
-				System.out.println((String)table.getValueAt(row, 2));
-				System.out.println((String)table.getValueAt(row, 3));
+			if(table.getValueAt(row, 1)!=null&&table.getValueAt(row, 2)!=null){
 				interfaces.setXmlName((String)table.getValueAt(row, 0));
 				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
 				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
+				interfaces.setId((Integer)table.getValueAt(table.getSelectedRow(), 4));
 				interfacesList.add(interfaces);
 			}		
 		}
@@ -372,7 +373,7 @@ public class mainFrame  implements CommandLineRunner{
 	 */
 	public void deleteInterface(JTable table,DefaultTableModel model){
 		//删除这个接口名为(String)table.getValueAt(table.getSelectedRow(), 1)
-		interfacesC.deleteInterfaces((String)table.getValueAt(table.getSelectedRow(), 1));
+		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 4));
 		System.out.println("删除接口列表选定项");
 		model.removeRow(table.getSelectedRow());
 	}
