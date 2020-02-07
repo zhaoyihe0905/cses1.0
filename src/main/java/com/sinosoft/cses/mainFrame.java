@@ -68,7 +68,6 @@ public class mainFrame  implements CommandLineRunner{
 	private BusinessFun businessFun;
 	@Autowired
 	private InterfacesController interfacesC;
-	private Interfaces interfaces = new Interfaces();
 	//静态变量
 	private String listValue = null;
 	
@@ -279,8 +278,7 @@ public class mainFrame  implements CommandLineRunner{
 		});
 		table_1 = new JTable(tablemodle_1);
 		TableColumnModel tcm = table_1.getColumnModel();
-		TableColumn tc = tcm.getColumn(4) ; 
-		tcm.removeColumn(tc); 
+		TableColumn tc = tcm.getColumn(4) ;  
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -350,15 +348,15 @@ public class mainFrame  implements CommandLineRunner{
 	 */
 	public void saveInterface(JTable table){
 		//定义参数list
-		System.out.println(table.getRowCount());
 		List<Interfaces> interfacesList = new ArrayList<>();
 		for(int row=0;row<table.getRowCount();row++){
-			if(table.getValueAt(row, 1)!=null&&table.getValueAt(row, 2)!=null){
+			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){
+				Interfaces interfaces = new Interfaces();
 				interfaces.setXmlName((String)table.getValueAt(row, 0));
 				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
 				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
-				interfaces.setId((Integer)table.getValueAt(table.getSelectedRow(), 4));
+				interfaces.setId((Integer)table.getValueAt(row, 4));
 				interfacesList.add(interfaces);
 			}		
 		}
@@ -372,7 +370,6 @@ public class mainFrame  implements CommandLineRunner{
 	 * @param model
 	 */
 	public void deleteInterface(JTable table,DefaultTableModel model){
-		//删除这个接口名为(String)table.getValueAt(table.getSelectedRow(), 1)
 		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 4));
 		System.out.println("删除接口列表选定项");
 		model.removeRow(table.getSelectedRow());
