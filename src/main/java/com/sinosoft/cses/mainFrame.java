@@ -32,6 +32,7 @@ import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 /**
@@ -362,7 +363,13 @@ public class mainFrame  implements CommandLineRunner{
 		}
 		//调用方法进行数据保存
 		System.out.println("保存接口列表数据");
-		interfacesC.saveInterfaces(interfacesList);
+		try {
+			interfacesC.saveInterfaces(interfacesList);
+			JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.toString(), "标题", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 	}
 	/**
 	 * 接口列表数据删除
