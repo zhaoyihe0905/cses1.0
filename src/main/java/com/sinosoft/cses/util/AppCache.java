@@ -14,9 +14,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.entity.CsCode;
+import com.sinosoft.master.entity.Execution;
 import com.sinosoft.master.entity.GlobalVariable;
 import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.service.CsCodeService;
+import com.sinosoft.master.service.ExecutionService;
 import com.sinosoft.master.service.GlobalVariableService;
 import com.sinosoft.master.service.InterfacesService;
 
@@ -44,6 +46,8 @@ public class AppCache implements CommandLineRunner{
 	public static Map<String, String> globalVariable = new HashMap<>();
 	/** 接口 */
 	public static List<Interfaces> interfaces = new ArrayList<>();
+	/** 业务场景 */
+	public static List<Execution> executions = new ArrayList<>();
 	
 	@Autowired
 	private CsCodeService csCodeService;
@@ -54,6 +58,9 @@ public class AppCache implements CommandLineRunner{
 	@Autowired
 	private InterfacesService InterfacesService;
 	
+	@Autowired
+	private ExecutionService executionService;
+	
 	
 
 	@Override
@@ -63,6 +70,7 @@ public class AppCache implements CommandLineRunner{
 			initAreaCode();
 			initGlobalVariable();
 			initInterface();
+			initExceution();
 			logger.info("开始初始化数据成功");
 		} catch (Exception e) {
 			logger.info("初始化数据失败");
@@ -73,6 +81,31 @@ public class AppCache implements CommandLineRunner{
 	
 	
 	
+	/**
+	 * 初始化业务场景信息
+	 * @author xujian
+	 * @Date 2020-02-07
+	 */
+	public void initExceution() {
+		try {
+			logger.info("开始业务场景初始化");
+			executions.clear();
+			
+			executions = executionService.findAll();
+			logger.info("业务场景初始化成功");
+		} catch (Exception e) {
+			logger.info("业务场景初始化失败");
+		}
+		
+	}
+
+
+
+	/**
+	 * 初始化接口信息
+	 * @author xujian
+	 * @Date 2020-02-07
+	 */
 	public void initInterface() {
 		try {
 			logger.info("开始接口初始化");
@@ -87,7 +120,12 @@ public class AppCache implements CommandLineRunner{
 	}
 
 
-
+	
+	/**
+	 * 初始化地区代码信息
+	 * @author xujian
+	 * @Date 2020-02-07
+	 */
 	public  void initAreaCode() {
 		try {
 			logger.info("开始地区代码初始化");
