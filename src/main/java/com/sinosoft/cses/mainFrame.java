@@ -377,6 +377,9 @@ public class mainFrame  implements CommandLineRunner{
 	 * @param model
 	 */
 	public void deleteInterface(JTable table,DefaultTableModel model){
+
+		System.out.println(table.getColumnCount());
+		System.out.println(table.getRowCount());
 		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 4));
 		System.out.println("删除接口列表选定项");
 		model.removeRow(table.getSelectedRow());
