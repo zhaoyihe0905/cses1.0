@@ -34,11 +34,11 @@ public class Execution extends BaseEntity{
 	/** 业务流程 */
 	private String process;
 	
-	/** 接口标识*/
-	private String interfaces;
+//	/** 接口标识*/
+//	private String interfaces;
 
 	/** 顺序*/
-	private Integer orders;
+	private String orders;
 
 	/** 有效状态*/
 	private String  validStatus;
@@ -48,3 +48,4 @@ public class Execution extends BaseEntity{
 	
 
 }
+
