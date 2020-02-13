@@ -7,41 +7,43 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTabbedPane;
 
 public class businessView extends JFrame {
-
-	private JPanel contentPane;
-
+	
 	/**
-	 * Launch the application.
+	 * 业务场景tableModel
 	 */
+	private DefaultTableModel tablemodle = null;
+	private JTable table;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					businessView frame = new businessView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-
 	/**
 	 * Create the frame.
 	 */
 	public businessView() {
-		businessView frame = new businessView();
-		frame.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-	}
+		setBounds(100, 100, 664, 447);
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(14, 69, 618, 318);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 312, 618, -310);
+		panel.add(scrollPane);
+		//加载tableModle
+		Object[][] businessInfo ={};
+		tablemodle = new DefaultTableModel(businessInfo,new String[] {
+				"业务场景名", "接口名(保证顺序)"
+			});
+		table = new JTable(tablemodle);
+		panel.add(table);
+		table.setBounds(0, 0, 616, 318);
 
+	}
 }

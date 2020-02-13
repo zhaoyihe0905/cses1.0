@@ -118,7 +118,7 @@ public class mainFrame  implements CommandLineRunner{
 	 * @wbp.parser.entryPoint
 	 */
 	public mainFrame() {
-		initialize();
+		//initialize();
 	}
 
 	/**
