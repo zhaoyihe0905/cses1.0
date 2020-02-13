@@ -77,6 +77,8 @@ public class InterfacesController {
 		} catch (Exception e) {
 			logger.info("接口数据删除失败");
 		}
+		//初始化缓存
+		appCache.initInterface();
 	}
 	
 
