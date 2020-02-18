@@ -268,18 +268,18 @@ public class mainFrame  implements CommandLineRunner{
 		//需要获取new Object[][]数组
 		Object[][] interfaceInfo = interfacesC.interfacesListToObject(5);
 		tablemodle_1 = new DefaultTableModel(interfaceInfo,new String[] {
-			"xml路径", "接口名","变量字段","取值字段",""
+			"xml路径", "接口名","url","变量字段","取值字段",""
 		});
 		table_1 = new JTable(tablemodle_1);
 		//隐藏最后一列id
 		TableColumnModel tcm = table_1.getColumnModel();
-		TableColumn tc = tcm.getColumn(4) ; 
+		TableColumn tc = tcm.getColumn(5);
 		tc.setMaxWidth(0);
 		tc.setPreferredWidth(0);
 		tc.setMinWidth(0);
 		tc.setWidth(0);
-		table_1.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0); 
-		table_1.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0); 
+		table_1.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(0);
+		table_1.getTableHeader().getColumnModel().getColumn(5).setMinWidth(0);
 
 		JButton btnNewButton_3 = new JButton("新增");
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -358,8 +358,8 @@ public class mainFrame  implements CommandLineRunner{
 				interfaces.setBussiness_desc((String)table.getValueAt(row, 1));
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
 				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
-				if(table.getValueAt(row, 4)!=null){
-					interfaces.setId((Integer)table.getValueAt(row, 4));
+				if(table.getValueAt(row, 5)!=null){
+					interfaces.setId((Integer)table.getValueAt(row, 5));
 				}
 				interfacesList.add(interfaces);
 			}		
@@ -383,7 +383,7 @@ public class mainFrame  implements CommandLineRunner{
 
 		System.out.println(table.getColumnCount());
 		System.out.println(table.getRowCount());
-		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 4));
+		interfacesC.deleteInterfaces((Integer)table.getValueAt(table.getSelectedRow(), 5));
 		System.out.println("删除接口列表选定项");
 		model.removeRow(table.getSelectedRow());
 	}
