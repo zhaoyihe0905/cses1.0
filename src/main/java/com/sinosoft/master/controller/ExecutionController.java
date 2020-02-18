@@ -29,18 +29,18 @@ public class ExecutionController {
 	 * @param list
 	 * @return
 	 */
-	public Object[][] ExecutionsToObject(List<Execution> list){
+	public String[] ExecutionsToObject(List<Execution> list){
 		try {
-			Object[][] objects = new Object[list.size()][];
+			String[] objects = new String[list.size()-1];
 			int i = 0;
 			for (Execution key : list) {
-				objects[i][0] = key.getProcess();
+				objects[i] = key.getProcess();
 				i++;
 			}
 			return objects;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.info("返回业务流程数组错误");
 		}
 		return null;
 	}
