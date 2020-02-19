@@ -59,6 +59,9 @@ public class Interfaces extends BaseEntity{
 	/** 备注*/
 	private String remark;
 	
+	/** 接口访问路劲*/
+	private String url;
+	
 	
 	
 	
