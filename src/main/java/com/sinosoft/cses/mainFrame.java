@@ -288,7 +288,7 @@ public class mainFrame  implements CommandLineRunner{
 
 		//加载接口列表界面			
 		//需要获取new Object[][]数组
-		Object[][] interfaceInfo = interfacesC.interfacesListToObject(5);
+		Object[][] interfaceInfo = interfacesC.interfacesListToObject(6);
 		tablemodle_1 = new DefaultTableModel(interfaceInfo,new String[] {
 			"xml路径", "接口名","url","变量字段","取值字段",""
 		});
