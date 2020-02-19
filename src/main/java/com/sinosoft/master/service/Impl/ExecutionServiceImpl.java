@@ -20,4 +20,9 @@ public class ExecutionServiceImpl extends BaseServiceImpl<Execution, Integer> im
 		// TODO Auto-generated method stub
 		return this.executionDao;
 	}
+
+	@Override
+	public void replace(Execution execution) {
+		executionDao.replace(execution.getProcess(), execution.getId());
+	}
 }

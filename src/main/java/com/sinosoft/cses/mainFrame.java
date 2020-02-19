@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import com.sinosoft.master.controller.ExecutionController;
+import com.sinosoft.master.entity.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -54,6 +56,11 @@ public class mainFrame  implements CommandLineRunner{
 	 * 接口列表table
 	 */
 	private JTable table_1;
+
+	/**
+	 * 业务列表table
+	 */
+	private JTable table_2;
 	
 	/**
 	 * 全局自定义变量tableModel
@@ -64,12 +71,19 @@ public class mainFrame  implements CommandLineRunner{
 	 */
 	private DefaultTableModel tablemodle_1 = null;
 
+	/**
+	 * 业务场景列表tableModel
+	 */
+	private DefaultTableModel tablemodle_2 = null;
+
 	//private List<Integer> list = new ArrayList<>();	
 	
 	@Autowired
 	private BusinessFun businessFun;
 	@Autowired
 	private InterfacesController interfacesC;
+	@Autowired
+	private ExecutionController executionController;
 	//静态变量
 	private String listValue = null;
 	
@@ -184,9 +198,13 @@ public class mainFrame  implements CommandLineRunner{
 		btnNewButton_2.addActionListener(Event->this.deleteSelected(table,tablemodle));	
 		btnNewButton_2.setBounds(428, 13, 113, 27);
 		panel1.add(btnNewButton_2);
-		
+
+		/*----------------业务场景模块-----------------*/
 		JPanel panel2 = new JPanel();
-		
+		//加载业务场景列表界面
+		Object[][] interfaceInfo2 = executionController.selectExecution(2);
+		tablemodle_2 = new DefaultTableModel(interfaceInfo2,new String[] {"业务场景",""});
+
 				mainPanel.addTab("业务场景", null, panel2, null);
 				panel2.setLayout(null);
 				
@@ -202,52 +220,56 @@ public class mainFrame  implements CommandLineRunner{
 				JButton btnNewButton_6 = new JButton("新增场景");
 				btnNewButton_6.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						new businessView();
+						tablemodle_2.addRow(new Vector<>());
 					}
 				});
 				btnNewButton_6.setBounds(235, 33, 93, 23);
 				panel2.add(btnNewButton_6);
-				String[] listData = new String[7];
+				table_2 = new JTable(tablemodle_2);
+		TableColumnModel tcm2 = table_2.getColumnModel();
+		TableColumn tc2 = tcm2.getColumn(1);
+		tc2.setMaxWidth(0);
+		tc2.setPreferredWidth(0);
+		tc2.setMinWidth(0);
+		tc2.setWidth(0);
+		table_2.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+		table_2.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
+		//table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE); // 加入此行代码
+		/*String[] listData = new String[7];
 		        listData[0] = "交强险投批退场景";
 		        listData[1] = "商业险投批退场景";
 		        listData[2] = "交强险退保场景";
-		        listData[3] = "商业险退保场景";
-				
-				JScrollPane scrollPane_2 = new JScrollPane();
+		        listData[3] = "商业险退保场景";*/
+
+		JScrollPane scrollPane_2 = new JScrollPane();
 				scrollPane_2.setBounds(42, 84, 556, 280);
 				panel2.add(scrollPane_2);
 				
-				JList list = new JList();
+				/*JList list = new JList();
 				list.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						listValue = (String) list.getSelectedValue();
 						System.out.println(listValue);
 					}
-				});
-				scrollPane_2.setColumnHeaderView(list);
-				list.setListData(listData);
-				list.setBounds(80, 106, 505, 246);
-				
-				JButton btnNewButton_7 = new JButton("执   行");
-				btnNewButton_7.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-					}
-				});
-				btnNewButton_7.setBounds(479, 33, 106, 23);
-				panel2.add(btnNewButton_7);
-				
+				});*/
+				//scrollPane_2.setColumnHeaderView(list);
+				//list.setListData(listData);
+				//list.setBounds(80, 106, 505, 246);
+
+			JButton btnNewButton_7 = new JButton("执   行");
+			btnNewButton_7.addActionListener(Event->this.saveexecution(table_2));
+			btnNewButton_7.setBounds(479, 33, 106, 23);
+			panel2.add(btnNewButton_7);
+
 				JButton btnNewButton_8 = new JButton("删    除");
-				btnNewButton_8.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						System.out.println(list.getSelectedIndex());
-						
-					}
-				});
+				btnNewButton_8.addActionListener(Event->this.deleteExecution(table_2,tablemodle_2));
 				btnNewButton_8.setBounds(352, 33, 106, 23);
 				panel2.add(btnNewButton_8);
-		
+
+		scrollPane_2.setViewportView(table_2);
+
 		JPanel panel3 = new JPanel();
 		mainPanel.addTab("定时任务", null, panel3, null);
 		
@@ -306,7 +328,43 @@ public class mainFrame  implements CommandLineRunner{
 		
 		scrollPane_1.setViewportView(table_1);		
 	}
-	
+
+	private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
+		System.out.println(table_2.getColumnCount());
+		System.out.println(table_2.getRowCount());
+		executionController.del((Integer)table_2.getValueAt(table_2.getSelectedRow(), 1));
+		System.out.println("删除业务场景列表选定项");
+		tablemodle_2.removeRow(table_2.getSelectedRow());
+	}
+
+	/*
+	* 业务列表保存
+	**/
+	private void saveexecution(JTable table_2) {
+		//定义参数list
+		List<Execution> executionList = new ArrayList<>();
+		int rowCount = table_2.getRowCount();
+		for(int row=0;row<table_2.getRowCount();row++){
+			//System.out.println("============"+table_2.getValueAt(row, 1).toString());
+			//System.out.println("============"+table_2.getValueAt(row, 0).toString());
+			//if(table2.getValueAt(row, 0)!=null){
+				Execution execution = new Execution();
+				execution.setProcess((String)table_2.getValueAt(row, 0));
+				if(table_2.getValueAt(row, 1)!=null){
+					execution.setId((Integer)table_2.getValueAt(row, 1));
+				}
+			executionList.add(execution);
+			//}
+		}
+		//调用方法进行数据保存
+		System.out.println("保存业务列表数据");
+		try {
+			executionController.saveExecution(executionList);
+			JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.toString(), "标题", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 
 
 	/**

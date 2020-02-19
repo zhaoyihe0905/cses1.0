@@ -57,10 +57,34 @@ public class ExecutionController {
 			logger.info("接口数据删除失败");
 		}
 		//初始化缓存
-		appCache.initInterface();
+		appCache.initExceution();
 	}
-	
-	
-	
+
+
+	public Object[][] selectExecution(int column) {
+		List<Execution> interfaces = AppCache.executions;
+		try {
+			Object[][] objects = new Object[interfaces.size()][column];
+			int i = 0;
+			for (Execution key : interfaces) {
+				objects[i][0] = key.getProcess();
+				objects[i][1] = key.getId();
+				i++;
+			}
+			return objects;
+		} catch (Exception e) {
+			logger.info("接口列表数据展现失败");
+		}
+		return null;
+	}
+
+	public void saveExecution(List<Execution> executionList) {
+		for (Execution execution : executionList) {
+			executionService.replace(execution);
+		}
+		//初始化缓存
+		appCache.initExceution();
+	}
+
 }
 
