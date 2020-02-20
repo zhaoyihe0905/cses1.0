@@ -54,7 +54,7 @@ public class ExecutionController {
 		try {
 			executionService.delete(id);
 		} catch (Exception e) {
-			logger.info("接口数据删除失败");
+			logger.info("业务数据删除失败");
 		}
 		//初始化缓存
 		appCache.initExceution();

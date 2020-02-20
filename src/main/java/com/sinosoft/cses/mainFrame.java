@@ -61,7 +61,12 @@ public class mainFrame  implements CommandLineRunner{
 	 * 业务列表table
 	 */
 	private JTable table_2;
-	
+
+	/**
+	 * 缓存列表table
+	 */
+	private JTable table_3;
+
 	/**
 	 * 全局自定义变量tableModel
 	 */
@@ -75,6 +80,11 @@ public class mainFrame  implements CommandLineRunner{
 	 * 业务场景列表tableModel
 	 */
 	private DefaultTableModel tablemodle_2 = null;
+
+	/**
+	 * 缓存列表tableModel
+	 */
+	private DefaultTableModel tablemodle_3 = null;
 
 	//private List<Integer> list = new ArrayList<>();	
 	
@@ -272,9 +282,31 @@ public class mainFrame  implements CommandLineRunner{
 
 		JPanel panel3 = new JPanel();
 		mainPanel.addTab("定时任务", null, panel3, null);
-		
+
+		//==========================刷新缓存============================
 		JPanel panel4 = new JPanel();
 		mainPanel.addTab("刷新缓存", null, panel4, null);
+		//加载缓存列表界面
+		Object[][] interfaceInfo3 = null;
+		tablemodle_3 = new DefaultTableModel(interfaceInfo3,new String[] {"缓存",""});
+		panel4.setLayout(null);
+
+		JButton btnNewButton_sxhc = new JButton("刷新缓存");
+
+		btnNewButton_sxhc.setBounds(235, 33, 93, 23);
+		panel4.add(btnNewButton_sxhc);
+		table_3 = new JTable(tablemodle_3);
+
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(42, 84, 556, 280);
+		panel4.add(scrollPane_3);
+
+		JButton btnNewButton_sxhc8 = new JButton("查看缓存");
+		//btnNewButton_sxhc8.addActionListener(Event->);
+		btnNewButton_sxhc8.setBounds(352, 33, 106, 23);
+		panel4.add(btnNewButton_sxhc8);
+
+		//==========================
 		
 		JPanel panel5 = new JPanel();
 		mainPanel.addTab("日志显示", null, panel5, null);
@@ -346,7 +378,7 @@ public class mainFrame  implements CommandLineRunner{
 		int rowCount = table_2.getRowCount();
 		for(int row=0;row<table_2.getRowCount();row++){
 			//System.out.println("============"+table_2.getValueAt(row, 1).toString());
-			//System.out.println("============"+table_2.getValueAt(row, 0).toString());
+			System.out.println("============"+table_2.getValueAt(row, 0).toString());
 			//if(table2.getValueAt(row, 0)!=null){
 				Execution execution = new Execution();
 				execution.setProcess((String)table_2.getValueAt(row, 0));
@@ -410,6 +442,8 @@ public class mainFrame  implements CommandLineRunner{
 		//定义参数list
 		List<Interfaces> interfacesList = new ArrayList<>();
 		for(int row=0;row<table.getRowCount();row++){
+			System.out.println("============"+table.getValueAt(row, 0).toString());
+			System.out.println("============"+table.getValueAt(row, 1).toString());
 			if(table.getValueAt(row, 0)!=null&&table.getValueAt(row, 1)!=null){
 				Interfaces interfaces = new Interfaces();
 				interfaces.setXmlName((String)table.getValueAt(row, 0));
@@ -417,6 +451,7 @@ public class mainFrame  implements CommandLineRunner{
 				interfaces.setInconfigField((String)table.getValueAt(row, 2));
 				interfaces.setOutconfigField((String)table.getValueAt(row, 3));
 				if(table.getValueAt(row, 5)!=null){
+					System.out.println("============"+table.getValueAt(row, 5).toString());
 					interfaces.setId((Integer)table.getValueAt(row, 5));
 				}
 				interfacesList.add(interfaces);
