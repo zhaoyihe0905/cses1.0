@@ -2,6 +2,7 @@ package com.sinosoft.cses.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,14 @@ import com.sinosoft.master.entity.CsCode;
 import com.sinosoft.master.entity.Execution;
 import com.sinosoft.master.entity.GlobalVariable;
 import com.sinosoft.master.entity.Interfaces;
+import com.sinosoft.master.entity.SysConfig;
+import com.sinosoft.master.entity.SysUser;
 import com.sinosoft.master.service.CsCodeService;
 import com.sinosoft.master.service.ExecutionService;
 import com.sinosoft.master.service.GlobalVariableService;
 import com.sinosoft.master.service.InterfacesService;
+import com.sinosoft.master.service.SysConfigService;
+import com.sinosoft.master.service.SysUserService;
 
 import lombok.Data;
 
@@ -38,6 +43,11 @@ public class AppCache implements CommandLineRunner{
 	/** 全局变量*/
 	private final static String GLOBAL_VAIBALE = "GlobalVariable";
 	
+//	private static H
+	/** 系统配置项 */
+	public  static Hashtable<String, String> hashSysConfig = new Hashtable<String, String>();
+	/** 系统配置项 */
+	public  static Hashtable<String, String> sysUser = new Hashtable<String, String>();
 	/** 地区代码得到中文*/
 	public static Map<String, String> areaChin = new HashMap<>();
 	/** 地区代码得到英文*/
@@ -61,12 +71,20 @@ public class AppCache implements CommandLineRunner{
 	@Autowired
 	private ExecutionService executionService;
 	
+	@Autowired
+	private SysConfigService sysConfigService;
+	
+	@Autowired
+	private SysUserService sysUserService;
+	
 	
 
 	@Override
 	public void run(String... args) throws Exception {
 		try {
 			logger.info("开始初始化数据");
+			initUser();
+			initSystemConfig();
 			initAreaCode();
 			initGlobalVariable();
 			initInterface();
@@ -81,6 +99,46 @@ public class AppCache implements CommandLineRunner{
 	
 	
 	
+	private void initSystemConfig() {
+		try {
+			logger.info("开始系统配置项初始化");
+			hashSysConfig.clear();
+			
+			List<SysConfig> findAll = sysConfigService.findAll();
+			for (SysConfig sysConfig : findAll) {
+				hashSysConfig.put(sysConfig.getParametercode(), sysConfig.getParametervalue());
+			}
+			
+			
+			logger.info("系统配置项初始化成功");
+		} catch (Exception e) {
+			logger.info("系统配置项初始化失败");
+		}
+		
+	}
+
+
+
+	private void initUser() {
+		try {
+			logger.info("开始用户信息初始化");
+			sysUser.clear();
+			
+			List<SysUser> findAll = sysUserService.findAll();
+			for (SysUser sysUser : findAll) {
+				AppCache.sysUser.put(sysUser.getUserCode() ,sysUser.getPassword());
+			}
+			
+			
+			logger.info("用户信息初始化成功");
+		} catch (Exception e) {
+			logger.info("用户信息初始化失败");
+		}
+		
+	}
+
+
+
 	/**
 	 * 初始化业务场景信息
 	 * @author xujian

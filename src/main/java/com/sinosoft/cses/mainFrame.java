@@ -91,6 +91,8 @@ public class mainFrame  implements CommandLineRunner{
 	@Autowired
 	private BusinessFun businessFun;
 	@Autowired
+	private AppCache appCache;
+	@Autowired
 	private InterfacesController interfacesC;
 	@Autowired
 	private ExecutionController executionController;
@@ -295,6 +297,7 @@ public class mainFrame  implements CommandLineRunner{
 
 		btnNewButton_sxhc.setBounds(235, 33, 93, 23);
 		panel4.add(btnNewButton_sxhc);
+		btnNewButton_sxhc.addActionListener(Event->this.initAppCache());	
 		table_3 = new JTable(tablemodle_3);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -361,6 +364,15 @@ public class mainFrame  implements CommandLineRunner{
 		scrollPane_1.setViewportView(table_1);		
 	}
 
+	private Object initAppCache() {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("1111111");
+			appCache.run(null);
+		} catch (Exception e) {
+		}
+		return null;
+	}
 	private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
 		System.out.println(table_2.getColumnCount());
 		System.out.println(table_2.getRowCount());
