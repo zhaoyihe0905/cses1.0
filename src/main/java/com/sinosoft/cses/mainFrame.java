@@ -369,6 +369,7 @@ public class mainFrame  implements CommandLineRunner{
 		try {
 			System.out.println("1111111");
 			appCache.run(null);
+			JOptionPane.showMessageDialog(null, "刷新成功", "标题", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 		}
 		return null;
