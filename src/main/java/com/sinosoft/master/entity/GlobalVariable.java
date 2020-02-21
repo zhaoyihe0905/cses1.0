@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import com.sinosoft.master.entity.support.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "tb_variable")
+@Proxy(lazy = false)
 public class GlobalVariable extends BaseEntity{
 	
 	/**

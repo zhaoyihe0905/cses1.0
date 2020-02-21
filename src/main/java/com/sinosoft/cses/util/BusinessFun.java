@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,9 @@ public class BusinessFun {
 	
 	@Autowired
 	private AppCache appCache;
+	
+//	@Autowired
+//	BusinessFun businessFun
 	
 //	@Autowired
 //	private InterfacesController interfacesController;
@@ -217,81 +221,141 @@ public class BusinessFun {
 		marshaller.marshal(o, writer);
 		return  o.toString();
 	}
-	
+
 	/**
-	 * 此方法， hashmap转化为objects 
-	 * @param map
-	 * @author xujian
-	 * @Date 2020-02-04
-	 * @return
-	 */
-	public Object[][] mapToObject(Map<String, String> map){
-		
-		try {
-			Object[][] objects = new Object[map.size()][2];
-			int i = 0;
-			for (String key : map.keySet()) {
-				objects[i][0] = key;
-				objects[i][1] = map.get(key);
-				i++;
-			}
-			return objects;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	/**
-	 * 此方法为获取新增的全局变量值，然后存入数据库中
-	 * @param table
-	 * @param list
+	 * 此方法是替换指定的变量
+	 * @param xml 报文
+	 * @param column 需要替换的字段
+	 * @param value 需要替换的值
 	 * @return
 	 * @author xujian
-	 * @Data 2020-02-06
+	 * @since 2020-02-21
 	 */
-	public void saveGlobalVariable(HashMap<String, String> map) {
-		try {
-			for (String key : map.keySet()) {
-				
-				GlobalVariable global = new GlobalVariable();
-				global.setVariable_code(key);
-				global.setVariable_name(map.get(key));
-				globalVariableService.replave(global);
-				
-			}
-		} catch (Exception e) {
-			logger.info("全局变量保存失败");
-		}
-		//刷新缓存
-		appCache.initGlobalVariable();
+	public String replaceVariable(String xml, String column, String value) {
 		
-//		interfacesController.interfacesListToObject(4);
+		int beginIndex = xml.indexOf(column);// 得到开始标记<tag>中的"<"的起始位置
+		int endIndex = -1;
+		
+		String tagValue = "";
+		
+		if (beginIndex >= 0) {
+			String endTag = "</" + column.substring(1);
+			endIndex = xml.indexOf(endTag) + column.length() +1; // 得到结束标记</tag>中的"<"的起始位置
+			tagValue = xml.substring(beginIndex , endIndex);
+			
+			String newValue = column +  value + endTag;
+			
+			tagValue = tagValue.replaceAll("\r", "");
+			tagValue = tagValue.replaceAll("\n", "");
+			tagValue = tagValue.replaceAll("\t", "");
+			tagValue = tagValue.trim();
+			
+			newValue = newValue.replaceAll("\r", "");
+			newValue = newValue.replaceAll("\n", "");
+			newValue = newValue.replaceAll("\t", "");
+			newValue = newValue.trim();
+			
+			
+			xml = xml.replaceAll(tagValue, newValue);
+		}
+
+		
+		
+		return xml;
 		
 	}
 	
+    /**
+     * 获取标签值
+     * 
+     * @param message
+     * @param tag
+     * @return the value between beginTag and endTag
+     */
+	public String getTagValue(String message, String tag) {
+
+		int beginIndex = message.indexOf(tag);// 得到开始标记<tag>中的"<"的起始位置
+		int endIndex = -1;
+		
+		String tagValue = "";
+		
+		if (beginIndex >= 0) {
+			String endTag = "</" + tag.substring(1);
+			endIndex = message.indexOf(endTag); // 得到结束标记</tag>中的"<"的起始位置
+			tagValue = message.substring(beginIndex + tag.length(), endIndex);
+			
+			tagValue = tagValue.replaceAll("\r", "");
+			tagValue = tagValue.replaceAll("\n", "");
+			tagValue = tagValue.replaceAll("\t", "");
+			tagValue = tagValue.trim();
+		}
+
+        return tagValue;
+    }
+    
+    /**
+     * 获取标签加值
+     * 
+     * @param message
+     * @param tag
+     * @return the value between beginTag and endTag
+     */
+	public String getALLTagValue(String message, String tag) {
+
+
+		
+		
+        int beginIndex = message.indexOf(tag);// 得到开始标记<tag>中的"<"的起始位置
+        int endIndex = -1;
+
+        String tagValue = "";
+
+        if (beginIndex >= 0) {
+            String endTag = "</" + tag.substring(1);
+            endIndex = message.indexOf(endTag) + tag.length() + 1;// 得到结束标记</tag>中的"<"的结束位置
+            tagValue = message.substring(beginIndex , endIndex);
+
+            tagValue = tagValue.replaceAll("\r", "");
+            tagValue = tagValue.replaceAll("\n", "");
+            tagValue = tagValue.replaceAll("\t", "");
+            tagValue = tagValue.trim();
+        }
+
+        return tagValue;
+    }
+    
+    public static void main (String [] args) {
+    	String xml = "<USER>123456</USER><PASSWORD></PASSWORD><LALA>sdf</LALA>";
+    	String user = "<USER>";
+    	String lala = (new BusinessFun()).getTagValue(xml, user);
+    	
+    }
 	
 	/**
-	 * 删除全局变量数据
-	 * @param key
-	 * @author xujian
-	 * @date 2020-02-06
+	 * 进行Xml报文的第一步处理（如一些起保日期， 终保日期，保单归属地等）
+	 * @param xml
+	 * @param areaCode 
+	 * @return
 	 */
-	public void deleteGlobalVariable(String key) {
-		try {
-			globalVariableService.delete(key);
-		} catch (Exception e) {
-			logger.info("删除失败， 该数据可能不存在");
-		}
+	public String firstXmlHandle(String xml, String areaCode) {
 		
-		//刷新缓存
-		appCache.initGlobalVariable();
+		//保单归属地市的处理
+		xml = replaceVariable(xml, AppConst.CITY_CODE, areaCode);
+		
+		//保单归属地县的处理
+		String countyCode = areaCode.substring(0, 4) + "01";
+		xml = replaceVariable(xml, AppConst.COUNTRY_CODE, countyCode);
+		
+		//起保日期的处理
+		
+		//终包日期的处理
+		
+		
+		
+		// TODO Auto-generated method stub
+		return xml;
 	}
+	
 	
 	
 

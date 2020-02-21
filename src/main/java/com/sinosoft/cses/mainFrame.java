@@ -12,6 +12,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import com.sinosoft.master.controller.ExecutionController;
+import com.sinosoft.master.controller.GlobalVariableController;
 import com.sinosoft.master.entity.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -96,6 +97,8 @@ public class mainFrame  implements CommandLineRunner{
 	private InterfacesController interfacesC;
 	@Autowired
 	private ExecutionController executionController;
+	@Autowired
+	private GlobalVariableController globalVariableController;
 	//静态变量
 	private String listValue = null;
 	
@@ -175,7 +178,8 @@ public class mainFrame  implements CommandLineRunner{
 		
 		
 		//初始化全局自定义变量界面数据
-		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
+//		Object[][] playerInfo=businessFun.mapToObject(AppCache.globalVariable);
+		Object[][] playerInfo=globalVariableController.mapToObject(AppCache.globalVariable);
 		String[] names={"变量名","变量值"};
 		
 		
@@ -224,9 +228,13 @@ public class mainFrame  implements CommandLineRunner{
 				lblNewLabel_1.setBounds(54, 37, 54, 15);
 				panel2.add(lblNewLabel_1);
 				
-				JComboBox comboBox_1 = new JComboBox();
+				JComboBox<String> comboBox_1 = new JComboBox<String>();
 				comboBox_1.setBounds(102, 34, 106, 21);
-				comboBox_1.addItem("--请选择--");
+				for (String areaCode : AppCache.areaEng.keySet()) {
+					
+//				comboBox_1.addItem("--请选择--");
+					comboBox_1.addItem(areaCode);
+				}
 				panel2.add(comboBox_1);
 				
 				JButton btnNewButton_6 = new JButton("新增场景");
@@ -271,7 +279,7 @@ public class mainFrame  implements CommandLineRunner{
 				//list.setBounds(80, 106, 505, 246);
 
 			JButton btnNewButton_7 = new JButton("执   行");
-			btnNewButton_7.addActionListener(Event->this.saveexecution(table_2));
+			btnNewButton_7.addActionListener(Event->this.doexecution(table_2, tablemodle_2, comboBox_1));
 			btnNewButton_7.setBounds(479, 33, 106, 23);
 			panel2.add(btnNewButton_7);
 
@@ -308,6 +316,9 @@ public class mainFrame  implements CommandLineRunner{
 		//btnNewButton_sxhc8.addActionListener(Event->);
 		btnNewButton_sxhc8.setBounds(352, 33, 106, 23);
 		panel4.add(btnNewButton_sxhc8);
+		
+		
+		
 
 		//==========================
 		
@@ -364,6 +375,23 @@ public class mainFrame  implements CommandLineRunner{
 		scrollPane_1.setViewportView(table_1);		
 	}
 
+	private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1) {
+		
+		try {
+			Integer id = null;
+			try {
+				id = (Integer)table_2.getValueAt(table_2.getSelectedRow(), 1);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "请先选择业务场景", "标题", JOptionPane.INFORMATION_MESSAGE);
+				throw new Exception("请先选择业务场景");
+			}
+			String area = (String)comboBox_1.getSelectedItem();
+			executionController.doExecution(id, area);
+		} catch (Exception e) {
+			
+		}
+		return null;
+	}
 	private Object initAppCache() {
 		// TODO Auto-generated method stub
 		try {
@@ -435,7 +463,8 @@ public class mainFrame  implements CommandLineRunner{
 			}		
 		}
 		//调用方法进行数据保存
-		businessFun.saveGlobalVariable(infoMap);
+//		businessFun.saveGlobalVariable(infoMap);
+		globalVariableController.saveGlobalVariable(infoMap);
 	}
 	/**
 	 * 全局变量数据删除
@@ -444,7 +473,8 @@ public class mainFrame  implements CommandLineRunner{
 	 */
 	public void deleteSelected(JTable table,DefaultTableModel model){
 		//删除数据库中数据
-		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
+//		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
+		globalVariableController.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
 		model.removeRow(table.getSelectedRow());
 	}
 	/**

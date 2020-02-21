@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import com.sinosoft.master.entity.support.BaseEntity;
 
 @Entity
@@ -18,6 +20,7 @@ import com.sinosoft.master.entity.support.BaseEntity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Proxy(lazy = false)
 public class SysUser extends BaseEntity{
 	
 	/**

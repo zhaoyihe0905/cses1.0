@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 
 import com.sinosoft.master.entity.support.BaseEntity;
 
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_cses_log")
 @AllArgsConstructor
 @NoArgsConstructor
+@Proxy(lazy = false)
 public class CsesLog extends BaseEntity{
 
 	/**

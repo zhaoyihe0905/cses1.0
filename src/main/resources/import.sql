@@ -60,10 +60,10 @@ insert into tb_variable (variable_code, remark, valide_status, variable_name) va
 --insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('03', '投保查询校验', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\yuquef.xml');
 --insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('04', '投保注销', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\zhuxiao.xml');
 
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (1, '投保查询', '<user>', '<user>', '', '1', 'D:feiqAutoRecv Files许健(1CB72C117CC2)交强险V6.2.0测试工具scXMLinsurequery.xml', 'localhost:8080/');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (2, '投保预确认', '<user>', '<user>', '', '1', 'D:feiqAutoRecv Files许健(1CB72C117CC2)交强险V6.2.0测试工具scinsureconfirm.xml', 'localhost:8080/');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (3, '投保查询校验', '<user>', '<user>', '', '1', 'D:feiqAutoRecv Files许健(1CB72C117CC2)交强险V6.2.0测试工具scyuquef.xml', 'localhost:8080/');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (4, '投保注销', '<user>', '<user>', '', '1', 'D:feiqAutoRecv Files许健(1CB72C117CC2)交强险V6.2.0测试工具sczhuxiao.xml', 'localhost:8080/');
+insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (1, '投保查询', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insurequery.xml', 'localhost:8080/');
+insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (2, '投保预确认', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insureconfirm.xml', 'localhost:8080/');
+insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (3, '投保查询校验', '<user>', '<user>', '', '1', 'C:\\Users\xj143\Desktop\sinoiacitest\XML\\carquery.xml', 'localhost:8080/');
+insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (4, '投保注销', '<user>', '<user>', '', '1', 'C:\Users\\xj143\\Desktop\\sinoiacitest\\XML\\endorquery.xml', 'localhost:8080/');
 
 insert into tb_execution (id, orders, process, remark, valid_status) values (1, '1,2,3', '交强险投保查询', '0', '1');
 insert into tb_execution (id, orders, process, remark, valid_status) values (2, '1,2,3', '商业险投保查询', '0', '1');

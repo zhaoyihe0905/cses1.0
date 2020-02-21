@@ -6,7 +6,7 @@ package com.sinosoft.cses.util;
  * @Data 2019-12-30
  *
  */
-public class AppConst implements CARequestTypeConst, CIRequestTypeConst{
+public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
 	
 }
 	
@@ -137,3 +137,16 @@ public class AppConst implements CARequestTypeConst, CIRequestTypeConst{
     
 
 }
+	
+	
+	
+	interface Global{
+		
+		
+	/**  保单归属地 市*/
+	public static final String CITY_CODE = "<CITY_CODE>";
+	
+	/**  保单归属地 县*/
+	public static final String COUNTRY_CODE = "<COUNTY_CODE>";
+	
+	}
