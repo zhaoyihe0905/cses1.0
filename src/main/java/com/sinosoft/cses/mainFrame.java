@@ -71,6 +71,10 @@ public class mainFrame implements CommandLineRunner {
     private JTable table_3;
 
     /**
+     * 定时任务列表table
+     */
+    private JTable table_4;
+    /**
      * 全局自定义变量tableModel
      */
     private DefaultTableModel tablemodle = null;
@@ -88,6 +92,11 @@ public class mainFrame implements CommandLineRunner {
      * 缓存列表tableModel
      */
     private DefaultTableModel tablemodle_3 = null;
+
+    /**
+     * 定时任务列表tableModel
+     */
+    private DefaultTableModel tablemodle_4 = null;
 
     //private List<Integer> list = new ArrayList<>();
 
@@ -290,8 +299,47 @@ public class mainFrame implements CommandLineRunner {
         btnNewButton_9.setBounds(442, 34, 96, 21);
         panel2.add(btnNewButton_9);
 
+
+
+        /*===================定时任务=============================*/
         JPanel panel3 = new JPanel();
         mainPanel.addTab("定时任务", null, panel3, null);
+        Object[][] interfaceInfo4 = null;
+        tablemodle_4 = new DefaultTableModel(interfaceInfo4, new String[]{"定时任务", ""});
+        panel3.setLayout(null);
+
+        JScrollPane scrollPane_3 = new JScrollPane();
+        //scrollPane_2.setBounds(42, 84, 556, 280);
+        scrollPane_3.setBounds(14, 83, 664, 298);
+        panel3.add(scrollPane_3);
+
+        JLabel lblNewLabel_2 = new JLabel("业务场景:");
+        lblNewLabel_2.setBounds(54, 37, 74, 15);
+        panel3.add(lblNewLabel_2);
+
+        JComboBox<String> comboBox_2 = new JComboBox<String>();
+        comboBox_2.setBounds(133, 34, 185, 21);
+        for (Execution execution : AppCache.executions) {
+                comboBox_2.addItem(execution.getProcess());
+        }
+        panel3.add(comboBox_2);
+
+        JButton btnNewButton_10 = new JButton("执   行");
+        //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
+        btnNewButton_10.setBounds(552, 33, 96, 23);
+        panel3.add(btnNewButton_10);
+
+        JButton btnNewButton_11 = new JButton("保    存");
+        //btnNewButton_11.addActionListener(Event -> this.deleteExecution(table_2, tablemodle_2));
+        btnNewButton_11.setBounds(332, 33, 96, 23);
+        panel3.add(btnNewButton_11);
+        scrollPane_3.setViewportView(table_4);
+
+        JButton btnNewButton_12 = new JButton("停    止");
+        btnNewButton_12.setBounds(442, 34, 96, 21);
+        panel3.add(btnNewButton_12);
+
+
 
         //==========================刷新缓存============================
         JPanel panel4 = new JPanel();
