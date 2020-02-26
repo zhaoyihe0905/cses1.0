@@ -63,11 +63,11 @@ insert into tb_variable (variable_code, remark, valide_status, variable_name) va
 insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (1, '投保查询', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insurequery.xml', 'localhost:8080/');
 insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (2, '投保预确认', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insureconfirm.xml', 'localhost:8080/');
 insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (3, '投保查询校验', '<user>', '<user>', '', '1', 'C:\\Users\xj143\Desktop\sinoiacitest\XML\\carquery.xml', 'localhost:8080/');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (4, '投保注销', '<user>', '<user>', '', '1', 'C:\Users\\xj143\\Desktop\\sinoiacitest\\XML\\endorquery.xml', 'localhost:8080/');
+insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url) values (4, '投保注销', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\endorquery.xml', 'localhost:8080/');
 
 insert into tb_execution (id, orders, process, remark, valid_status) values (1, '投保查询,投保预确认,投保查询校验', '交强险投保查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (2, '投保查询,投保预确认,投保查询校验', '交强险投保查询', '商业险投保查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (3, '投保查询,投保预确认,投保查询校验', '交强险投保查询', '交强险批改查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (4, '投保查询,投保预确认,投保查询校验', '交强险投保查询', '交强险批改查询', '0', '1');
+insert into tb_execution (id, orders, process, remark, valid_status) values (2, '投保查询,投保预确认,投保查询校验', '商业险投保查询', '0', '1');
+insert into tb_execution (id, orders, process, remark, valid_status) values (3, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
+insert into tb_execution (id, orders, process, remark, valid_status) values (4, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
 
 

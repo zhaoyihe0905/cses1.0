@@ -446,7 +446,7 @@ public class mainFrame implements CommandLineRunner {
         try {
             Integer id = null;
             try {
-                id = (Integer) table_2.getValueAt(table_2.getSelectedRow(), 1);
+                id = (Integer) table_2.getValueAt(table_2.getSelectedRow(), 2);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "请先选择业务场景", "标题", JOptionPane.INFORMATION_MESSAGE);
                 throw new Exception("请先选择业务场景");
