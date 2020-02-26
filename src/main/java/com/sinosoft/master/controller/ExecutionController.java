@@ -77,7 +77,8 @@ public class ExecutionController {
 			int i = 0;
 			for (Execution key : interfaces) {
 				objects[i][0] = key.getProcess();
-				objects[i][1] = key.getId();
+				objects[i][1] = key.getOrders();
+				objects[i][2] = key.getId();
 				i++;
 			}
 			return objects;

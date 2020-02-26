@@ -23,6 +23,6 @@ public class ExecutionServiceImpl extends BaseServiceImpl<Execution, Integer> im
 
 	@Override
 	public void replace(Execution execution) {
-		executionDao.replace(execution.getProcess(), execution.getId());
+		executionDao.replace(execution.getProcess(),execution.getId(),execution.getOrders());
 	}
 }

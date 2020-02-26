@@ -23,6 +23,7 @@ import com.sinosoft.cses.util.BusinessFun;
 import com.sinosoft.cses.view.windows.businessView;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
+import org.springframework.util.StringUtils;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -71,6 +72,16 @@ public class mainFrame implements CommandLineRunner {
     private JTable table_3;
 
     /**
+     * 定时任务列表table
+     */
+    private JTable table_4;
+
+    /**
+     * 日志列表table
+     */
+    private JTable table_5;
+
+    /**
      * 全局自定义变量tableModel
      */
     private DefaultTableModel tablemodle = null;
@@ -88,6 +99,16 @@ public class mainFrame implements CommandLineRunner {
      * 缓存列表tableModel
      */
     private DefaultTableModel tablemodle_3 = null;
+
+    /**
+     * 定时任务列表tableModel
+     */
+    private DefaultTableModel tablemodle_4 = null;
+
+    /**
+     * 日志列表tableModel
+     */
+    private DefaultTableModel tablemodle_5 = null;
 
     //private List<Integer> list = new ArrayList<>();
 
@@ -225,8 +246,8 @@ public class mainFrame implements CommandLineRunner {
 		/*----------------业务场景模块-----------------*/
         JPanel panel2 = new JPanel();
         //加载业务场景列表界面
-        Object[][] interfaceInfo2 = executionController.selectExecution(2);
-        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", ""});
+        Object[][] interfaceInfo2 = executionController.selectExecution(3);
+        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景","接口名",""});
 
         mainPanel.addTab("业务场景", null, panel2, null);
         panel2.setLayout(null);
@@ -254,13 +275,13 @@ public class mainFrame implements CommandLineRunner {
         panel2.add(btnNewButton_6);
         table_2 = new JTable(tablemodle_2);
         TableColumnModel tcm2 = table_2.getColumnModel();
-        TableColumn tc2 = tcm2.getColumn(1);
+        TableColumn tc2 = tcm2.getColumn(2);
         tc2.setMaxWidth(0);
         tc2.setPreferredWidth(0);
         tc2.setMinWidth(0);
         tc2.setWidth(0);
-        table_2.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
-        table_2.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+        table_2.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
 
         JScrollPane scrollPane_2 = new JScrollPane();
         //scrollPane_2.setBounds(42, 84, 556, 280);
@@ -278,24 +299,56 @@ public class mainFrame implements CommandLineRunner {
         panel2.add(btnNewButton_8);
         scrollPane_2.setViewportView(table_2);
 
-        JButton btnNewButton_9 = new JButton("新增接口");
-        /*btnNewButton_9.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                JScrollPane scrollPane_addinterfaces = new JScrollPane();
-                scrollPane_addinterfaces.setBounds(0, 0, 683, 394);
-                panel2.add(scrollPane_addinterfaces);
-                scrollPane_addinterfaces.setViewportView(table_2);
-            }
-        });*/
+        JButton btnNewButton_9 = new JButton("保    存");
+        btnNewButton_9.addActionListener(Event -> this.saveexecution(table_2));
         btnNewButton_9.setBounds(442, 34, 96, 21);
         panel2.add(btnNewButton_9);
 
+
+
+        /*===================定时任务=============================*/
         JPanel panel3 = new JPanel();
         mainPanel.addTab("定时任务", null, panel3, null);
+        Object[][] interfaceInfo4 = null;
+        tablemodle_4 = new DefaultTableModel(interfaceInfo4, new String[]{"定时任务", ""});
+        panel3.setLayout(null);
+
+        JScrollPane scrollPane_3 = new JScrollPane();
+        //scrollPane_2.setBounds(42, 84, 556, 280);
+        scrollPane_3.setBounds(14, 83, 664, 298);
+        panel3.add(scrollPane_3);
+
+        JLabel lblNewLabel_2 = new JLabel("业务场景:");
+        lblNewLabel_2.setBounds(54, 37, 74, 15);
+        panel3.add(lblNewLabel_2);
+
+        JComboBox<String> comboBox_2 = new JComboBox<String>();
+        comboBox_2.setBounds(133, 34, 185, 21);
+        for (Execution execution : AppCache.executions) {
+                comboBox_2.addItem(execution.getProcess());
+        }
+        panel3.add(comboBox_2);
+
+        JButton btnNewButton_10 = new JButton("执   行");
+        //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
+        btnNewButton_10.setBounds(552, 33, 96, 23);
+        panel3.add(btnNewButton_10);
+
+        JButton btnNewButton_11 = new JButton("保    存");
+        //btnNewButton_11.addActionListener(Event -> this.deleteExecution(table_2, tablemodle_2));
+        btnNewButton_11.setBounds(332, 33, 96, 23);
+        panel3.add(btnNewButton_11);
+        scrollPane_3.setViewportView(table_4);
+
+        JButton btnNewButton_12 = new JButton("停    止");
+        btnNewButton_12.setBounds(442, 34, 96, 21);
+        panel3.add(btnNewButton_12);
+
+
 
         //==========================刷新缓存============================
         JPanel panel4 = new JPanel();
-        mainPanel.addTab("刷新缓存", null, panel4, null);
+        mainPanel.addTab("缓存页面", null, panel4, null);
         //加载缓存列表界面
         Object[][] interfaceInfo3 = null;
         tablemodle_3 = new DefaultTableModel(interfaceInfo3, new String[]{"缓存", ""});
@@ -345,6 +398,24 @@ public class mainFrame implements CommandLineRunner {
 
         JPanel panel5 = new JPanel();
         mainPanel.addTab("日志显示", null, panel5, null);
+        Object[][] interfaceInfo5 = null;
+        tablemodle_5 = new DefaultTableModel(interfaceInfo5, new String[]{"标识码","请求开始时间","请求结束时间","接口响应时间",""});
+        panel5.setLayout(null);
+        table_5 = new JTable(tablemodle_5);
+        //隐藏最后一列id
+        TableColumnModel tcm5 = table_5.getColumnModel();
+        TableColumn tc5 = tcm5.getColumn(4);
+        tc5.setMaxWidth(0);
+        tc5.setPreferredWidth(0);
+        tc5.setMinWidth(0);
+        tc5.setWidth(0);
+        table_5.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0);
+        table_5.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0);
+        JScrollPane scrollPane_5 = new JScrollPane();
+        scrollPane_5.setBounds(10, 70, 669, 314);
+        panel5.add(scrollPane_5);
+        scrollPane_5.setViewportView(table_5);
+
 
         JPanel panel6 = new JPanel();
         mainPanel.addTab("接口列表", null, panel6, null);
@@ -417,7 +488,7 @@ public class mainFrame implements CommandLineRunner {
     private Object initAppCache() {
         // TODO Auto-generated method stub
         try {
-            System.out.println("1111111");
+            System.out.println("开始刷新缓存！");
             appCache.run(null);
             JOptionPane.showMessageDialog(null, "刷新成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -428,7 +499,7 @@ public class mainFrame implements CommandLineRunner {
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
         System.out.println(table_2.getColumnCount());
         System.out.println(table_2.getRowCount());
-        executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 1));
+        executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
         System.out.println("删除业务场景列表选定项");
         tablemodle_2.removeRow(table_2.getSelectedRow());
     }
@@ -441,16 +512,17 @@ public class mainFrame implements CommandLineRunner {
         List<Execution> executionList = new ArrayList<>();
         int rowCount = table_2.getRowCount();
         for (int row = 0; row < table_2.getRowCount(); row++) {
-            //System.out.println("============"+table_2.getValueAt(row, 1).toString());
-            System.out.println("============" + table_2.getValueAt(row, 0).toString());
-            //if(table2.getValueAt(row, 0)!=null){
+            if(table_2.getValueAt(row, 0)!=null){
             Execution execution = new Execution();
             execution.setProcess((String) table_2.getValueAt(row, 0));
-            if (table_2.getValueAt(row, 1) != null) {
-                execution.setId((Integer) table_2.getValueAt(row, 1));
+            execution.setOrders((String) table_2.getValueAt(row, 1));
+            if (table_2.getValueAt(row, 2) != null) {
+                execution.setId((Integer) table_2.getValueAt(row, 2));
             }
             executionList.add(execution);
-            //}
+            }else {
+                System.out.println("新增一行的数据为空！");
+            }
         }
         //调用方法进行数据保存
         System.out.println("保存业务列表数据");
