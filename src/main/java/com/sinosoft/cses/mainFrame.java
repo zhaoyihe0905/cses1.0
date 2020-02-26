@@ -2,17 +2,14 @@ package com.sinosoft.cses;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import com.sinosoft.master.controller.ExecutionController;
 import com.sinosoft.master.controller.GlobalVariableController;
+import com.sinosoft.master.controller.SysConfigController;
 import com.sinosoft.master.entity.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,8 +22,6 @@ import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
 import org.springframework.util.StringUtils;
 
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -37,10 +32,6 @@ import java.util.List;
 import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
 /**
  * 主界面
@@ -122,6 +113,8 @@ public class mainFrame implements CommandLineRunner {
     private ExecutionController executionController;
     @Autowired
     private GlobalVariableController globalVariableController;
+    @Autowired
+    private SysConfigController sysConfigController;
     //静态变量
     private String listValue = null;
 
@@ -131,6 +124,10 @@ public class mainFrame implements CommandLineRunner {
      */
     private int selectedColumn = -1;
 
+    /*
+    * 日志文本域
+    */
+    private JTextField textField;
 
     /**
      * Launch the application.
@@ -365,57 +362,34 @@ public class mainFrame implements CommandLineRunner {
 		scrollPane_3.setBounds(42, 84, 556, 280);
 		panel4.add(scrollPane_3);*/
 
-        JButton btnNewButton_sxhc8 = new JButton("查看缓存");
-        btnNewButton_sxhc8.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object[][] interfaceInfo = interfacesC.interfacesListToObject(6);
-                tablemodle_3 = new DefaultTableModel(interfaceInfo, new String[]{
-                        "xml路径", "接口名", "url", "变量字段", "取值字段", ""
-                });
-                table_3 = new JTable(tablemodle_3);
-                //隐藏最后一列id
-                TableColumnModel tcm3 = table_3.getColumnModel();
-                TableColumn tc3 = tcm3.getColumn(5);
-                tc3.setMaxWidth(0);
-                tc3.setPreferredWidth(0);
-                tc3.setMinWidth(0);
-                tc3.setWidth(0);
-                table_3.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(0);
-                table_3.getTableHeader().getColumnModel().getColumn(5).setMinWidth(0);
-                JScrollPane scrollPane_3 = new JScrollPane();
-                scrollPane_3.setBounds(10, 70, 669, 314);
-                panel4.add(scrollPane_3);
-                scrollPane_3.setViewportView(table_3);
-            }
+        Object[][] interfaceInfo_sys = sysConfigController.sysConfigListToObject();
+        tablemodle_3 = new DefaultTableModel(interfaceInfo_sys, new String[]{
+                "参数代码","参数值", ""
         });
-        //btnNewButton_sxhc8.addActionListener(Event->);
-        btnNewButton_sxhc8.setBounds(352, 33, 106, 23);
-        panel4.add(btnNewButton_sxhc8);
+        table_3 = new JTable(tablemodle_3);
+        //隐藏最后一列id
+        TableColumnModel tcm3 = table_3.getColumnModel();
+        TableColumn tc3 = tcm3.getColumn(2);
+        tc3.setMaxWidth(0);
+        tc3.setPreferredWidth(0);
+        tc3.setMinWidth(0);
+        tc3.setWidth(0);
+        table_3.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        table_3.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+        JScrollPane scrollPane_sys = new JScrollPane();
+        scrollPane_sys.setBounds(10, 70, 669, 314);
+        panel4.add(scrollPane_sys);
+        scrollPane_sys.setViewportView(table_3);
 
 
-        //==========================
+        //==========================日志模块=========================================
 
         JPanel panel5 = new JPanel();
         mainPanel.addTab("日志显示", null, panel5, null);
-        Object[][] interfaceInfo5 = null;
-        tablemodle_5 = new DefaultTableModel(interfaceInfo5, new String[]{"标识码","请求开始时间","请求结束时间","接口响应时间",""});
-        panel5.setLayout(null);
-        table_5 = new JTable(tablemodle_5);
-        //隐藏最后一列id
-        TableColumnModel tcm5 = table_5.getColumnModel();
-        TableColumn tc5 = tcm5.getColumn(4);
-        tc5.setMaxWidth(0);
-        tc5.setPreferredWidth(0);
-        tc5.setMinWidth(0);
-        tc5.setWidth(0);
-        table_5.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0);
-        table_5.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0);
-        JScrollPane scrollPane_5 = new JScrollPane();
-        scrollPane_5.setBounds(10, 70, 669, 314);
-        panel5.add(scrollPane_5);
-        scrollPane_5.setViewportView(table_5);
-
+        textField = new JTextField();
+        textField.setBounds(0, 0, 683, 394);
+        panel5.add(textField);
+        textField.setColumns(10);
 
         JPanel panel6 = new JPanel();
         mainPanel.addTab("接口列表", null, panel6, null);
