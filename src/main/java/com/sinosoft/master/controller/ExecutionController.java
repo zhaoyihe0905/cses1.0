@@ -2,9 +2,12 @@ package com.sinosoft.master.controller;
 
 import java.util.List;
 
+import javax.swing.JTextField;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 
 import com.sinosoft.cses.util.AppCache;
@@ -14,6 +17,8 @@ import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.response.Response;
 import com.sinosoft.master.service.ExecutionService;
 import com.sinosoft.master.service.InterfacesService;
+import com.sinosoft.master.service.specification.SimpleSpecificationBuilder;
+import com.sinosoft.master.service.specification.SpecificationOperator.Operator;
 
 @Controller
 public class ExecutionController {
@@ -98,9 +103,10 @@ public class ExecutionController {
 	
 	/**
 	 * 执行业务场景
+	 * @param textField2 
 	 * @param executionList
 	 */
-	public void doExecution(Integer id, String area) {
+	public void doExecution(Integer id, String area, JTextField textField2) {
 		try {
 			Execution execution = executionService.find(id);
 			//判断当前业务场景需要执行那些接口
@@ -110,11 +116,20 @@ public class ExecutionController {
 			String[] interfaces = orders.split(",");
 			for (String string : interfaces) {
 				//根据业务id查询接口
-				Interfaces interfac = intefacerService.find(Integer.valueOf(string));
+				
+				
+				SimpleSpecificationBuilder<Interfaces> builder = new SimpleSpecificationBuilder<Interfaces>();
+					builder.add("bussiness_desc", Operator.eq.name(), string);
+				List<Interfaces> page = intefacerService.findAll(builder.generateSpecification());
+				
+				Interfaces interfac = page.get(0);
+//				Interfaces interfac = intefacerService.find(Integer.valueOf(string));
 				String xml = businessFun.readFile(interfac.getXmlName());
 				//进行第一步处理
 				xml = businessFun.firstXmlHandle(xml, areaCode);
 				//根据全局变量对变量进行处理
+				textField2.setText(textField2.getText() + "开始执行 " + interfac.getBussiness_desc());
+				textField2.setText(textField2.getText() + "当前时间是");
 				Response s = businessFun.doPost(interfac.getUrl(), xml, new StringBuffer());
 				System.out.println();
 				
