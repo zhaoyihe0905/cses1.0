@@ -128,7 +128,9 @@ public class mainFrame implements CommandLineRunner {
     /*
     * 日志文本域
     */
-    private JTextField textField;
+//    private JTextField textField;
+    
+    private JTextArea textArea;
 
     /**
      * Launch the application.
@@ -287,7 +289,7 @@ public class mainFrame implements CommandLineRunner {
         panel2.add(scrollPane_2);
 
         JButton btnNewButton_7 = new JButton("执   行");
-        btnNewButton_7.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1, textField));
+        btnNewButton_7.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1, textArea));
         btnNewButton_7.setBounds(552, 33, 96, 23);
         panel2.add(btnNewButton_7);
 
@@ -388,16 +390,18 @@ public class mainFrame implements CommandLineRunner {
         JPanel panel5 = new JPanel();
         mainPanel.addTab("日志显示", null, panel5, null);
         panel5.setLayout(null);
-        textField = new JTextField();
-        textField.setBounds(25, 13, 628, 368);
+//        textField = new JTextField();
+//        textField.setBounds(25, 13, 628, 368);
 //        textField.setSize(1000, 500);
+        textArea = new JTextArea();
+        textArea.setBounds(0, 0, 683, 394);
         
         
         
 
 //        textField.setPreferredSize(new Dimension (100,200));
-        panel5.add(textField);
-        textField.setColumns(50);
+        panel5.add(textArea);
+//        textArea.setColumns(50);
         panel5.setVisible(true);
 
         
@@ -453,7 +457,7 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_1.setViewportView(table_1);
     }
 
-    private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1, JTextField textField2) {
+    private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1, JTextArea textArea2) {
 
         try {
             Integer id = null;
@@ -464,7 +468,7 @@ public class mainFrame implements CommandLineRunner {
                 throw new Exception("请先选择业务场景");
             }
             String area = (String) comboBox_1.getSelectedItem();
-            executionController.doExecution(id, area, textField2);
+            executionController.doExecution(id, area, textArea2);
         } catch (Exception e) {
 
         }
