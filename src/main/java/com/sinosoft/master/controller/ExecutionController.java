@@ -111,6 +111,8 @@ public class ExecutionController {
 	 */
 	public void doExecution(Integer id, String area, JTextArea textArea2) {
 		try {
+			//清空数据
+			textArea2.setText("");
 			Execution execution = executionService.find(id);
 			//判断当前业务场景需要执行那些接口
 			String orders = execution.getOrders();

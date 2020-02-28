@@ -289,7 +289,7 @@ public class mainFrame implements CommandLineRunner {
         panel2.add(scrollPane_2);
 
         JButton btnNewButton_7 = new JButton("执   行");
-        btnNewButton_7.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1, textArea));
+        btnNewButton_7.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1, textArea, mainPanel));
         btnNewButton_7.setBounds(552, 33, 96, 23);
         panel2.add(btnNewButton_7);
 
@@ -457,7 +457,7 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_1.setViewportView(table_1);
     }
 
-    private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1, JTextArea textArea2) {
+    private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1, JTextArea textArea2, JTabbedPane mainPanel) {
 
         try {
             Integer id = null;
@@ -467,6 +467,9 @@ public class mainFrame implements CommandLineRunner {
                 JOptionPane.showMessageDialog(null, "请先选择业务场景", "标题", JOptionPane.INFORMATION_MESSAGE);
                 throw new Exception("请先选择业务场景");
             }
+            //切换界面
+            	mainPanel.setSelectedIndex(4);
+
             String area = (String) comboBox_1.getSelectedItem();
             executionController.doExecution(id, area, textArea2);
         } catch (Exception e) {
