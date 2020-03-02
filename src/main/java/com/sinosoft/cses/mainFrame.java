@@ -129,7 +129,7 @@ public class mainFrame implements CommandLineRunner {
     * 日志文本域
     */
 //    private JTextField textField;
-    
+
     private JTextArea textArea;
 
     /**
@@ -221,10 +221,6 @@ public class mainFrame implements CommandLineRunner {
         scrollPane.setViewportView(table);
         panel1.add(scrollPane);
         JButton btnNewButton = new JButton("新增变量");
-        /*		btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent var1) {
-					}
-				});*/
         btnNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent var1) {
@@ -247,7 +243,7 @@ public class mainFrame implements CommandLineRunner {
         JPanel panel2 = new JPanel();
         //加载业务场景列表界面
         Object[][] interfaceInfo2 = executionController.selectExecution(3);
-        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景","接口名",""});
+        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", ""});
 
         mainPanel.addTab("业务场景", null, panel2, null);
         panel2.setLayout(null);
@@ -259,8 +255,7 @@ public class mainFrame implements CommandLineRunner {
         JComboBox<String> comboBox_1 = new JComboBox<String>();
         comboBox_1.setBounds(102, 34, 106, 21);
         for (String areaCode : AppCache.areaEng.keySet()) {
-
-//				comboBox_1.addItem("--请选择--");
+//			comboBox_1.addItem("--请选择--");
             comboBox_1.addItem(areaCode);
         }
         panel2.add(comboBox_1);
@@ -325,7 +320,7 @@ public class mainFrame implements CommandLineRunner {
         JComboBox<String> comboBox_2 = new JComboBox<String>();
         comboBox_2.setBounds(133, 34, 185, 21);
         for (Execution execution : AppCache.executions) {
-                comboBox_2.addItem(execution.getProcess());
+            comboBox_2.addItem(execution.getProcess());
         }
         panel3.add(comboBox_2);
 
@@ -345,7 +340,6 @@ public class mainFrame implements CommandLineRunner {
         panel3.add(btnNewButton_12);
 
 
-
         //==========================刷新缓存============================
         JPanel panel4 = new JPanel();
         mainPanel.addTab("缓存页面", null, panel4, null);
@@ -362,12 +356,12 @@ public class mainFrame implements CommandLineRunner {
         table_3 = new JTable(tablemodle_3);
 
 		/*JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(42, 84, 556, 280);
+        scrollPane_3.setBounds(42, 84, 556, 280);
 		panel4.add(scrollPane_3);*/
 
         Object[][] interfaceInfo_sys = sysConfigController.sysConfigListToObject();
         tablemodle_3 = new DefaultTableModel(interfaceInfo_sys, new String[]{
-                "参数代码","参数值", ""
+                "参数代码", "参数值", ""
         });
         table_3 = new JTable(tablemodle_3);
         //隐藏最后一列id
@@ -390,23 +384,13 @@ public class mainFrame implements CommandLineRunner {
         JPanel panel5 = new JPanel();
         mainPanel.addTab("日志显示", null, panel5, null);
         panel5.setLayout(null);
-//        textField = new JTextField();
-//        textField.setBounds(25, 13, 628, 368);
-//        textField.setSize(1000, 500);
         textArea = new JTextArea();
         textArea.setBounds(0, 0, 683, 394);
-        
-        
-        
-
-//        textField.setPreferredSize(new Dimension (100,200));
         panel5.add(textArea);
 //        textArea.setColumns(50);
-        panel5.setVisible(true);
+        //此代码影响接口页面显示
+        //panel5.setVisible(true);
 
-        
-        
-        
         JPanel panel6 = new JPanel();
         mainPanel.addTab("接口列表", null, panel6, null);
         panel6.setLayout(null);
@@ -457,7 +441,7 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_1.setViewportView(table_1);
     }
 
-    private Object doexecution(JTable table_22, DefaultTableModel tablemodle_22, JComboBox<String> comboBox_1, JTextArea textArea2, JTabbedPane mainPanel) {
+    private Object doexecution(JTable table_2, DefaultTableModel tablemodle_2, JComboBox<String> comboBox_1, JTextArea textArea2, JTabbedPane mainPanel) {
 
         try {
             Integer id = null;
@@ -468,7 +452,7 @@ public class mainFrame implements CommandLineRunner {
                 throw new Exception("请先选择业务场景");
             }
             //切换界面
-            	mainPanel.setSelectedIndex(4);
+            mainPanel.setSelectedIndex(4);
 
             String area = (String) comboBox_1.getSelectedItem();
             executionController.doExecution(id, area, textArea2);
@@ -505,15 +489,15 @@ public class mainFrame implements CommandLineRunner {
         List<Execution> executionList = new ArrayList<>();
         int rowCount = table_2.getRowCount();
         for (int row = 0; row < table_2.getRowCount(); row++) {
-            if(table_2.getValueAt(row, 0)!=null){
-            Execution execution = new Execution();
-            execution.setProcess((String) table_2.getValueAt(row, 0));
-            execution.setOrders((String) table_2.getValueAt(row, 1));
-            if (table_2.getValueAt(row, 2) != null) {
-                execution.setId((Integer) table_2.getValueAt(row, 2));
-            }
-            executionList.add(execution);
-            }else {
+            if (table_2.getValueAt(row, 0) != null) {
+                Execution execution = new Execution();
+                execution.setProcess((String) table_2.getValueAt(row, 0));
+                execution.setOrders((String) table_2.getValueAt(row, 1));
+                if (table_2.getValueAt(row, 2) != null) {
+                    execution.setId((Integer) table_2.getValueAt(row, 2));
+                }
+                executionList.add(execution);
+            } else {
                 System.out.println("新增一行的数据为空！");
             }
         }
