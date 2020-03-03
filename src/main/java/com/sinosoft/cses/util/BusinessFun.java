@@ -4,7 +4,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -340,19 +342,37 @@ public class BusinessFun {
 	public String firstXmlHandle(String xml, String areaCode) {
 		
 		//保单归属地市的处理
+		String cityCode = areaCode.substring(0, 2) + "0100";
 		xml = replaceVariable(xml, AppConst.CITY_CODE, areaCode);
 		
 		//保单归属地县的处理
-		String countyCode = areaCode.substring(0, 4) + "01";
+		String countyCode = cityCode.substring(0, 4) + "01";
 		xml = replaceVariable(xml, AppConst.COUNTRY_CODE, countyCode);
 		
 		//起保日期的处理
 		
+		Date start_date = DateUtils.addDay(new Date(), -5);
+		xml = replaceVariable(xml, AppConst.START_DATE, DateUtils.toString(start_date, DateUtils.YYYYMMDDHHmm));
+		
 		//终包日期的处理
-		
-		
-		
-		// TODO Auto-generated method stub
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(start_date);
+        calendar.add(Calendar.YEAR, 1);
+        Date stop_date = calendar.getTime();
+        xml = replaceVariable(xml, AppConst.STOP_DATE, DateUtils.toString(stop_date, DateUtils.YYYYMMDDHHmm));
+        
+        
+		//签单日期的处理
+        Date pill_date = DateUtils.addDay(new Date(), -7);
+        xml = replaceVariable(xml, AppConst.BILL_DATE, DateUtils.toString(pill_date, DateUtils.YYYYMMDD));
+        
+        //用户名的处理
+        xml = replaceVariable(xml, AppConst.USER, appCache.getParameterStringValue(SystemConfig.USER, areaCode));
+        
+        
+        //密码的处理
+        xml = replaceVariable(xml, AppConst.PASSWORD, appCache.getParameterStringValue(SystemConfig.PASSWORD, areaCode));
+        
 		return xml;
 	}
 	

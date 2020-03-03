@@ -13,8 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 
 import com.sinosoft.cses.util.AppCache;
+import com.sinosoft.cses.util.AppConst;
 import com.sinosoft.cses.util.BusinessFun;
 import com.sinosoft.cses.util.DateUtils;
+import com.sinosoft.cses.util.SystemConfig;
 import com.sinosoft.master.entity.Execution;
 import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.response.Response;
@@ -111,7 +113,11 @@ public class ExecutionController {
 	 */
 	public void doExecution(Integer id, String area, JTextArea textArea2) {
 		try {
+			
+			//测试的时候需要写死
+			area = "四川";
 			//清空数据
+		
 			textArea2.setText("");
 			Execution execution = executionService.find(id);
 			//判断当前业务场景需要执行那些接口
@@ -128,18 +134,27 @@ public class ExecutionController {
 				List<Interfaces> page = intefacerService.findAll(builder.generateSpecification());
 				
 				Interfaces interfac = page.get(0);
-//				Interfaces interfac = intefacerService.find(Integer.valueOf(string));
-				String xml = businessFun.readFile(interfac.getXmlName());
+				
+				String xml = businessFun.readFile(interfac.getXmlName()).trim();
 				//进行第一步处理
 				xml = businessFun.firstXmlHandle(xml, areaCode);
+				//进行第二部处理， 和全局变量进行替换
+				
+				
 				//设置自动换行
 				textArea2.setLineWrap(true);
 				//根据全局变量对变量进行处理
 				textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \b\n");
 				textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \b\n");
+				
+				//系统访问路劲的处理
+				String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
+				url = interfac.getUrl().replaceAll("localhost", url).trim();
+				System.out.println("---" + url + "----");
+				
+				Response s = businessFun.doPost(url, xml, new StringBuffer());
+				textArea2.append("接口响应时间" + s.getResponseTime() + " \b\n");
 				textArea2.append(" \b\n");
-				Response s = businessFun.doPost(interfac.getUrl(), xml, new StringBuffer());
-				System.out.println();
 				
 				
 				

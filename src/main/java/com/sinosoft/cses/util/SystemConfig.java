@@ -8,10 +8,13 @@ package com.sinosoft.cses.util;
  */
 public class SystemConfig {
 	
-	/** 商业URL */
-	public final static String IACA_URL = "IacaUrl";
-	/** 交强URL */
-	public final static String IACI_URL = "IaciUrl";
+	/** URLL */
+	public final static String URL = "url";
+	/** 用户名 */
+	public final static String USER = "user";
+	/** 密码 */
+	public final static String PASSWORD = "password";
+	
 	
 	
 	

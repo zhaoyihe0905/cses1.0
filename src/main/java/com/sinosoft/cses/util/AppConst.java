@@ -7,6 +7,9 @@ package com.sinosoft.cses.util;
  *
  */
 public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
+
+	
+	
 	
 }
 	
@@ -139,7 +142,7 @@ public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
 }
 	
 	
-	
+	/** 交强*/
 	interface Global{
 		
 		
@@ -149,4 +152,21 @@ public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
 	/**  保单归属地 县*/
 	public static final String COUNTRY_CODE = "<COUNTY_CODE>";
 	
+	/** 签单日期*/
+	public static final String BILL_DATE = "<BILL_DATE>";
+	
+	/** 保险起期*/
+	public static final String START_DATE = "<START_DATE>";
+	
+	/** 保险止期*/
+	public static final String STOP_DATE = "<STOP_DATE>";
+	
+	
+	/** 保险止期*/
+	public static final String USER = "<USER>";
+	
+	/** 保险止期*/
+	public static final String PASSWORD = "<PASSWORD>";
 	}
+	
+	

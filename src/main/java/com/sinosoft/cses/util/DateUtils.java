@@ -39,9 +39,10 @@ public class DateUtils {
 	public final static String MINUTE = " minute ";
 
 	public final static String SECOND = " second ";
-  public static final String YYYYMMDDDETAIL = "yyyy-MM-dd HH:mm:ss";
+	public static final String YYYYMMDDDETAIL = "yyyy-MM-dd HH:mm:ss";
 	public static final String YYYYMMDDhhmmss = "yyyyMMddhhmmss";
 	public static final String YYYYMMDDHHmmss = "yyyyMMddHHmmss";
+	public static final String YYYYMMDDHHmm = "yyyyMMddHHmm";
 	public static final String YYYY_MM_DD = "yyyy-MM-dd";
 	public static final String YYYYMMDD = "yyyyMMdd";
 	public static final String YYMMDD = "yyMMdd";

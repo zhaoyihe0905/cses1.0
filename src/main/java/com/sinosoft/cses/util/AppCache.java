@@ -106,7 +106,7 @@ public class AppCache implements CommandLineRunner{
 			
 			List<SysConfig> findAll = sysConfigService.findAll();
 			for (SysConfig sysConfig : findAll) {
-				hashSysConfig.put(sysConfig.getParametercode(), sysConfig.getParametervalue());
+				hashSysConfig.put(sysConfig.getParametercode() + sysConfig.getAreaCode(), sysConfig.getParametervalue());
 			}
 			
 			
@@ -116,6 +116,8 @@ public class AppCache implements CommandLineRunner{
 		}
 		
 	}
+	
+	
 
 
 
@@ -219,6 +221,12 @@ public class AppCache implements CommandLineRunner{
 		}
 	}
 
+	
+	/** 获得String*/
+	public String getParameterStringValue(String code, String areaCode) {
+		return hashSysConfig.get(code + areaCode);
+		
+	}
 
 
 	
