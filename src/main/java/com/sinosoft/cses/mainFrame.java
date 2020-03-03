@@ -12,6 +12,8 @@ import com.sinosoft.master.controller.ExecutionController;
 import com.sinosoft.master.controller.GlobalVariableController;
 import com.sinosoft.master.controller.SysConfigController;
 import com.sinosoft.master.entity.Execution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -42,6 +44,9 @@ import java.awt.event.ComponentEvent;
 @Order(3)
 @Component
 public class mainFrame implements CommandLineRunner {
+
+    /** 日志*/
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private JFrame frame;
     /**
@@ -448,6 +453,7 @@ public class mainFrame implements CommandLineRunner {
             try {
                 id = (Integer) table_2.getValueAt(table_2.getSelectedRow(), 2);
             } catch (Exception e) {
+                logger.error(e.toString());
                 JOptionPane.showMessageDialog(null, "请先选择业务场景", "标题", JOptionPane.INFORMATION_MESSAGE);
                 throw new Exception("请先选择业务场景");
             }
@@ -465,19 +471,22 @@ public class mainFrame implements CommandLineRunner {
     private Object initAppCache() {
         // TODO Auto-generated method stub
         try {
-            System.out.println("开始刷新缓存！");
+            //System.out.println("开始刷新缓存！");
+            logger.info("开始刷新缓存!");
             appCache.run(null);
             JOptionPane.showMessageDialog(null, "刷新成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+            logger.info("刷新缓存成功！");
         } catch (Exception e) {
+            logger.info("刷新缓存异常！");
+            JOptionPane.showMessageDialog(null, "刷新缓存异常", "标题", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
 
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
-        System.out.println(table_2.getColumnCount());
-        System.out.println(table_2.getRowCount());
+        logger.info("删除业务场景列表选定项!"+table_2.getColumnCount()+"--"+table_2.getRowCount());
         executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
-        System.out.println("删除业务场景列表选定项");
+        //System.out.println("删除业务场景列表选定项");
         tablemodle_2.removeRow(table_2.getSelectedRow());
     }
 
@@ -487,7 +496,7 @@ public class mainFrame implements CommandLineRunner {
     private void saveexecution(JTable table_2) {
         //定义参数list
         List<Execution> executionList = new ArrayList<>();
-        int rowCount = table_2.getRowCount();
+        //int rowCount = table_2.getRowCount();
         for (int row = 0; row < table_2.getRowCount(); row++) {
             if (table_2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
@@ -498,16 +507,19 @@ public class mainFrame implements CommandLineRunner {
                 }
                 executionList.add(execution);
             } else {
-                System.out.println("新增一行的数据为空！");
+                logger.error("第"+row+"行，第1两列数据为空。保存失败！");
+                //System.out.println("新增一行的数据为空！");
+                JOptionPane.showMessageDialog(null, "第"+row+"行，第1两列数据为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
             }
         }
         //调用方法进行数据保存
-        System.out.println("保存业务列表数据");
         try {
             executionController.saveExecution(executionList);
+            logger.info("保存业务数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString(), "标题", JOptionPane.INFORMATION_MESSAGE);
+            logger.error("保存业务数据异常！");
+            JOptionPane.showMessageDialog(null, "保存业务数据异常", "标题", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -563,8 +575,6 @@ public class mainFrame implements CommandLineRunner {
         //定义参数list
         List<Interfaces> interfacesList = new ArrayList<>();
         for (int row = 0; row < table.getRowCount(); row++) {
-            System.out.println("============" + table.getValueAt(row, 0).toString());
-            System.out.println("============" + table.getValueAt(row, 1).toString());
             if (table.getValueAt(row, 0) != null && table.getValueAt(row, 1) != null) {
                 Interfaces interfaces = new Interfaces();
                 interfaces.setXmlName((String) table.getValueAt(row, 0));
@@ -572,19 +582,21 @@ public class mainFrame implements CommandLineRunner {
                 interfaces.setInconfigField((String) table.getValueAt(row, 2));
                 interfaces.setOutconfigField((String) table.getValueAt(row, 3));
                 if (table.getValueAt(row, 5) != null) {
-                    System.out.println("============" + table.getValueAt(row, 5).toString());
+                    //System.out.println("============" + table.getValueAt(row, 5).toString());
                     interfaces.setId((Integer) table.getValueAt(row, 5));
                 }
                 interfacesList.add(interfaces);
             }
         }
         //调用方法进行数据保存
-        System.out.println("保存接口列表数据");
+        logger.info("保存接口列表数据!");
         try {
             interfacesC.saveInterfaces(interfacesList);
+            logger.info("保存接口列表数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString(), "标题", JOptionPane.INFORMATION_MESSAGE);
+            logger.error("保存接口列表数据异常！");
+            JOptionPane.showMessageDialog(null, "保存接口列表数据异常", "标题", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
@@ -596,11 +608,9 @@ public class mainFrame implements CommandLineRunner {
      * @param model
      */
     public void deleteInterface(JTable table, DefaultTableModel model) {
-
-        System.out.println(table.getColumnCount());
-        System.out.println(table.getRowCount());
+        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列接口数据！");
         interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 5));
-        System.out.println("删除接口列表选定项");
+        logger.info("删除接口列表选定项成功！");
         model.removeRow(table.getSelectedRow());
     }
 }																		 
