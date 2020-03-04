@@ -9,6 +9,7 @@ insert into tb_sys_users (user_code, area_code, username, password, company_code
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (1, '510000', 'ALL', '', 'url', '四川的访问路劲', '00', '123.57.216.177', '', '1');
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (2, '510000', 'ALL', '', 'user', '四川的用户名', '00', 'PICC5100', '', '1');
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (3, '510000', 'ALL', '', 'password', '四川的密码', '00', '123456', '', '1');
+insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (4, 'ALL', 'ALL', '', 'interval', '定时时间间隔', '00', '2', '', '1');
 
 
 
