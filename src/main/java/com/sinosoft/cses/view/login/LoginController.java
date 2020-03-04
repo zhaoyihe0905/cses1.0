@@ -1,5 +1,10 @@
 package com.sinosoft.cses.view.login;
 
+import java.rmi.server.UID;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -8,8 +13,11 @@ import org.springframework.stereotype.Controller;
 
 import com.sinosoft.cses.view.moniliucheng.MoniLiuchengView;
 import com.sinosoft.master.config.MD5;
+import com.sinosoft.master.controller.IpAddr;
 import com.sinosoft.master.entity.SysUser;
+import com.sinosoft.master.entity.SysUserLog;
 import com.sinosoft.master.service.SysConfigService;
+import com.sinosoft.master.service.SysUserLogService;
 import com.sinosoft.master.service.SysUserService;
 
 @Controller
@@ -22,6 +30,14 @@ public class LoginController {
     private MoniLiuchengView moniLiuchengView;
     @Autowired
     private com.sinosoft.cses.mainFrame mainFrame;
+    @Autowired
+    private SysUserLogService sysUserLogService;
+    
+//    @Autowired
+//	protected HttpServletRequest request;
+//	
+//	@Autowired
+//	protected HttpServletResponse response;
 
 	/**
      * 校验用户名密码是否正确
@@ -47,18 +63,28 @@ public class LoginController {
             password.requestFocus();//获取焦点
             return;
         }
-       SysUser sysUser =  sysUserService.findByUserCode(usernameText);
+       SysUser user =  sysUserService.findByUserCode(usernameText);
         
-        if(sysUser == null){
+        if(user == null){
             JOptionPane.showMessageDialog(null,"用户名不存在");
             return;
         }
          String md5 = MD5.backMD5(passwordText).toLowerCase();
-        if(!md5.equals(sysUser.getPassword().toLowerCase())){
+        if(!md5.equals(user.getPassword().toLowerCase())){
             JOptionPane.showMessageDialog(null,"密码不正确");
             return;
         }
         //关闭登录界面
+        
+        
+        //存入session中
+//        request.getSession().setAttribute("user", user);
+        SysUserLog userLog = new SysUserLog();
+        userLog.setCreateTime(new Date());
+        userLog.setIpaddr(IpAddr.getHostIP());
+        userLog.setUsercode(user.getUsername());
+        userLog.setUid(user.getId());
+        sysUserLogService.save(userLog);
         loginView.dispose();
         //验证通过，打开系统界面
 /*        String value = sysConfigService.findvalueByCode(SystemConfig.IACA_URL);
