@@ -1,6 +1,5 @@
 package com.sinosoft.cses;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.*;
@@ -12,18 +11,26 @@ import com.sinosoft.master.controller.ExecutionController;
 import com.sinosoft.master.controller.GlobalVariableController;
 import com.sinosoft.master.controller.SysConfigController;
 import com.sinosoft.master.entity.Execution;
+
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.sinosoft.cses.test.JobDemo;
 import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.BusinessFun;
-import com.sinosoft.cses.view.windows.businessView;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
-import org.springframework.util.StringUtils;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -49,6 +56,10 @@ public class mainFrame implements CommandLineRunner {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private JFrame frame;
+    /**
+     * 
+     */
+    private Scheduler scheduler = null;
     /**
      * 全局自定义变量table
      */
@@ -331,6 +342,7 @@ public class mainFrame implements CommandLineRunner {
 
         JButton btnNewButton_10 = new JButton("执   行");
         //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
+        btnNewButton_10.addActionListener(Event -> this.StartQuartz());
         btnNewButton_10.setBounds(552, 33, 96, 23);
         panel3.add(btnNewButton_10);
 
@@ -341,6 +353,7 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_3.setViewportView(table_4);
 
         JButton btnNewButton_12 = new JButton("停    止");
+        btnNewButton_12.addActionListener(Event -> this.EndQuartz());
         btnNewButton_12.setBounds(442, 34, 96, 21);
         panel3.add(btnNewButton_12);
 
@@ -612,6 +625,48 @@ public class mainFrame implements CommandLineRunner {
         interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 5));
         logger.info("删除接口列表选定项成功！");
         model.removeRow(table.getSelectedRow());
+    }
+    /**
+     * 启动定时任务
+     * @throws Exception
+     */
+    public void StartQuartz(){
+    	try {
+    		//实例化调度器
+        	scheduler =StdSchedulerFactory.getDefaultScheduler();
+        	//创建触发器
+        	Trigger trigger = TriggerBuilder.newTrigger()
+        			.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever())
+        			.build();
+        	//创建任务：被执行任务需要实现Job接口，定时任务会执行excute方法
+        	JobDetail job =JobBuilder.newJob(JobDemo.class).build();
+        	//注册触发器和任务到调度器中
+        	
+        	scheduler.scheduleJob(job, trigger);
+        	if(scheduler.isStarted()){
+        		JOptionPane.showMessageDialog(null, "定时任务已启动", "标题", JOptionPane.INFORMATION_MESSAGE);
+        	}else{
+            	scheduler.start();
+        	}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
+    /**
+     * 关闭定时任务
+     */
+    public void EndQuartz(){
+    	try {
+    		System.out.println("关闭定时任务");
+    		if(scheduler!=null&&scheduler.isStarted()){
+        		scheduler.shutdown();
+        		JOptionPane.showMessageDialog(null, "定时任务已停止", "标题", JOptionPane.INFORMATION_MESSAGE);
+        	}else{
+        		JOptionPane.showMessageDialog(null, "没有正在进行的定时任务", "标题", JOptionPane.INFORMATION_MESSAGE);
+        	}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     }
 }																		 
 
