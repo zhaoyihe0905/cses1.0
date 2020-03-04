@@ -43,9 +43,14 @@ public class LoginController {
      * 校验用户名密码是否正确
      */
     void verifyLogin(JTextField username,JTextField password, LoginView loginView){
+    	SysUserLog userLog = new SysUserLog();
+    	  userLog.setCreateTime(new Date());
+          userLog.setIpaddr(IpAddr.getHostIP());
+    	
         //获取输入的用户名和密码
         String usernameText = username.getText();
         String passwordText = password.getText();
+        userLog.setUsercode(usernameText);
 
         if("".equals(usernameText)||usernameText==null){
             JOptionPane.showMessageDialog(null,"用户名不能为空");
@@ -53,6 +58,7 @@ public class LoginController {
             password.setText("");
             username.requestFocus();//获取焦点
             password.requestFocus();//获取焦点
+           
             return;
     }
         if("".equals(passwordText)||passwordText==null){
@@ -67,11 +73,14 @@ public class LoginController {
         
         if(user == null){
             JOptionPane.showMessageDialog(null,"用户名不存在");
+            userLog.setMessage("0-用户名不存在");
             return;
         }
          String md5 = MD5.backMD5(passwordText).toLowerCase();
         if(!md5.equals(user.getPassword().toLowerCase())){
             JOptionPane.showMessageDialog(null,"密码不正确");
+            userLog.setMessage("0-密码不正确");
+            userLog.setUid(user.getId());
             return;
         }
         //关闭登录界面
@@ -79,11 +88,9 @@ public class LoginController {
         
         //存入session中
 //        request.getSession().setAttribute("user", user);
-        SysUserLog userLog = new SysUserLog();
-        userLog.setCreateTime(new Date());
-        userLog.setIpaddr(IpAddr.getHostIP());
         userLog.setUsercode(user.getUsername());
         userLog.setUid(user.getId());
+        userLog.setMessage("1-登录成功");
         sysUserLogService.save(userLog);
         loginView.dispose();
         //验证通过，打开系统界面

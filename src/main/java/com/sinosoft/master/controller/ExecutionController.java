@@ -61,6 +61,8 @@ public class ExecutionController {
 			e.printStackTrace();
 			logger.info("返回业务流程数组错误");
 		}
+		
+		
 		return null;
 	}
 	
@@ -95,7 +97,8 @@ public class ExecutionController {
 		} catch (Exception e) {
 			logger.info("接口列表数据展现失败");
 		}
-		return null;
+	
+			return null;
 	}
 
 	public void saveExecution(List<Execution> executionList) {
@@ -112,10 +115,9 @@ public class ExecutionController {
 	 * @param executionList
 	 */
 	public void doExecution(Integer id, String area, JTextArea textArea2) {
+		
 		try {
-			
-			//测试的时候需要写死
-			area = "四川";
+			Logger logger = LoggerFactory.getLogger("sichuan");
 			//清空数据
 		
 			textArea2.setText("");
@@ -146,15 +148,21 @@ public class ExecutionController {
 				//根据全局变量对变量进行处理
 				textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \b\n");
 				textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \b\n");
+				logger.info("开始执行 " + interfac.getBussiness_desc() );
+				logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) );
 				
 				//系统访问路劲的处理
 				String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
 				url = interfac.getUrl().replaceAll("localhost", url).trim();
 				System.out.println("---" + url + "----");
+				logger.info("访问路劲是" + url);
 				
 				Response s = businessFun.doPost(url, xml, new StringBuffer());
 				textArea2.append("接口响应时间" + s.getResponseTime() + " \b\n");
+				logger.info("接口响应时间" + s.getResponseTime() + " \b\n");
 				textArea2.append(" \b\n");
+				
+				
 				
 				
 				

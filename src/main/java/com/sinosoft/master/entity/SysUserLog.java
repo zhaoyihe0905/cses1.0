@@ -44,5 +44,8 @@ public class SysUserLog extends BaseEntity{
 	
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
+	
+	/** 登录信息 */
+	private String message;
 
 }
