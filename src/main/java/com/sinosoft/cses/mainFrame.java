@@ -405,20 +405,20 @@ public class mainFrame implements CommandLineRunner {
 
         //加载接口列表界面
         //需要获取new Object[][]数组
-        Object[][] interfaceInfo = interfacesC.interfacesListToObject(6);
+        Object[][] interfaceInfo = interfacesC.interfacesListToObject(7);
         tablemodle_1 = new DefaultTableModel(interfaceInfo, new String[]{
-                "xml路径", "接口名", "url", "变量字段", "取值字段", ""
+                "xml路径", "接口名", "url", "变量字段", "取值字段", "标识", ""
         });
         table_1 = new JTable(tablemodle_1);
         //隐藏最后一列id
-        TableColumnModel tcm = table_1.getColumnModel();
-        TableColumn tc = tcm.getColumn(5);
+        /*TableColumnModel tcm = table_1.getColumnModel();
+        TableColumn tc = tcm.getColumn(6);
         tc.setMaxWidth(0);
         tc.setPreferredWidth(0);
         tc.setMinWidth(0);
         tc.setWidth(0);
-        table_1.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(0);
-        table_1.getTableHeader().getColumnModel().getColumn(5).setMinWidth(0);
+        table_1.getTableHeader().getColumnModel().getColumn(6).setMaxWidth(0);
+        table_1.getTableHeader().getColumnModel().getColumn(6).setMinWidth(0);*/
 
         JButton btnNewButton_3 = new JButton("新增");
         btnNewButton_3.addActionListener(new ActionListener() {
@@ -434,15 +434,14 @@ public class mainFrame implements CommandLineRunner {
         btnNewButton_4.setBounds(483, 23, 93, 23);
         panel6.add(btnNewButton_4);
 
-        JButton btnNewButton_5 = new JButton("保存");
-        btnNewButton_5.addActionListener(Event -> this.saveInterface(table_1));
-        btnNewButton_5.setBounds(586, 23, 93, 23);
-        panel6.add(btnNewButton_5);
-
         JScrollPane scrollPane_1 = new JScrollPane();
         scrollPane_1.setBounds(10, 70, 669, 314);
         panel6.add(scrollPane_1);
 
+        JButton btnNewButton_5 = new JButton("保存");
+        btnNewButton_5.addActionListener(Event -> this.saveInterface(table_1,panel6));
+        btnNewButton_5.setBounds(586, 23, 93, 23);
+        panel6.add(btnNewButton_5);
         scrollPane_1.setViewportView(table_1);
     }
 
@@ -518,7 +517,7 @@ public class mainFrame implements CommandLineRunner {
             logger.info("保存业务数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            logger.error("保存业务数据异常！");
+            logger.error("保存业务数据异常！"+e.getMessage());
             JOptionPane.showMessageDialog(null, "保存业务数据异常", "标题", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -560,6 +559,7 @@ public class mainFrame implements CommandLineRunner {
      * @param model
      */
     public void deleteSelected(JTable table, DefaultTableModel model) {
+        System.out.println("全局变量id为："+table.getValueAt(table.getSelectedRow(), 0));
         //删除数据库中数据
 //		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
         globalVariableController.deleteGlobalVariable((String) table.getValueAt(table.getSelectedRow(), 0));
@@ -571,7 +571,7 @@ public class mainFrame implements CommandLineRunner {
      *
      * @param table
      */
-    public void saveInterface(JTable table) {
+    public void saveInterface(JTable table,JPanel panel6) {
         //定义参数list
         List<Interfaces> interfacesList = new ArrayList<>();
         for (int row = 0; row < table.getRowCount(); row++) {
@@ -579,11 +579,13 @@ public class mainFrame implements CommandLineRunner {
                 Interfaces interfaces = new Interfaces();
                 interfaces.setXmlName((String) table.getValueAt(row, 0));
                 interfaces.setBussiness_desc((String) table.getValueAt(row, 1));
-                interfaces.setInconfigField((String) table.getValueAt(row, 2));
-                interfaces.setOutconfigField((String) table.getValueAt(row, 3));
-                if (table.getValueAt(row, 5) != null) {
+                interfaces.setUrl((String) table.getValueAt(row, 2));
+                interfaces.setInconfigField((String) table.getValueAt(row, 3));
+                interfaces.setOutconfigField((String) table.getValueAt(row, 4));
+                interfaces.setIdentification((String) table.getValueAt(row, 5));
+                if (table.getValueAt(row, 6) != null) {
                     //System.out.println("============" + table.getValueAt(row, 5).toString());
-                    interfaces.setId((Integer) table.getValueAt(row, 5));
+                    interfaces.setId((Integer) table.getValueAt(row, 6));
                 }
                 interfacesList.add(interfaces);
             }
@@ -592,6 +594,10 @@ public class mainFrame implements CommandLineRunner {
         logger.info("保存接口列表数据!");
         try {
             interfacesC.saveInterfaces(interfacesList);
+            //下面方法用来刷新列表（未解决）
+            /*table_1.removeAll();
+            table_1.updateUI();
+            table_1.repaint();*/
             logger.info("保存接口列表数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -608,9 +614,8 @@ public class mainFrame implements CommandLineRunner {
      * @param model
      */
     public void deleteInterface(JTable table, DefaultTableModel model) {
-        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列接口数据！");
-        interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 5));
-        logger.info("删除接口列表选定项成功！");
+        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列的id为："+table.getValueAt(table.getSelectedRow(), 6)+"接口数据！");
+        interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 6));
         model.removeRow(table.getSelectedRow());
     }
 }																		 

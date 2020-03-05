@@ -24,7 +24,7 @@ public class InterfacesServiceImpl extends BaseServiceImpl<Interfaces, Integer> 
 	@Override
 	public void replace(Interfaces interfaces) {
 		// TODO Auto-generated method stub
-		interfacesDao.replace(interfaces.getBussiness_desc(), interfaces.getXmlName(), interfaces.getInconfigField(), interfaces.getOutconfigField(), interfaces.getId());
+		interfacesDao.replace(interfaces.getBussiness_desc(), interfaces.getXmlName(), interfaces.getInconfigField(), interfaces.getOutconfigField(), interfaces.getId(),interfaces.getUrl(),interfaces.getIdentification());
 		
 	}
 
