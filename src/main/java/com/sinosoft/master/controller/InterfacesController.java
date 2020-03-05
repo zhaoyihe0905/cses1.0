@@ -11,6 +11,8 @@ import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.service.InterfacesService;
 
+import javax.swing.*;
+
 @Controller
 public class InterfacesController {
 	/** 日志*/
@@ -41,7 +43,8 @@ public class InterfacesController {
 				objects[i][2] = key.getUrl();
 				objects[i][3] = key.getInconfigField();
 				objects[i][4] = key.getOutconfigField();
-				objects[i][5] = key.getId();
+				objects[i][5] = key.getIdentification();
+				objects[i][6] = key.getId();
 				i++;
 			}
 			return objects;
@@ -75,6 +78,7 @@ public class InterfacesController {
 	public void deleteInterfaces(Integer id) {
 		try {
 			interfacesService.delete(id);
+			logger.info("接口数据删除成功！");
 		} catch (Exception e) {
 			logger.info("接口数据删除失败");
 		}
