@@ -335,9 +335,19 @@ public class mainFrame implements CommandLineRunner {
 
         JComboBox<String> comboBox_2 = new JComboBox<String>();
         comboBox_2.setBounds(133, 34, 185, 21);
-        for (Execution execution : AppCache.executions) {
+       /* for (Execution execution : AppCache.executions) {
             comboBox_2.addItem(execution.getProcess());
-        }
+        }*/
+        //定时界面重新加载
+        panel3.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent var1) {
+            	comboBox_2.removeAllItems();
+            	 for (Execution execution : AppCache.executions) {
+                     comboBox_2.addItem(execution.getProcess());
+                 }
+            }
+        });
         panel3.add(comboBox_2);
 
         JButton btnNewButton_10 = new JButton("执   行");
