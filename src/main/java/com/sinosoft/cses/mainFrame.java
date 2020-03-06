@@ -308,14 +308,13 @@ public class mainFrame implements CommandLineRunner {
         btnNewButton_8.addActionListener(Event -> this.deleteExecution(table_2, tablemodle_2));
         btnNewButton_8.setBounds(332, 33, 96, 23);
         panel2.add(btnNewButton_8);
-        scrollPane_2.setViewportView(table_2);
+
 
         JButton btnNewButton_9 = new JButton("保    存");
-        btnNewButton_9.addActionListener(Event -> this.saveexecution(table_2));
+        btnNewButton_9.addActionListener(Event -> this.saveexecution(table_2,scrollPane_2));
         btnNewButton_9.setBounds(442, 34, 96, 21);
         panel2.add(btnNewButton_9);
-
-
+        scrollPane_2.setViewportView(table_2);
 
         /*===================定时任务=============================*/
         JPanel panel3 = new JPanel();
@@ -507,7 +506,7 @@ public class mainFrame implements CommandLineRunner {
     }
 
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
-        logger.info("删除业务场景列表选定项!"+table_2.getColumnCount()+"--"+table_2.getRowCount());
+        logger.info("删除业务场景列表选定项!第"+table_2.getRowCount()+"行! id为:"+table_2.getValueAt(table_2.getSelectedRow(), 2));
         executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
         //System.out.println("删除业务场景列表选定项");
         tablemodle_2.removeRow(table_2.getSelectedRow());
@@ -516,21 +515,21 @@ public class mainFrame implements CommandLineRunner {
     /*
     * 业务列表保存
     **/
-    private void saveexecution(JTable table_2) {
+    private void saveexecution(JTable table2,JScrollPane scrollPane_2) {
         //定义参数list
         List<Execution> executionList = new ArrayList<>();
-        //int rowCount = table_2.getRowCount();
-        for (int row = 0; row < table_2.getRowCount(); row++) {
-            if (table_2.getValueAt(row, 0) != null) {
+        //int rowCount = table2.getRowCount();
+        for (int row = 0; row < table2.getRowCount(); row++) {
+            if (table2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
-                execution.setProcess((String) table_2.getValueAt(row, 0));
-                execution.setOrders((String) table_2.getValueAt(row, 1));
-                if (table_2.getValueAt(row, 2) != null) {
-                    execution.setId((Integer) table_2.getValueAt(row, 2));
+                execution.setProcess((String) table2.getValueAt(row, 0));
+                execution.setOrders((String) table2.getValueAt(row, 1));
+                if (table2.getValueAt(row, 2) != null) {
+                    execution.setId((Integer) table2.getValueAt(row, 2));
                 }
                 executionList.add(execution);
             } else {
-                logger.error("第"+row+"行，第1两列数据为空。保存失败！");
+                logger.error("第"+row+"行，第1列数据为空。保存失败！");
                 //System.out.println("新增一行的数据为空！");
                 JOptionPane.showMessageDialog(null, "第"+row+"行，第1两列数据为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
             }
@@ -538,6 +537,22 @@ public class mainFrame implements CommandLineRunner {
         //调用方法进行数据保存
         try {
             executionController.saveExecution(executionList);
+
+            //重新加载业务场景列表界面
+            tablemodle_2.getDataVector().clear();
+            Object[][] interfaceInfo2 = executionController.selectExecution(3);
+            tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", ""});
+            table_2 = new JTable(tablemodle_2);
+            TableColumnModel tcm2 = table_2.getColumnModel();
+            TableColumn tc2 = tcm2.getColumn(2);
+            tc2.setMaxWidth(0);
+            tc2.setPreferredWidth(0);
+            tc2.setMinWidth(0);
+            tc2.setWidth(0);
+            table_2.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+            table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+            scrollPane_2.setViewportView(table_2);
+
             logger.info("保存业务数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
