@@ -26,9 +26,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.sinosoft.cses.test.JobDemo;
 import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.BusinessFun;
+import com.sinosoft.cses.util.QuartzWork;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
 
@@ -720,7 +720,7 @@ public class mainFrame implements CommandLineRunner {
         			.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever())
         			.build();
         	//创建任务：被执行任务需要实现Job接口，定时任务会执行excute方法
-        	JobDetail job =JobBuilder.newJob(JobDemo.class).build();
+        	JobDetail job =JobBuilder.newJob(QuartzWork.class).build();
         	//注册触发器和任务到调度器中
         	
         	scheduler.scheduleJob(job, trigger);
