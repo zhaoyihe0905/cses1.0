@@ -380,14 +380,15 @@ public class BusinessFun {
 		return xml;
 	}
 
-	/** 对报文进行第二部处理*/
-	public String SecondXmlHandle(String xml, Interfaces interfac) {
+	/** 对报文进行第二部处理
+	 * @param map */
+	public String SecondXmlHandle(String xml, Interfaces interfac, Map<String, String> map) {
 		String[] split = interfac.getInconfigField().split(",");
 		// TODO Auto-generated method stub
 		for (String string : split) {
 			if (!"".equals(string)) {
 				if(AppCache.globalVariable.containsKey(string)) {
-					  xml = replaceVariable(xml, string, appCache.globalVariable.get(string));
+					  xml = replaceVariable(xml, string, map.get(string));
 				}
 				
 			}
@@ -395,16 +396,17 @@ public class BusinessFun {
 		return xml;
 	}
 
-	public void thirdXmlHandle(String xml, Interfaces interfac) {
+	/**
+	 * 第三步处理 把返回的报文中的某些字段赋值
+	 * @param xml
+	 * @param interfac
+	 * @param map
+	 */
+	public void thirdXmlHandle(String xml, Interfaces interfac, Map<String, String> map) {
 		String[] spilt = interfac.getOutconfigField().split(",");
-		for (String string : spilt) {
-			if (!"".equals(string)) {
-				GlobalVariable global = new GlobalVariable();
-				global.setValide_status(1);
-				global.setVariable_code(string);
-				global.setVariable_name(getTagValue(xml, string));
-				global.setRemark("");
-				globalVariableController.save(global);
+		for (String key : spilt) {
+			if (!"".equals(key)) {
+				map.put(key, getTagValue(xml, key));
 			}
 		}
 		
