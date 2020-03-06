@@ -371,25 +371,15 @@ public class mainFrame implements CommandLineRunner {
         JPanel panel4 = new JPanel();
         mainPanel.addTab("缓存页面", null, panel4, null);
         //加载缓存列表界面
-        Object[][] interfaceInfo3 = null;
+        /*Object[][] interfaceInfo3 = null;
         tablemodle_3 = new DefaultTableModel(interfaceInfo3, new String[]{"缓存", ""});
-        panel4.setLayout(null);
 
-        JButton btnNewButton_sxhc = new JButton("刷新缓存");
-
-        btnNewButton_sxhc.setBounds(235, 33, 93, 23);
-        panel4.add(btnNewButton_sxhc);
-        btnNewButton_sxhc.addActionListener(Event -> this.initAppCache());
-        table_3 = new JTable(tablemodle_3);
-
-		/*JScrollPane scrollPane_3 = new JScrollPane();
-        scrollPane_3.setBounds(42, 84, 556, 280);
-		panel4.add(scrollPane_3);*/
-
+*/
         Object[][] interfaceInfo_sys = sysConfigController.sysConfigListToObject();
         tablemodle_3 = new DefaultTableModel(interfaceInfo_sys, new String[]{
                 "参数代码", "参数值", ""
         });
+        panel4.setLayout(null);
         table_3 = new JTable(tablemodle_3);
         //隐藏最后一列id
         TableColumnModel tcm3 = table_3.getColumnModel();
@@ -400,8 +390,20 @@ public class mainFrame implements CommandLineRunner {
         tc3.setWidth(0);
         table_3.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
         table_3.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+
+
         JScrollPane scrollPane_sys = new JScrollPane();
         scrollPane_sys.setBounds(10, 70, 669, 314);
+
+        JButton btnNewButton_sxhc = new JButton("刷新缓存");
+        btnNewButton_sxhc.setBounds(235, 33, 93, 23);
+        panel4.add(btnNewButton_sxhc);
+        btnNewButton_sxhc.addActionListener(Event -> this.initAppCacheAndTable(scrollPane_sys));
+
+		/*JScrollPane scrollPane_3 = new JScrollPane();
+        scrollPane_3.setBounds(42, 84, 556, 280);
+		panel4.add(scrollPane_3);*/
+
         panel4.add(scrollPane_sys);
         scrollPane_sys.setViewportView(table_3);
 
@@ -466,6 +468,40 @@ public class mainFrame implements CommandLineRunner {
         panel6.add(btnNewButton_5);
 
         scrollPane_1.setViewportView(table_1);
+    }
+
+    private Object initAppCacheAndTable(JScrollPane scrollPane_sys) {
+        // TODO Auto-generated method stub
+        try {
+            //System.out.println("开始刷新缓存！");
+            logger.info("开始刷新缓存!");
+            appCache.run(null);
+
+            //重新加载业务场景列表界面
+            tablemodle_3.getDataVector().clear();
+            Object[][] interfaceInfo_sys = sysConfigController.sysConfigListToObject();
+            tablemodle_3 = new DefaultTableModel(interfaceInfo_sys, new String[]{
+                    "参数代码", "参数值", ""
+            });
+            table_3 = new JTable(tablemodle_3);
+            //隐藏最后一列id
+            TableColumnModel tcm3 = table_3.getColumnModel();
+            TableColumn tc3 = tcm3.getColumn(2);
+            tc3.setMaxWidth(0);
+            tc3.setPreferredWidth(0);
+            tc3.setMinWidth(0);
+            tc3.setWidth(0);
+            table_3.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+            table_3.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+            scrollPane_sys.setViewportView(table_3);
+
+            JOptionPane.showMessageDialog(null, "刷新成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+            logger.info("刷新缓存成功！");
+        } catch (Exception e) {
+            logger.info("刷新缓存异常！");
+            JOptionPane.showMessageDialog(null, "刷新缓存异常", "标题", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
 
     private Object doexecution(JTable table_2, DefaultTableModel tablemodle_2, JComboBox<String> comboBox_1, JTextArea textArea2, JTabbedPane mainPanel) {
