@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sinosoft.master.dao.UserDao;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+
 @SpringBootTest
 class CsesApplicationTests {
 

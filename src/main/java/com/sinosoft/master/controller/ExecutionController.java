@@ -15,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import com.sinosoft.cses.util.AppCache;
 import com.sinosoft.cses.util.AppConst;
 import com.sinosoft.cses.util.BusinessFun;
+import com.sinosoft.cses.util.ChineseCharacterUtil;
 import com.sinosoft.cses.util.DateUtils;
 import com.sinosoft.cses.util.SystemConfig;
 import com.sinosoft.master.entity.Execution;
 import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.response.Response;
+import com.sinosoft.master.service.CsesLogService;
 import com.sinosoft.master.service.ExecutionService;
 import com.sinosoft.master.service.InterfacesService;
 import com.sinosoft.master.service.specification.SimpleSpecificationBuilder;
@@ -42,6 +44,9 @@ public class ExecutionController {
 	
 	@Autowired
 	private BusinessFun businessFun;
+	
+	@Autowired
+	private CsesLogService csesLogService;
 	
 	/**
 	 * 返回业务流程的集合
@@ -115,9 +120,11 @@ public class ExecutionController {
 	 * @param executionList
 	 */
 	public void doExecution(Integer id, String area, JTextArea textArea2) {
-		
+		//获得当前的拼音
+		String pinyin = ChineseCharacterUtil.convertHanzi2Pinyin(area, true);
+
 		try {
-			Logger logger = LoggerFactory.getLogger("sichuan");
+			Logger logger = LoggerFactory.getLogger(pinyin);
 			//清空数据
 		
 			textArea2.setText("");
@@ -142,11 +149,13 @@ public class ExecutionController {
 				xml = businessFun.firstXmlHandle(xml, areaCode);
 				//进行第二部处理， 和全局变量进行替换
 				
+				xml = businessFun.SecondXmlHandle(xml, interfac);
+				
 				
 				//设置自动换行
 				textArea2.setLineWrap(true);
 				//根据全局变量对变量进行处理
-				textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \b\n");
+				textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \n");
 				textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \b\n");
 				logger.info("开始执行 " + interfac.getBussiness_desc() );
 				logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) );
@@ -156,11 +165,29 @@ public class ExecutionController {
 				url = interfac.getUrl().replaceAll("localhost", url).trim();
 				System.out.println("---" + url + "----");
 				logger.info("访问路劲是" + url);
-				
+				logger.info("请求报文 ：" + xml);
 				Response s = businessFun.doPost(url, xml, new StringBuffer());
+				
+				//获得返回报文
+				String resXml = s.getResXml();
+				logger.info("返回报文" + resXml);
+				
+				// 第三步处理 把返回报文中的业务字段存放到全局变量中
+				businessFun.thirdXmlHandle(resXml, interfac);
+				
+				//标识码
+				String gidentification = businessFun.getTagValue(resXml, interfac.getIdentification());
+				
+				
+				textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\b\n" );
+				textArea2.append("返回报文 " + resXml);
+				logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) );
+//				businessFun。
 				textArea2.append("接口响应时间" + s.getResponseTime() + " \b\n");
 				logger.info("接口响应时间" + s.getResponseTime() + " \b\n");
 				textArea2.append(" \b\n");
+				
+				
 				
 				
 				
@@ -173,7 +200,7 @@ public class ExecutionController {
 			//初始化缓存
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			textArea2.append("接口访问失败" + e.getMessage());
 		}
 		appCache.initExceution();
 	}

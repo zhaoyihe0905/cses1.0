@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sinosoft.master.controller.GlobalVariableController;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.entity.GlobalVariable;
@@ -44,6 +45,8 @@ public class BusinessFun {
 	
 	@Autowired
 	private GlobalVariableService globalVariableService;
+	@Autowired
+	private GlobalVariableController globalVariableController;
 	
 	@Autowired
 	private InterfacesService interfacesService;
@@ -97,7 +100,7 @@ public class BusinessFun {
 			 ******************************************************************/
 			outputStream = httpConnection.getOutputStream();
 			lineString = xml;
-			outputStream.write(xml.getBytes()); 
+			outputStream.write(xml.getBytes("GBK")); 
 			/*******************************************************************
 			 * 3、接收数据
 			 ******************************************************************/
@@ -106,6 +109,7 @@ public class BusinessFun {
 			// 请求开始时间
 			response.setStartTime(startTime);
 			//开始调用接口 
+//			inputStreamReader = new InputStreamReader(httpConnection.getInputStream());
 			inputStreamReader = new InputStreamReader(httpConnection.getInputStream(), "GBK");
 			Date stopTime = new Date();
 			strBuff.append("请求核心系统接口结束时间" + stopTime);
@@ -330,6 +334,7 @@ public class BusinessFun {
     	String xml = "<USER>123456</USER><PASSWORD></PASSWORD><LALA>sdf</LALA>";
     	String user = "<USER>";
     	String lala = (new BusinessFun()).getTagValue(xml, user);
+    	String aa = (new BusinessFun()).getALLTagValue(xml, user);
     	
     }
 	
@@ -343,15 +348,15 @@ public class BusinessFun {
 		
 		//保单归属地市的处理
 		String cityCode = areaCode.substring(0, 2) + "0100";
-		xml = replaceVariable(xml, AppConst.CITY_CODE, areaCode);
+		xml = replaceVariable(xml, AppConst.CITY_CODE, cityCode);
 		
 		//保单归属地县的处理
-		String countyCode = cityCode.substring(0, 4) + "01";
+		String countyCode = cityCode.substring(0, 4) + "05";
 		xml = replaceVariable(xml, AppConst.COUNTRY_CODE, countyCode);
 		
 		//起保日期的处理
 		
-		Date start_date = DateUtils.addDay(new Date(), -5);
+		Date start_date = DateUtils.addDay(new Date(), +5);
 		xml = replaceVariable(xml, AppConst.START_DATE, DateUtils.toString(start_date, DateUtils.YYYYMMDDHHmm));
 		
 		//终包日期的处理
@@ -374,6 +379,36 @@ public class BusinessFun {
         xml = replaceVariable(xml, AppConst.PASSWORD, appCache.getParameterStringValue(SystemConfig.PASSWORD, areaCode));
         
 		return xml;
+	}
+
+	/** 对报文进行第二部处理*/
+	public String SecondXmlHandle(String xml, Interfaces interfac) {
+		String[] split = interfac.getInconfigField().split(",");
+		// TODO Auto-generated method stub
+		for (String string : split) {
+			if (!"".equals(string)) {
+				if(AppCache.globalVariable.containsKey(string)) {
+					  xml = replaceVariable(xml, string, appCache.globalVariable.get(string));
+				}
+				
+			}
+		}
+		return xml;
+	}
+
+	public void thirdXmlHandle(String xml, Interfaces interfac) {
+		String[] spilt = interfac.getOutconfigField().split(",");
+		for (String string : spilt) {
+			if (!"".equals(string)) {
+				GlobalVariable global = new GlobalVariable();
+				global.setValide_status(1);
+				global.setVariable_code(string);
+				global.setVariable_name(getTagValue(xml, string));
+				global.setRemark("");
+				globalVariableController.save(global);
+			}
+		}
+		
 	}
 	
 	

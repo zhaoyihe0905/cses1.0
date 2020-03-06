@@ -83,6 +83,27 @@ public class GlobalVariableController {
 	
 	
 	/**
+	 * 此方法保存单个全局变量
+	 * @param table
+	 * @param list
+	 * @return
+	 * @author xujian
+	 * @Data 2020-02-06
+	 */
+	public void save(GlobalVariable global) {
+		try {
+			globalVariableService.save(global);
+		} catch (Exception e) {
+			logger.info("全局变量保存失败");
+		}
+		//刷新缓存
+		appCache.initGlobalVariable();
+		
+//		interfacesController.interfacesListToObject(4);
+		
+	}
+	
+	/**
 	 * 删除全局变量数据
 	 * @param key
 	 * @author xujian
