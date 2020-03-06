@@ -519,7 +519,7 @@ public class mainFrame implements CommandLineRunner {
             mainPanel.setSelectedIndex(4);
 
             String area = (String) comboBox_1.getSelectedItem();
-            executionController.doExecution(id, area, textArea2);
+            executionController.doExecution(id, area, textArea2, 0);
         } catch (Exception e) {
 
         }
