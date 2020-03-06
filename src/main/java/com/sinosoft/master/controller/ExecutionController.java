@@ -124,20 +124,13 @@ public class ExecutionController {
 	 * @param identification 定时标识： 0 非定时 1 定时
 	 * @param map            全局变量map
 	 */
-	public void doExecution(Integer id, String area, JTextArea textArea2, Integer identification) {
+	public void doExecution(Integer id, String area, JTextArea textArea2, Integer identification, Map<String, String> map) {
 
 		
 		//判断是不是定时
-		if (identification == 0) {
 			// 获得当前的拼音
 			try {
-				//获得全局变量的map,区分是定时还是非定时的全局变量
-				Map<String, String> map = new HashMap<>();
-				for (String key : AppCache.globalVariable.keySet()) {
-					if (!key.endsWith("*")) {
-						map.put(key, AppCache.globalVariable.get(key));
-					}
-				}
+				
 				
 				String pinyin = ChineseCharacterUtil.convertHanzi2Pinyin(area, true);
 				Logger logger = LoggerFactory.getLogger(pinyin);
@@ -208,9 +201,6 @@ public class ExecutionController {
 			}
 
 			//假设是定时
-		}else {
-			
-		}
 	}
 
 }

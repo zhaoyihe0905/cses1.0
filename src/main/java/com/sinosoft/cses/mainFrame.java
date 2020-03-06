@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -504,6 +505,15 @@ public class mainFrame implements CommandLineRunner {
         return null;
     }
 
+    /**
+     *    执行业务场景
+     * @param table_2
+     * @param tablemodle_2
+     * @param comboBox_1
+     * @param textArea2
+     * @param mainPanel
+     * @return
+     */
     private Object doexecution(JTable table_2, DefaultTableModel tablemodle_2, JComboBox<String> comboBox_1, JTextArea textArea2, JTabbedPane mainPanel) {
 
         try {
@@ -519,7 +529,15 @@ public class mainFrame implements CommandLineRunner {
             mainPanel.setSelectedIndex(4);
 
             String area = (String) comboBox_1.getSelectedItem();
-            executionController.doExecution(id, area, textArea2, 0);
+            
+          //获得全局变量的map,区分是定时还是非定时的全局变量
+			Map<String, String> map = new HashMap<>();
+			for (String key : AppCache.globalVariable.keySet()) {
+				if (!key.endsWith("*")) {
+					map.put(key, AppCache.globalVariable.get(key));
+				}
+			}
+            executionController.doExecution(id, area, textArea2, 0, map);
         } catch (Exception e) {
 
         }
