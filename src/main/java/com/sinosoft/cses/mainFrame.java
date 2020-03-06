@@ -37,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +149,7 @@ public class mainFrame implements CommandLineRunner {
 //    private JTextField textField;
 
     private JTextArea textArea;
-
+    private JTextArea textArea_1;
     /**
      * Launch the application.
      *
@@ -191,7 +192,7 @@ public class mainFrame implements CommandLineRunner {
      * @wbp.parser.entryPoint
      */
     public mainFrame() {
-//        initialize();
+      // initialize();
     }
 
     /**
@@ -325,7 +326,6 @@ public class mainFrame implements CommandLineRunner {
         panel3.setLayout(null);
 
         JScrollPane scrollPane_3 = new JScrollPane();
-        //scrollPane_2.setBounds(42, 84, 556, 280);
         scrollPane_3.setBounds(14, 83, 664, 298);
         panel3.add(scrollPane_3);
 
@@ -351,20 +351,22 @@ public class mainFrame implements CommandLineRunner {
         panel3.add(comboBox_2);
 
         JButton btnNewButton_10 = new JButton("执   行");
-        //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
-        btnNewButton_10.addActionListener(Event -> this.StartQuartz());
         btnNewButton_10.setBounds(552, 33, 96, 23);
+        //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
+        btnNewButton_10.addActionListener(Event -> this.StartQuartz(textArea_1,comboBox_2.getSelectedItem().toString()));
         panel3.add(btnNewButton_10);
 
         JButton btnNewButton_11 = new JButton("保    存");
-        //btnNewButton_11.addActionListener(Event -> this.deleteExecution(table_2, tablemodle_2));
         btnNewButton_11.setBounds(332, 33, 96, 23);
         panel3.add(btnNewButton_11);
         scrollPane_3.setViewportView(table_4);
+        
+        textArea_1 = new JTextArea();
+        scrollPane_3.setViewportView(textArea_1);
 
         JButton btnNewButton_12 = new JButton("停    止");
-        btnNewButton_12.addActionListener(Event -> this.EndQuartz());
         btnNewButton_12.setBounds(442, 34, 96, 21);
+        btnNewButton_12.addActionListener(Event -> this.EndQuartz(textArea_1));
         panel3.add(btnNewButton_12);
 
 
@@ -729,16 +731,27 @@ public class mainFrame implements CommandLineRunner {
      * 启动定时任务
      * @throws Exception
      */
-    public void StartQuartz(){
+    public void StartQuartz(JTextArea textArea_1,String selected){
     	try {
     		//实例化调度器
         	scheduler =StdSchedulerFactory.getDefaultScheduler();
         	//创建触发器
         	Trigger trigger = TriggerBuilder.newTrigger()
-        			.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever())
+        			.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(10000).repeatForever())
         			.build();
         	//创建任务：被执行任务需要实现Job接口，定时任务会执行excute方法
+        	//获取业务场景id
+        	Integer id = null;
+        	List<Execution> executions =AppCache.executions;
+        	for(int i=0;i<executions.size();i++){
+        		Execution execution = executions.get(i);
+        		if(execution.getProcess().equals(selected)){
+        			id = execution.getId();
+        		}
+        	}
         	JobDetail job =JobBuilder.newJob(QuartzWork.class).build();
+        	job.getJobDataMap().put("id", id);
+        	job.getJobDataMap().put("textArea", textArea_1);
         	//注册触发器和任务到调度器中
         	
         	scheduler.scheduleJob(job, trigger);
@@ -754,9 +767,12 @@ public class mainFrame implements CommandLineRunner {
     /**
      * 关闭定时任务
      */
-    public void EndQuartz(){
+    public void EndQuartz(JTextArea textArea_1){
     	try {
-    		System.out.println("关闭定时任务");
+    		textArea_1.append(new Date()+": 定时任务已关闭");
+    		textArea_1.append("\n");
+    		textArea_1.append("*************************************");
+    		textArea_1.append("\n");
     		if(scheduler!=null&&scheduler.isStarted()){
         		scheduler.shutdown();
         		JOptionPane.showMessageDialog(null, "定时任务已停止", "标题", JOptionPane.INFORMATION_MESSAGE);

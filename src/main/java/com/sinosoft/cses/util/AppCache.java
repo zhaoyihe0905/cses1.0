@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JTextArea;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,6 @@ public class AppCache implements CommandLineRunner{
 	private final static String INSURE_AREA = "InsurerArea";
 	/** 全局变量*/
 	private final static String GLOBAL_VAIBALE = "GlobalVariable";
-	
 //	private static H
 	/** 系统配置项 */
 	public  static Hashtable<String, String> hashSysConfig = new Hashtable<String, String>();

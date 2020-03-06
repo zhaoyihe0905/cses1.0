@@ -197,7 +197,7 @@ public class ExecutionController {
 				// 初始化缓存
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				textArea2.append("接口访问失败" + e.getMessage());
+				textArea2.append("接口访问失败" + e.getMessage()+"\n");
 			}
 
 			//假设是定时
