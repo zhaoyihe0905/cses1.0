@@ -26,8 +26,8 @@ public class CsesApplication {
     	ConfigurableApplicationContext context = new SpringApplicationBuilder(
     			CsesApplication.class).headless(false).run(args);
 
-    	LoginView appFrame = context.getBean(LoginView.class);
-    	appFrame.setVisible(true);
+//    	LoginView appFrame = context.getBean(LoginView.class);
+//    	appFrame.setVisible(true);
 //		appFrame.setVisible(true);
     }
 
