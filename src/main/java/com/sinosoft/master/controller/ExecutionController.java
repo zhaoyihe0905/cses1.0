@@ -146,6 +146,8 @@ public class ExecutionController {
 				textArea2.append("当前业务场景是" + execution.getName() + " \n");
 				textArea2.append("当前地区是" + area + ":" + areaCode + " \n");
 				textArea2.append("当前业务场景的uuid是" + uuid + " \n");
+				textArea2.append(" \n");
+				textArea2.append(" \n");
 				
 				logger.info("当前业务场景是" + execution.getName());
 				logger.info("当前地区是" + area + ":" + areaCode );
@@ -198,7 +200,7 @@ public class ExecutionController {
 					String judgeStatus = businessFun.getTagValue(resXml, interfac.getJudgecode());
 
 					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
-					textArea2.append("接口响应时间" + res.getResponseTime() + " \n");
+					textArea2.append("接口响应时间" + res.getResponseTime() + "毫秒  \n");
 					textArea2.append("返回报文 " + resXml +" \n");
 					textArea2.append("接口直接结束时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 					
