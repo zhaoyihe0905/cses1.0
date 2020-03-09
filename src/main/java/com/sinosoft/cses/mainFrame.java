@@ -640,12 +640,19 @@ public class mainFrame implements CommandLineRunner {
      */
     public void saveAll(JTable table) {
         //获取table值，存储为map<String，String>
-        HashMap<String, String> infoMap = new HashMap<>();
-        for (int row = 0; row < table.getRowCount(); row++) {
-            if (table.getValueAt(row, 0) != null && table.getValueAt(row, 1) != null) {
-                infoMap.put((String) table.getValueAt(row, 0), (String) table.getValueAt(row, 1));
-            }
-        }
+        HashMap<String, String> infoMap  = new HashMap<>();
+		try {
+			for (int row = 0; row < table.getRowCount(); row++) {
+			    if (table.getValueAt(row, 0) != null && table.getValueAt(row, 1) != null) {
+			        infoMap.put((String) table.getValueAt(row, 0), (String) table.getValueAt(row, 1));
+			    }
+			}
+			JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "保存业务数据异常" + e.getMessage(), "标题", JOptionPane.ERROR_MESSAGE);
+		}
         //调用方法进行数据保存
 //		businessFun.saveGlobalVariable(infoMap);
         globalVariableController.saveGlobalVariable(infoMap);
@@ -660,8 +667,15 @@ public class mainFrame implements CommandLineRunner {
     public void deleteSelected(JTable table, DefaultTableModel model) {
         //删除数据库中数据
 //		businessFun.deleteGlobalVariable((String)table.getValueAt(table.getSelectedRow(), 0));
-        globalVariableController.deleteGlobalVariable((String) table.getValueAt(table.getSelectedRow(), 0));
-        model.removeRow(table.getSelectedRow());
+        try {
+			globalVariableController.deleteGlobalVariable((String) table.getValueAt(table.getSelectedRow(), 0));
+			model.removeRow(table.getSelectedRow());
+			JOptionPane.showMessageDialog(null, "删除成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "删除失败" + e.getMessage(), "标题", JOptionPane.INFORMATION_MESSAGE);
+		}
     }
 
     /**
@@ -727,9 +741,16 @@ public class mainFrame implements CommandLineRunner {
      * @param model
      */
     public void deleteInterface(JTable table, DefaultTableModel model) {
-        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列的id为："+table.getValueAt(table.getSelectedRow(), 7)+"接口数据！");
-        interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 7));
-        model.removeRow(table.getSelectedRow());
+        try {
+			logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列的id为："+table.getValueAt(table.getSelectedRow(), 7)+"接口数据！");
+			interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 7));
+			model.removeRow(table.getSelectedRow());
+			JOptionPane.showMessageDialog(null, "删除成功", "标题", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "删除失败" + e.getMessage(), "标题", JOptionPane.INFORMATION_MESSAGE);
+		}
     }
     /**
      * 启动定时任务
@@ -767,7 +788,7 @@ public class mainFrame implements CommandLineRunner {
             	scheduler.start();
         	}
 		} catch (Exception e) {
-			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "定时启动失败" + e.getMessage(), "标题", JOptionPane.INFORMATION_MESSAGE);
 		}
     }
     /**
