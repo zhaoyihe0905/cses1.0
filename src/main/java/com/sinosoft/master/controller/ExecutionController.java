@@ -197,7 +197,8 @@ public class ExecutionController {
 					logger.info("该接口标识码:" + interfac.getIdentification() + ":" + gidentification );
 					logger.info("执行时间结束时间时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 					logger.info("接口响应时间" + res.getResponseTime() + " 毫秒 \n");
-					textArea2.append(" \b\n");
+					textArea2.append(" \n");
+					textArea2.append(" \n");
 					
 					
 					

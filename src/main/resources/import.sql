@@ -39,6 +39,7 @@ insert into tb_sysconfig (area_code, company_code, flag, parametercode, paramete
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('230000', 'ALL', '', 'url', '黑龙江的访问路劲', '00', '123.57.216.177:8080', '', '1');
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('630000', 'ALL', '', 'url', '青海的访问路劲', '00', '123.57.216.177:8080', '', '1');
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('410000', 'ALL', '', 'url', '河南的访问路劲', '00', '123.57.216.177:8080', '', '1');
+insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('ALL', 'ALL', '', 'quartzIntervalTime', '定时访问间隔', '00', '1', '', '1');
 
 
 --34个省市的地区代码

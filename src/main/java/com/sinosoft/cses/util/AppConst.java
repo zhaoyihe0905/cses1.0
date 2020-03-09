@@ -13,12 +13,10 @@ public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
 	
 }
 	
-	/**
-	 * 商业险核心接口名
-	 * @author xujian
-	 *
-	 */
+	
 	interface CARequestTypeConst{
+		
+	public static final String ALL = "ALL";
 	
 	/** 投保查询：V0101 */
 	public static final String INSURE_QUERY_TYPE_CA = "V0101";

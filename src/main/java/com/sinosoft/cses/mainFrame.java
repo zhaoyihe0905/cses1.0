@@ -27,8 +27,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.cses.util.AppCache;
+import com.sinosoft.cses.util.AppConst;
 import com.sinosoft.cses.util.BusinessFun;
 import com.sinosoft.cses.util.QuartzWork;
+import com.sinosoft.cses.util.SystemConfig;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
 
@@ -737,7 +739,9 @@ public class mainFrame implements CommandLineRunner {
         	scheduler =StdSchedulerFactory.getDefaultScheduler();
         	//创建触发器
         	Trigger trigger = TriggerBuilder.newTrigger()
-        			.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(10000).repeatForever())
+        			.withSchedule(SimpleScheduleBuilder.simpleSchedule()
+        					.withIntervalInMinutes(Integer.parseInt(appCache.getParameterStringValue(SystemConfig.QUARTZINTERVALTIME, AppConst.ALL).trim()))
+        					.repeatForever())
         			.build();
         	//创建任务：被执行任务需要实现Job接口，定时任务会执行excute方法
         	//获取业务场景id

@@ -14,8 +14,9 @@ public class SystemConfig {
 	public final static String USER = "user";
 	/** 密码 */
 	public final static String PASSWORD = "password";
-	
-	 
+	/**定时间隔 */
+	public final static String QUARTZINTERVALTIME = "quartzIntervalTime";
+
 	
 	
 	
