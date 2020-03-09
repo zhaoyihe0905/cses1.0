@@ -204,12 +204,12 @@ public class mainFrame implements CommandLineRunner {
      */
     private void initialize() {
         frame = new JFrame("客服服务体验系统");
-        frame.setBounds(100, 100, 827, 446);
+        frame.setBounds(100, 100, 1134, 581);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
         JTabbedPane mainPanel = new JTabbedPane(JTabbedPane.LEFT);
-        mainPanel.setBounds(0, 0, 809, 399);
+        mainPanel.setBounds(0, 0, 1102, 521);
         frame.getContentPane().add(mainPanel);
 
         JPanel panel1 = new JPanel();
@@ -237,7 +237,7 @@ public class mainFrame implements CommandLineRunner {
         table.setBorder(UIManager.getBorder("Table.scrollPaneBorder"));
         table.setBounds(14, 55, 655, 326);
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(14, 83, 664, 298);
+        scrollPane.setBounds(14, 66, 948, 437);
         scrollPane.setViewportView(table);
         panel1.add(scrollPane);
         JButton btnNewButton = new JButton("新增变量");
@@ -248,15 +248,15 @@ public class mainFrame implements CommandLineRunner {
                 //list.add(tablemodle.getRowCount() -1);
             }
         });
-        btnNewButton.setBounds(301, 13, 113, 27);
+        btnNewButton.setBounds(476, 26, 113, 27);
         panel1.add(btnNewButton);
         JButton btnNewButton_1 = new JButton("保存");
         btnNewButton_1.addActionListener(Event -> this.saveAll(table));
-        btnNewButton_1.setBounds(551, 13, 113, 27);
+        btnNewButton_1.setBounds(771, 26, 113, 27);
         panel1.add(btnNewButton_1);
         JButton btnNewButton_2 = new JButton("删除");
         btnNewButton_2.addActionListener(Event -> this.deleteSelected(table, tablemodle));
-        btnNewButton_2.setBounds(428, 13, 113, 27);
+        btnNewButton_2.setBounds(616, 26, 113, 27);
         panel1.add(btnNewButton_2);
 
 		/*----------------业务场景模块-----------------*/
@@ -269,11 +269,11 @@ public class mainFrame implements CommandLineRunner {
         panel2.setLayout(null);
 
         JLabel lblNewLabel_1 = new JLabel("地区:");
-        lblNewLabel_1.setBounds(54, 37, 54, 15);
+        lblNewLabel_1.setBounds(153, 35, 50, 18);
         panel2.add(lblNewLabel_1);
 
         JComboBox<String> comboBox_1 = new JComboBox<String>();
-        comboBox_1.setBounds(102, 34, 106, 21);
+        comboBox_1.setBounds(217, 34, 106, 21);
         for (String areaCode : AppCache.areaEng.keySet()) {
 //			comboBox_1.addItem("--请选择--");
             comboBox_1.addItem(areaCode);
@@ -286,7 +286,7 @@ public class mainFrame implements CommandLineRunner {
                 tablemodle_2.addRow(new Vector<>());
             }
         });
-        btnNewButton_6.setBounds(222, 33, 96, 23);
+        btnNewButton_6.setBounds(383, 33, 96, 23);
         panel2.add(btnNewButton_6);
         table_2 = new JTable(tablemodle_2);
         TableColumnModel tcm2 = table_2.getColumnModel();
@@ -300,23 +300,23 @@ public class mainFrame implements CommandLineRunner {
 
         JScrollPane scrollPane_2 = new JScrollPane();
         //scrollPane_2.setBounds(42, 84, 556, 280);
-        scrollPane_2.setBounds(14, 83, 664, 298);
+        scrollPane_2.setBounds(14, 83, 948, 420);
         panel2.add(scrollPane_2);
 
         JButton btnNewButton_7 = new JButton("执   行");
         btnNewButton_7.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1, textArea, mainPanel));
-        btnNewButton_7.setBounds(552, 33, 96, 23);
+        btnNewButton_7.setBounds(805, 33, 96, 23);
         panel2.add(btnNewButton_7);
 
         JButton btnNewButton_8 = new JButton("删    除");
         btnNewButton_8.addActionListener(Event -> this.deleteExecution(table_2, tablemodle_2));
-        btnNewButton_8.setBounds(332, 33, 96, 23);
+        btnNewButton_8.setBounds(526, 33, 96, 23);
         panel2.add(btnNewButton_8);
 
 
         JButton btnNewButton_9 = new JButton("保    存");
         btnNewButton_9.addActionListener(Event -> this.saveexecution(table_2,scrollPane_2));
-        btnNewButton_9.setBounds(442, 34, 96, 21);
+        btnNewButton_9.setBounds(668, 34, 96, 21);
         panel2.add(btnNewButton_9);
         scrollPane_2.setViewportView(table_2);
 
@@ -328,15 +328,15 @@ public class mainFrame implements CommandLineRunner {
         panel3.setLayout(null);
 
         JScrollPane scrollPane_3 = new JScrollPane();
-        scrollPane_3.setBounds(14, 83, 664, 298);
+        scrollPane_3.setBounds(14, 83, 948, 420);
         panel3.add(scrollPane_3);
 
         JLabel lblNewLabel_2 = new JLabel("业务场景:");
-        lblNewLabel_2.setBounds(54, 37, 74, 15);
+        lblNewLabel_2.setBounds(165, 35, 74, 18);
         panel3.add(lblNewLabel_2);
 
         JComboBox<String> comboBox_2 = new JComboBox<String>();
-        comboBox_2.setBounds(133, 34, 185, 21);
+        comboBox_2.setBounds(253, 34, 185, 21);
        /* for (Execution execution : AppCache.executions) {
             comboBox_2.addItem(execution.getName());
         }*/
@@ -353,13 +353,13 @@ public class mainFrame implements CommandLineRunner {
         panel3.add(comboBox_2);
 
         JButton btnNewButton_10 = new JButton("执   行");
-        btnNewButton_10.setBounds(552, 33, 96, 23);
+        btnNewButton_10.setBounds(805, 33, 96, 23);
         //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
         btnNewButton_10.addActionListener(Event -> this.StartQuartz(textArea_1,comboBox_2.getSelectedItem().toString()));
         panel3.add(btnNewButton_10);
 
         JButton btnNewButton_11 = new JButton("保    存");
-        btnNewButton_11.setBounds(332, 33, 96, 23);
+        btnNewButton_11.setBounds(535, 33, 96, 23);
         panel3.add(btnNewButton_11);
         scrollPane_3.setViewportView(table_4);
         
@@ -367,7 +367,7 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_3.setViewportView(textArea_1);
 
         JButton btnNewButton_12 = new JButton("停    止");
-        btnNewButton_12.setBounds(442, 34, 96, 21);
+        btnNewButton_12.setBounds(677, 34, 96, 21);
         btnNewButton_12.addActionListener(Event -> this.EndQuartz(textArea_1));
         panel3.add(btnNewButton_12);
 
@@ -398,10 +398,10 @@ public class mainFrame implements CommandLineRunner {
 
 
         JScrollPane scrollPane_sys = new JScrollPane();
-        scrollPane_sys.setBounds(10, 70, 669, 314);
+        scrollPane_sys.setBounds(10, 49, 952, 454);
 
         JButton btnNewButton_sxhc = new JButton("刷新缓存");
-        btnNewButton_sxhc.setBounds(235, 33, 93, 23);
+        btnNewButton_sxhc.setBounds(421, 13, 93, 23);
         panel4.add(btnNewButton_sxhc);
         btnNewButton_sxhc.addActionListener(Event -> this.initAppCacheAndTable(scrollPane_sys));
 
@@ -421,7 +421,7 @@ public class mainFrame implements CommandLineRunner {
         textArea = new JTextArea();
         textArea.setBounds(0, 0, 683, 394);
         JScrollPane scrollPane_4 = new JScrollPane(textArea);
-        scrollPane_4.setBounds(0, 0, 683, 394);
+        scrollPane_4.setBounds(0, 0, 975, 519);
         panel5.add(scrollPane_4);
 //        textArea.setColumns(50);
         //此代码影响接口页面显示
@@ -457,21 +457,21 @@ public class mainFrame implements CommandLineRunner {
                 tablemodle_1.addRow(new Vector<>());
             }
         });
-        btnNewButton_3.setBounds(380, 23, 93, 23);
+        btnNewButton_3.setBounds(592, 23, 93, 23);
         panel6.add(btnNewButton_3);
 
         JButton btnNewButton_4 = new JButton("删除");
         btnNewButton_4.addActionListener(Event -> this.deleteInterface(table_1, tablemodle_1));
-        btnNewButton_4.setBounds(483, 23, 93, 23);
+        btnNewButton_4.setBounds(709, 23, 93, 23);
         panel6.add(btnNewButton_4);
 
         JScrollPane scrollPane_1 = new JScrollPane();
-        scrollPane_1.setBounds(10, 70, 669, 314);
+        scrollPane_1.setBounds(10, 70, 939, 433);
         panel6.add(scrollPane_1);
 
         JButton btnNewButton_5 = new JButton("保存");
         btnNewButton_5.addActionListener(Event -> this.saveInterface(table_1,scrollPane_1));
-        btnNewButton_5.setBounds(586, 23, 93, 23);
+        btnNewButton_5.setBounds(831, 23, 93, 23);
         panel6.add(btnNewButton_5);
 
         scrollPane_1.setViewportView(table_1);
