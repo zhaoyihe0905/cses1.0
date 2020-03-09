@@ -226,7 +226,7 @@ public class ExecutionController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				textArea2.append("接口访问失败" + e.getMessage()+"\n");
+				textArea2.append("接口访问失败" + e.getMessage().toString()+"\n");
 				logger.info("接口访问失败:" + e.getMessage());
 			}
 

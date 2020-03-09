@@ -25,7 +25,7 @@ public class QuartzThread implements Runnable{
 		for(Map.Entry<String, String> a:map.entrySet()){
 			if(a.getKey().equalsIgnoreCase("<USER>")){
 				for(Map.Entry<String, String> b:mapArea.entrySet()){
-					if(b.getKey().contains(a.getValue())){
+					if(b.getKey().contains(a.getValue().substring(4,a.getValue().length()))){
 						area =b.getValue();
 						break;
 					}

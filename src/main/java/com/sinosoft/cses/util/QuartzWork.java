@@ -50,7 +50,7 @@ public class QuartzWork implements Job{
 				//单个线程使用的map，对于业务场景执行方法，等同于非定时情况下从全局变量获取的map
 				Map<String,String> mapSingle = new HashMap<>();
 				for(Entry<String, String[]> arr:mapArray.entrySet()){
-					mapSingle.put(arr.getKey(), arr.getValue()[i].substring(4,  arr.getValue()[i].length()-1));
+					mapSingle.put(arr.getKey(), arr.getValue()[i]);
 				}
 				QuartzThread thread= new QuartzThread();
 				thread.setMap(mapSingle);
