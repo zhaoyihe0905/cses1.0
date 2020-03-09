@@ -4,8 +4,8 @@ insert into tb_sys_users (user_code, area_code, username, password, company_code
 
 
 
---insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (1, '420000', 'ALL', '', 'IaciUrl', 'http://172.20.223.130:8080/sinoiaci/commserver', '00', 'http://172.20.223.130:8080/sinoiaci/commserver', '', '1');
---insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (2, '420000', 'ALL', '', 'IacaUrl', 'http://172.20.223.130:8080/sinoiaca/commserver', '00', 'http://172.20.223.130:8080/sinoiaci/commserver', '', '1');
+insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (1, '420000', 'ALL', '', 'IaciUrl', 'http://172.20.223.130:8080/sinoiaci/commserver', '00', 'http://172.20.223.130:8080/sinoiaci/commserver', '', '1');
+insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (2, '420000', 'ALL', '', 'IacaUrl', 'http://172.20.223.130:8080/sinoiaca/commserver', '00', 'http://172.20.223.130:8080/sinoiaci/commserver', '', '1');
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (null, '370000', 'ALL', '', 'url', '山东的访问路劲', '00', '123.57.216.177', '', '1'); 
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (null, '370000', 'ALL', '', 'user', '山东的用户名', '00', 'PICC5100', '', '1'); 
 insert into tb_sysconfig (id, area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values (null, '370000', 'ALL', '', 'password', '山东的密码', '00', '123456', '', '1'); 
@@ -204,24 +204,25 @@ insert into tb_variable (variable_code, remark, valide_status, variable_name) va
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<PASSWORD>', '', 1, '123456');
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<START_DATE>', '', 1, '202003131011');
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<STOP_DATE>', '', 1, '202103131011');
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<END_DATE>', '', 1, '202103131011');
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<USER>', '', 1, 'PICC5100');
 
 
 
 
---insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\XML\insurequery.xml');
---insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('02', '投保预确认', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\insureconfirm.xml');
---insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('03', '投保查询校验', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\yuquef.xml');
---insert into tb_interfaces (bussiness_type, bussiness_desc, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('04', '投保注销', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\zhuxiao.xml');
+--insert into tb_interfaces (bussiness_type, Name, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('01', '投保查询', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\XML\insurequery.xml');
+--insert into tb_interfaces (bussiness_type, Name, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('02', '投保预确认', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\insureconfirm.xml');
+--insert into tb_interfaces (bussiness_type, Name, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('03', '投保查询校验', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\yuquef.xml');
+--insert into tb_interfaces (bussiness_type, Name, inconfig_field, outconfig_field, remark, request_type, valid_status, xml_name) values ('04', '投保注销', '<user>', '<user>', '', '0', '1', 'D:\feiq\AutoRecv Files\许健(1CB72C117CC2)\交强险V6.2.0测试工具sc\zhuxiao.xml');
 
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (1, '投保查询', '<OWNER_NAME>,<CAR_MARK>,<PASSWORD>,<USER>,<CITY_CODE>,<COUNTY_CODE>,<START_DATE>,<END_DATE>,<BILL_DATE>', '<QUERY_SEQUENCE_NO>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insurequery.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (2, '投保预确认', '<QUERY_SEQUENCE_NO>,<OWNER_NAME>,<CAR_MARK>,<START_DATE>,<END_DATE>,<BILL_DATE>,<CITY_CODE>,<COUNTY_CODE>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insureconfirm.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (3, '投保查询校验', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\carquery.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
-insert into tb_interfaces (id, bussiness_desc, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (4, '投保注销', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\endorquery.xml', 'http://localhost:8080/sinoiaci/commserver', '4');
+insert into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (1, '投保查询', '<OWNER_NAME>,<CAR_MARK>,<PASSWORD>,<USER>,<CITY_CODE>,<COUNTY_CODE>,<START_DATE>,<END_DATE>,<BILL_DATE>', '<QUERY_SEQUENCE_NO>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insurequery.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
+insert into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (2, '投保预确认', '<QUERY_SEQUENCE_NO>,<OWNER_NAME>,<CAR_MARK>,<START_DATE>,<END_DATE>,<BILL_DATE>,<CITY_CODE>,<COUNTY_CODE>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\insureconfirm.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
+insert into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (3, '投保查询校验', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\carquery.xml', 'http://localhost:8080/sinoiaci/commserver', '<QUERY_SEQUENCE_NO>');
+insert into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name, url,identification) values (4, '投保注销', '<user>', '<user>', '', '1', 'C:\\Users\\xj143\\Desktop\\sinoiacitest\\XML\\endorquery.xml', 'http://localhost:8080/sinoiaci/commserver', '4');
 
-insert into tb_execution (id, orders, process, remark, valid_status) values (1, '投保查询,投保预确认', '交强险投保查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (2, '投保查询,投保预确认,投保查询校验', '商业险投保查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (3, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
-insert into tb_execution (id, orders, process, remark, valid_status) values (4, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
+insert into tb_execution (id, orders, name, remark, valid_status) values (1, '投保查询,投保预确认', '交强险投保查询', '0', '1');
+insert into tb_execution (id, orders, name, remark, valid_status) values (2, '投保查询,投保预确认,投保查询校验', '商业险投保查询', '0', '1');
+insert into tb_execution (id, orders, name, remark, valid_status) values (3, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
+insert into tb_execution (id, orders, name, remark, valid_status) values (4, '投保查询,投保预确认,投保查询校验', '交强险批改查询', '0', '1');
 
 

@@ -34,8 +34,8 @@ public class Execution extends BaseEntity{
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	/** 业务流程 */
-	private String process;
+	/** 业务流程名字 */
+	private String name;
 	
 //	/** 接口标识*/
 //	private String interfaces;

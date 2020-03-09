@@ -63,7 +63,7 @@ public class ExecutionController {
 			String[] objects = new String[list.size() - 1];
 			int i = 0;
 			for (Execution key : list) {
-				objects[i] = key.getProcess();
+				objects[i] = key.getName();
 				i++;
 			}
 			return objects;
@@ -97,7 +97,7 @@ public class ExecutionController {
 			Object[][] objects = new Object[interfaces.size()][column];
 			int i = 0;
 			for (Execution key : interfaces) {
-				objects[i][0] = key.getProcess();
+				objects[i][0] = key.getName();
 				objects[i][1] = key.getOrders();
 				objects[i][2] = key.getId();
 				i++;
@@ -148,7 +148,7 @@ public class ExecutionController {
 					// 根据业务id查询接口
 
 					SimpleSpecificationBuilder<Interfaces> builder = new SimpleSpecificationBuilder<Interfaces>();
-					builder.add("bussiness_desc", Operator.eq.name(), string);
+					builder.add("name", Operator.eq.name(), string);
 					List<Interfaces> page = intefacerService.findAll(builder.generateSpecification());
 
 					Interfaces interfac = page.get(0);
@@ -164,9 +164,9 @@ public class ExecutionController {
 					// 设置自动换行
 					textArea2.setLineWrap(true);
 					// 根据全局变量对变量进行处理
-					textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \n");
+					textArea2.append("开始执行 " + interfac.getName() + "    \n");
 					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
-					logger.info("开始执行 " + interfac.getBussiness_desc());
+					logger.info("开始执行 " + interfac.getName());
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 
 					// 系统访问路劲的处理
@@ -206,12 +206,12 @@ public class ExecutionController {
 					csesLog.setResponseTime(res.getResponseTime());
 					csesLog.setReqEndTime(res.getStopTime());
 					csesLog.setReqStartTime(res.getStartTime());
-					csesLog.setReqServiceName(interfac.getBussiness_desc());
+					csesLog.setReqServiceName(interfac.getName());
 					csesLog.setResInfo(res.getResMessage());
 					csesLog.setResult(res.getResult());
 					csesLog.setIdentificationType(interfac.getIdentification());
 					csesLog.setExecuteUUID(uuid);
-					csesLog.setExecuteName(execution.getProcess());
+					csesLog.setExecuteName(execution.getName());
 					csesLog.setAreaCode(areaCode);
 					csesLogService.save(csesLog);
 					

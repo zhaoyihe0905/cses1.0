@@ -38,7 +38,7 @@ public class Interfaces extends BaseEntity{
 //	private String xmlName;
 //	/** 接口描述*/
 //	@Column(length = 50)
-//	private String bussiness_desc;
+//	private String Name;
 //	/** 备注*/
 //	private String remark;
 	
@@ -63,7 +63,7 @@ public class Interfaces extends BaseEntity{
 	private String xmlName;
 	
 	/** 接口描述*/
-	private String bussiness_desc;
+	private String name;
 	
 	/** 备注*/
 	private String remark;

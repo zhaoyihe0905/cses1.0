@@ -336,7 +336,7 @@ public class mainFrame implements CommandLineRunner {
         JComboBox<String> comboBox_2 = new JComboBox<String>();
         comboBox_2.setBounds(133, 34, 185, 21);
        /* for (Execution execution : AppCache.executions) {
-            comboBox_2.addItem(execution.getProcess());
+            comboBox_2.addItem(execution.getName());
         }*/
         //定时界面重新加载
         panel3.addComponentListener(new ComponentAdapter() {
@@ -344,7 +344,7 @@ public class mainFrame implements CommandLineRunner {
             public void componentShown(ComponentEvent var1) {
             	comboBox_2.removeAllItems();
             	 for (Execution execution : AppCache.executions) {
-                     comboBox_2.addItem(execution.getProcess());
+                     comboBox_2.addItem(execution.getName());
                  }
             }
         });
@@ -578,7 +578,7 @@ public class mainFrame implements CommandLineRunner {
         for (int row = 0; row < table2.getRowCount(); row++) {
             if (table2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
-                execution.setProcess((String) table2.getValueAt(row, 0));
+                execution.setName((String) table2.getValueAt(row, 0));
                 execution.setOrders((String) table2.getValueAt(row, 1));
                 if (table2.getValueAt(row, 2) != null) {
                     execution.setId((Integer) table2.getValueAt(row, 2));
@@ -672,7 +672,7 @@ public class mainFrame implements CommandLineRunner {
             if (table.getValueAt(row, 0) != null && table.getValueAt(row, 1) != null) {
                 Interfaces interfaces = new Interfaces();
                 interfaces.setXmlName((String) table.getValueAt(row, 0));
-                interfaces.setBussiness_desc((String) table.getValueAt(row, 1));
+                interfaces.setName((String) table.getValueAt(row, 1));
                 interfaces.setUrl((String) table.getValueAt(row, 2));
                 interfaces.setInconfigField((String) table.getValueAt(row, 3));
                 interfaces.setOutconfigField((String) table.getValueAt(row, 4));
@@ -745,7 +745,7 @@ public class mainFrame implements CommandLineRunner {
         	List<Execution> executions =AppCache.executions;
         	for(int i=0;i<executions.size();i++){
         		Execution execution = executions.get(i);
-        		if(execution.getProcess().equals(selected)){
+        		if(execution.getName().equals(selected)){
         			id = execution.getId();
         		}
         	}

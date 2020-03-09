@@ -223,9 +223,17 @@ public class AppCache implements CommandLineRunner{
 	}
 
 	
-	/** 获得String*/
-	public String getParameterStringValue(String code, String areaCode) {
-		return hashSysConfig.get(code + areaCode);
+	/** 获得String
+	 * @throws Exception */
+	public String getParameterStringValue(String code, String areaCode) throws Exception {
+		
+		try {
+			return hashSysConfig.get(code + areaCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new Exception("没有" + areaCode + "这个地区的配置项：" + code);
+		}
 		
 	}
 

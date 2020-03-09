@@ -342,8 +342,9 @@ public class BusinessFun {
 	 * @param xml
 	 * @param areaCode 
 	 * @return
+	 * @throws Exception 
 	 */
-	public String firstXmlHandle(String xml, String areaCode) {
+	public String firstXmlHandle(String xml, String areaCode) throws Exception {
 		
 		//保单归属地市的处理
 		String cityCode = areaCode.substring(0, 2) + "0100";

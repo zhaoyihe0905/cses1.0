@@ -39,7 +39,7 @@ public class InterfacesController {
 			int i = 0;
 			for (Interfaces key : interfaces) {
 				objects[i][0] = key.getXmlName();
-				objects[i][1] = key.getBussiness_desc();
+				objects[i][1] = key.getName();
 				objects[i][2] = key.getUrl();
 				objects[i][3] = key.getInconfigField();
 				objects[i][4] = key.getOutconfigField();
