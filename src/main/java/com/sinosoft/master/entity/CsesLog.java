@@ -38,8 +38,20 @@ public class CsesLog extends BaseEntity{
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String uuid;
 	
-	/** 投保查询码*/
-	private String querySequenceNo = "";
+	/** 地区代码 */
+	private String areaCode;
+	
+	/** 业务场景名字*/
+	private String executeName;
+	
+	/** 业务场景UUID,表示同一次执行的业务场景*/
+	private String executeUUID;
+	
+	/** 接口标识*/
+	private String identification ;
+	
+	/** 接口标识类型*/
+	private String identificationType ;
 	
 	/** 请求开始时间*/
 	private Date reqStartTime = new Date();
@@ -48,16 +60,16 @@ public class CsesLog extends BaseEntity{
 	private Date reqEndTime = new Date();
 
 	/** 接口相应时间*/
-	private long responseTime = 0L;
+	private Integer responseTime = 0;
 	
-	/** 业务代码*/
-	private String requestType = "";
+	/** 请求成功或者失败*/
+	private Integer result ;
 
 	/** 请求接口名*/
 	private String reqServiceName = "";
 	
-	/** 险种类型(1 商业 0 交强) */
-	private String reqType = "";
+//	/** 险种类型(1 商业 0 交强) */
+//	private String reqType = "";
 
 	/** 请求结果*/
 	private String resInfo = "";

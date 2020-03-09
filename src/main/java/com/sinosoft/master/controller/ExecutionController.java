@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -20,6 +21,7 @@ import com.sinosoft.cses.util.BusinessFun;
 import com.sinosoft.cses.util.ChineseCharacterUtil;
 import com.sinosoft.cses.util.DateUtils;
 import com.sinosoft.cses.util.SystemConfig;
+import com.sinosoft.master.entity.CsesLog;
 import com.sinosoft.master.entity.Execution;
 import com.sinosoft.master.entity.Interfaces;
 import com.sinosoft.master.response.Response;
@@ -131,7 +133,7 @@ public class ExecutionController {
 			// 获得当前的拼音
 			try {
 				
-				
+				String uuid = UUID.randomUUID().toString().replaceAll("-","");
 				String pinyin = ChineseCharacterUtil.convertHanzi2Pinyin(area, true);
 				Logger logger = LoggerFactory.getLogger(pinyin);
 				// 清空数据
@@ -163,7 +165,7 @@ public class ExecutionController {
 					textArea2.setLineWrap(true);
 					// 根据全局变量对变量进行处理
 					textArea2.append("开始执行 " + interfac.getBussiness_desc() + "    \n");
-					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \b\n");
+					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
 					logger.info("开始执行 " + interfac.getBussiness_desc());
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 
@@ -173,10 +175,10 @@ public class ExecutionController {
 					System.out.println("---" + url + "----");
 					logger.info("访问路劲是" + url);
 					logger.info("请求报文 ：" + xml);
-					Response s = businessFun.doPost(url, xml, new StringBuffer());
+					Response res = businessFun.doPost(url, xml, new StringBuffer());
 
 					// 获得返回报文
-					String resXml = s.getResXml();
+					String resXml = res.getResXml();
 					logger.info("返回报文" + resXml);
 
 					// 第三步处理 把返回报文中的业务字段存放到全局变量中
@@ -185,19 +187,47 @@ public class ExecutionController {
 					// 标识码
 					String gidentification = businessFun.getTagValue(resXml, interfac.getIdentification());
 
-					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\b\n");
-					textArea2.append("返回报文 " + resXml +" \b\n");
-					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
-					textArea2.append("接口响应时间" + s.getResponseTime() + " \b\n");
-					logger.info("接口响应时间" + s.getResponseTime() + " \b\n");
+					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
+					textArea2.append("接口响应时间" + res.getResponseTime() + " \n");
+					textArea2.append("返回报文 " + resXml +" \n");
+					textArea2.append("接口直接结束时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
+					
+					logger.info("该接口标识码:" + interfac.getIdentification() + ":" + gidentification );
+					logger.info("执行时间结束时间时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
+					logger.info("接口响应时间" + res.getResponseTime() + " 毫秒 \n");
 					textArea2.append(" \b\n");
+					
+					
+					
+					
+					//返回信息日志存库
+					CsesLog  csesLog = new CsesLog();
+					csesLog.setIdentification(gidentification);
+					csesLog.setResponseTime(res.getResponseTime());
+					csesLog.setReqEndTime(res.getStopTime());
+					csesLog.setReqStartTime(res.getStartTime());
+					csesLog.setReqServiceName(interfac.getBussiness_desc());
+					csesLog.setResInfo(res.getResMessage());
+					csesLog.setResult(res.getResult());
+					csesLog.setIdentificationType(interfac.getIdentification());
+					csesLog.setExecuteUUID(uuid);
+					csesLog.setExecuteName(execution.getProcess());
+					csesLog.setAreaCode(areaCode);
+					csesLogService.save(csesLog);
+					
+					//假设接口访问失败， 那就抛出异常
+					if (res.getResult() == 0) {
+						throw new Exception(res.getResMessage());
+					}
 
 				}
 
 				// 初始化缓存
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
 				textArea2.append("接口访问失败" + e.getMessage()+"\n");
+				logger.info("接口访问失败:" + e.getMessage());
 			}
 
 			//假设是定时

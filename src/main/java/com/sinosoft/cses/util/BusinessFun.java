@@ -132,7 +132,7 @@ public class BusinessFun {
 			// 设置投保确认码
 			response.setResXml(lineString);
 			//成功
-			response.setResult("1");
+			response.setResult(1);
 			//日志strBuff
 			response.setStrBuff(strBuff);
 			
@@ -146,7 +146,7 @@ public class BusinessFun {
 			//日志strBuff
 			response.setStrBuff(strBuff);
 			e.printStackTrace();
-			response.setResult("0");
+			response.setResult(0);
 			response.setResMessage(e.getMessage());
 			return response;
 
@@ -387,7 +387,7 @@ public class BusinessFun {
 		// TODO Auto-generated method stub
 		for (String string : split) {
 			if (!"".equals(string)) {
-				if(AppCache.globalVariable.containsKey(string)) {
+				if(map.containsKey(string)) {
 					  xml = replaceVariable(xml, string, map.get(string));
 				}
 				

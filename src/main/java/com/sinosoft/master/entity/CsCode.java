@@ -27,12 +27,23 @@ public class CsCode extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
     private Integer id;
-	
+	/** 代码类型*/
 	private String codeType;
+	
+	/** 代码*/
 	private String codeCode;
+	
+	/** 代码名*/
 	private String codeName;
+	
+	/** 标识*/
 	private String codeFlag;
+	
+	/** 备注*/
 	private String remark;
+	
+	/** 有效状态*/
 	private String validStatus;
+	
 
 }

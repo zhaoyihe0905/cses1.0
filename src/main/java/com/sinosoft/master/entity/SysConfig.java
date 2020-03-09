@@ -30,22 +30,31 @@ public class SysConfig extends BaseEntity{
 	@Column(name = "id", nullable = false)
     private Integer id;
 	
+	/** */
 	private String parametercode = "";
 
+	/** */
 	private String parametertype = "";
 
+	/** */
 	private String companyCode = "";
 
+	/** */
 	private String parametervalue = "";
 
+	/** */
 	private String areaCode = "";
 
+	/** */
 	private String parameterdesc = "";
 
+	/** */
 	private String remark = "";
 
+	/** */
 	private String validStatus = "";
-	
+
+	/** */
 	private String flag= "";
 
 }

@@ -48,17 +48,23 @@ public class Interfaces extends BaseEntity{
 	@Column(name = "id", nullable = false)
     private Integer id;
 	/** 需要从该环节取出的字段*/
+	@Column(length = 2000)
 	private String outconfigField;
+	
 	/** 需要从该环节存入的字段*/
+	@Column(length = 2000)
 	private String inconfigField;
+	
 //	private String requestType;
 	/** 有效标识*/
 	private String validStatus;
+	
 	/** 报文名字*/
 	private String xmlName;
-//	@Id
+	
 	/** 接口描述*/
 	private String bussiness_desc;
+	
 	/** 备注*/
 	private String remark;
 	
