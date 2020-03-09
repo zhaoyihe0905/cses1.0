@@ -213,13 +213,13 @@ public class mainFrame implements CommandLineRunner {
         frame.getContentPane().add(mainPanel);
 
         JPanel panel1 = new JPanel();
-        //切换界面事件
+      /*  //切换界面事件
         panel1.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent var1) {
                 System.out.println("切換界面");
             }
-        });
+        });*/
         //================================== 自定义全局变量 ==================================
         mainPanel.addTab("自定义全局变量", null, panel1, null);
         panel1.setLayout(null);
