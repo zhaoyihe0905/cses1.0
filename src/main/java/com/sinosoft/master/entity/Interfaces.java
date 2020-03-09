@@ -73,7 +73,8 @@ public class Interfaces extends BaseEntity{
 
 	/** 接口标识*/
 	private String identification;
-	
-	
+
+	/** */
+	private String judgecode;
 
 }

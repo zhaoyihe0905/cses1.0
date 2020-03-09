@@ -18,7 +18,7 @@ public interface InterfacesDao extends IBaseDao<Interfaces, Integer>{
 	
 	
 	@Modifying
-	@Query(value = "replace into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name,url,identification) values (?5, ?1, ?3, ?4, '', '1', ?2,?6,?7)", nativeQuery = true)
-	void replace(String name, String xmlName, String inconfigField, String outconfigField, Integer id, String url, String identification);
+	@Query(value = "replace into tb_interfaces (id, name, inconfig_field, outconfig_field, remark, valid_status, xml_name,url,identification,judgecode) values (?5, ?1, ?3, ?4, '', '1', ?2,?6,?7,?8)", nativeQuery = true)
+	void replace(String name, String xmlName, String inconfigField, String outconfigField, Integer id, String url, String identification, String judgecode);
 
 }

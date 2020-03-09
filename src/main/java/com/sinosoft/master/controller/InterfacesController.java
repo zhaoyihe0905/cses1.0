@@ -33,6 +33,7 @@ public class InterfacesController {
 	 * @return
 	 */
 	public  Object[][] interfacesListToObject(int column){
+		logger.info("开始查询接口列表！");
 		List<Interfaces> interfaces = AppCache.interfaces;
 		try {
 			Object[][] objects = new Object[interfaces.size()][column];
@@ -44,12 +45,14 @@ public class InterfacesController {
 				objects[i][3] = key.getInconfigField();
 				objects[i][4] = key.getOutconfigField();
 				objects[i][5] = key.getIdentification();
-				objects[i][6] = key.getId();
+				objects[i][6] = key.getJudgecode();
+				objects[i][7] = key.getId();
 				i++;
 			}
+			logger.info("查询成功！");
 			return objects;
 		} catch (Exception e) {
-			logger.info("接口列表数据展现失败");
+			logger.info("接口列表数据展现失败"+e.toString());
 		}
 		return null;
 	}

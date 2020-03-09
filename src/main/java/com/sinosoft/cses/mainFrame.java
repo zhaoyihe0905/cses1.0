@@ -432,20 +432,20 @@ public class mainFrame implements CommandLineRunner {
 
         //加载接口列表界面
         //需要获取new Object[][]数组
-        Object[][] interfaceInfo = interfacesC.interfacesListToObject(7);
+        Object[][] interfaceInfo = interfacesC.interfacesListToObject(8);
         tablemodle_1 = new DefaultTableModel(interfaceInfo, new String[]{
-                "xml路径", "接口名", "url", "变量字段", "取值字段", "标识", ""
+                "xml路径", "接口名", "url", "变量字段", "取值字段", "标识", "判断代码", ""
         });
         table_1 = new JTable(tablemodle_1);
         //隐藏最后一列id
         TableColumnModel tcm = table_1.getColumnModel();
-        TableColumn tc = tcm.getColumn(6);
+        TableColumn tc = tcm.getColumn(7);
         tc.setMaxWidth(0);
         tc.setPreferredWidth(0);
         tc.setMinWidth(0);
         tc.setWidth(0);
-        table_1.getTableHeader().getColumnModel().getColumn(6).setMaxWidth(0);
-        table_1.getTableHeader().getColumnModel().getColumn(6).setMinWidth(0);
+        table_1.getTableHeader().getColumnModel().getColumn(7).setMaxWidth(0);
+        table_1.getTableHeader().getColumnModel().getColumn(7).setMinWidth(0);
 
         JButton btnNewButton_3 = new JButton("新增");
         btnNewButton_3.addActionListener(new ActionListener() {
@@ -677,9 +677,9 @@ public class mainFrame implements CommandLineRunner {
                 interfaces.setInconfigField((String) table.getValueAt(row, 3));
                 interfaces.setOutconfigField((String) table.getValueAt(row, 4));
                 interfaces.setIdentification((String) table.getValueAt(row, 5));
-                if (table.getValueAt(row, 6) != null) {
-                    //System.out.println("============" + table.getValueAt(row, 5).toString());
-                    interfaces.setId((Integer) table.getValueAt(row, 6));
+                interfaces.setJudgecode((String) table.getValueAt(row, 6));
+                if (table.getValueAt(row, 7) != null) {
+                    interfaces.setId((Integer) table.getValueAt(row, 7));
                 }
                 interfacesList.add(interfaces);
             }
@@ -690,27 +690,27 @@ public class mainFrame implements CommandLineRunner {
             interfacesC.saveInterfaces(interfacesList);
             //重新加载列表
             tablemodle_1.getDataVector().clear();
-            Object[][] interfaceInfo = interfacesC.interfacesListToObject(7);
+            Object[][] interfaceInfo = interfacesC.interfacesListToObject(8);
             tablemodle_1 = new DefaultTableModel(interfaceInfo, new String[]{
-                    "xml路径", "接口名", "url", "变量字段", "取值字段", "标识", ""
+                    "xml路径", "接口名", "url", "变量字段", "取值字段", "标识", "判断代码", ""
             });
             table_1 = new JTable(tablemodle_1);
             //此代码越界异常
             //table = new JTable(tablemodle_1);
             TableColumnModel tcm = table_1.getColumnModel();
-            TableColumn tc = tcm.getColumn(6);
+            TableColumn tc = tcm.getColumn(7);
             tc.setMaxWidth(0);
             tc.setPreferredWidth(0);
             tc.setMinWidth(0);
             tc.setWidth(0);
-            table_1.getTableHeader().getColumnModel().getColumn(6).setMaxWidth(0);
-            table_1.getTableHeader().getColumnModel().getColumn(6).setMinWidth(0);
+            table_1.getTableHeader().getColumnModel().getColumn(7).setMaxWidth(0);
+            table_1.getTableHeader().getColumnModel().getColumn(7).setMinWidth(0);
             scrollPane_1.setViewportView(table_1);
 
             logger.info("保存接口列表数据成功！");
             JOptionPane.showMessageDialog(null, "保存成功", "标题", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            logger.error("保存接口列表数据异常！");
+            logger.error("保存接口列表数据异常！"+e.toString());
             JOptionPane.showMessageDialog(null, "保存接口列表数据异常", "标题", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -723,8 +723,8 @@ public class mainFrame implements CommandLineRunner {
      * @param model
      */
     public void deleteInterface(JTable table, DefaultTableModel model) {
-        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列的id为："+table.getValueAt(table.getSelectedRow(), 6)+"接口数据！");
-        interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 6));
+        logger.info("删除第"+table.getRowCount()+"行，第"+table.getColumnCount()+"列的id为："+table.getValueAt(table.getSelectedRow(), 7)+"接口数据！");
+        interfacesC.deleteInterfaces((Integer) table.getValueAt(table.getSelectedRow(), 7));
         model.removeRow(table.getSelectedRow());
     }
     /**
