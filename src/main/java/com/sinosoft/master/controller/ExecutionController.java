@@ -143,6 +143,14 @@ public class ExecutionController {
 				String orders = execution.getOrders();
 				String areaCode = AppCache.areaEng.get(area);
 
+				textArea2.append("当前业务场景是" + execution.getName() + "\b");
+				textArea2.append("当前地区是" + area + ":" + areaCode + "\b");
+				textArea2.append("当前业务场景的uuid是" + uuid + "\b");
+				
+				logger.info("当前业务场景是" + execution.getName());
+				logger.info("当前地区是" + area + ":" + areaCode );
+				logger.info("当前业务场景的uuid是" + uuid );
+				
 				String[] interfaces = orders.split(",");
 				for (String string : interfaces) {
 					// 根据业务id查询接口
@@ -229,6 +237,8 @@ public class ExecutionController {
 					csesLog.setAreaCode(areaCode);
 					//业务代码
 					csesLog.setJudgeStatus(judgeStatus);
+					//是否定时执行
+					csesLog.setIsQuartz(identification);
 					csesLogService.save(csesLog);
 					
 					//假设接口访问失败， 那就抛出异常

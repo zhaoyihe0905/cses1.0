@@ -71,6 +71,9 @@ public class CsesLog extends BaseEntity{
 	/** 请求接口名*/
 	private String reqServiceName = "";
 	
+	/** 是否定时*/
+	private Integer isQuartz;
+	
 //	/** 险种类型(1 商业 0 交强) */
 //	private String reqType = "";
 
