@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 @Data
-@Service
+//@Service
 public class MoniLiuchengView extends JFrame{
     //注入需要的类
     @Autowired

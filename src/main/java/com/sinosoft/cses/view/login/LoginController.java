@@ -26,8 +26,8 @@ public class LoginController {
 	private SysUserService sysUserService ;
 	@Autowired
 	private SysConfigService sysConfigService;
-    @Autowired
-    private MoniLiuchengView moniLiuchengView;
+//    @Autowired
+//    private MoniLiuchengView moniLiuchengView;
     @Autowired
     private com.sinosoft.cses.mainFrame mainFrame;
     @Autowired
