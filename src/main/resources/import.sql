@@ -206,6 +206,7 @@ insert into tb_variable (variable_code, remark, valide_status, variable_name) va
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<STOP_DATE>', '', 1, '202103131011');
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<END_DATE>', '', 1, '202103131011');
 insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<USER>', '', 1, 'PICC5100');
+insert into tb_variable (variable_code, remark, valide_status, variable_name) values ('<USER>*', '0', 1, 'PICC5100,PICC4200');
 
 
 

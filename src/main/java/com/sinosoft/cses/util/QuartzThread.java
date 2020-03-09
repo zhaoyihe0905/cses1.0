@@ -14,7 +14,7 @@ public class QuartzThread implements Runnable{
 	private JTextArea textArea_1 = null;
 	//地区中文
 	String area ="";
-	ExecutionController execut =new ExecutionController();
+	ExecutionController executionController =ApplicationContextProvider.getBean(ExecutionController.class);
 	@Override
 	public void run() {
 
@@ -35,7 +35,7 @@ public class QuartzThread implements Runnable{
 			}
 		}
 		if(flag==true){
-			execut.doExecution(id, area, textArea_1, 1, map);
+			executionController.doExecution(id, area, textArea_1, 1, map);
 		}else{
 			System.out.println("全局变量需要定义 USER 标签");
 			textArea_1.append("全局变量需要定义 USER 标签");
