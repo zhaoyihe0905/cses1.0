@@ -194,7 +194,7 @@ public class mainFrame implements CommandLineRunner {
      * @wbp.parser.entryPoint
      */
     public mainFrame() {
-      // initialize();
+       //initialize();
     }
 
     /**
@@ -420,7 +420,9 @@ public class mainFrame implements CommandLineRunner {
         panel5.setLayout(null);
         textArea = new JTextArea();
         textArea.setBounds(0, 0, 683, 394);
-        panel5.add(textArea);
+        JScrollPane scrollPane_4 = new JScrollPane(textArea);
+        scrollPane_4.setBounds(0, 0, 683, 394);
+        panel5.add(scrollPane_4);
 //        textArea.setColumns(50);
         //此代码影响接口页面显示
         //panel5.setVisible(true);
