@@ -382,14 +382,20 @@ public class BusinessFun {
 	}
 
 	/** 对报文进行第二部处理
-	 * @param map */
-	public String SecondXmlHandle(String xml, Interfaces interfac, Map<String, String> map) {
+	 * @param map 
+	 * @param logger2 */
+	public String SecondXmlHandle(String xml, Interfaces interfac, Map<String, String> map, Logger logger2) {
 		String[] split = interfac.getInconfigField().split(",");
 		// TODO Auto-generated method stub
 		for (String string : split) {
 			if (!"".equals(string)) {
 				if(map.containsKey(string)) {
-					  xml = replaceVariable(xml, string, map.get(string));
+					  try {
+						xml = replaceVariable(xml, string, map.get(string));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						logger2.info("没有这个配置项" + string);
+					}
 				}
 				
 			}

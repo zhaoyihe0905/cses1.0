@@ -62,7 +62,10 @@ public class CsesLog extends BaseEntity{
 	/** 接口相应时间*/
 	private Integer responseTime = 0;
 	
-	/** 请求成功或者失败*/
+	/** 返回错误代码 */
+	private String judgeStatus;
+	
+	/** 请求成功或者失败(物理方面)*/
 	private Integer result ;
 
 	/** 请求接口名*/

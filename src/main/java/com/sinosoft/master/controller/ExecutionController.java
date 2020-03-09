@@ -159,7 +159,7 @@ public class ExecutionController {
 //					xml = businessFun.firstXmlHandle(xml, areaCode);
 					// 进行第二部处理， 和全局变量进行替换
 
-					xml = businessFun.SecondXmlHandle(xml, interfac, map);
+					xml = businessFun.SecondXmlHandle(xml, interfac, map,logger);
 
 					// 设置自动换行
 					textArea2.setLineWrap(true);
@@ -171,7 +171,7 @@ public class ExecutionController {
 
 					// 系统访问路劲的处理
 					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
-					url = interfac.getUrl().replaceAll("localhost", url).trim();
+					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
 					System.out.println("---" + url + "----");
 					logger.info("访问路劲是" + url);
 					logger.info("请求报文 ：" + xml);
@@ -186,6 +186,8 @@ public class ExecutionController {
 
 					// 标识码
 					String gidentification = businessFun.getTagValue(resXml, interfac.getIdentification());
+					//业务错误代吗
+					String judgeStatus = businessFun.getTagValue(resXml, interfac.getJudgecode());
 
 					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
 					textArea2.append("接口响应时间" + res.getResponseTime() + " \n");
@@ -202,17 +204,30 @@ public class ExecutionController {
 					
 					//返回信息日志存库
 					CsesLog  csesLog = new CsesLog();
+					//标识码
 					csesLog.setIdentification(gidentification);
+					//响应时间
 					csesLog.setResponseTime(res.getResponseTime());
+					//接口结束时间
 					csesLog.setReqEndTime(res.getStopTime());
+					//开始时间
 					csesLog.setReqStartTime(res.getStartTime());
+					//接口名
 					csesLog.setReqServiceName(interfac.getName());
+					//返回信息
 					csesLog.setResInfo(res.getResMessage());
+					//返回状态 物理方面
 					csesLog.setResult(res.getResult());
+					//标识码类型
 					csesLog.setIdentificationType(interfac.getIdentification());
+					//业务场景uuid
 					csesLog.setExecuteUUID(uuid);
+					//业务场景名字
 					csesLog.setExecuteName(execution.getName());
+					//地区代码
 					csesLog.setAreaCode(areaCode);
+					//业务代码
+					csesLog.setJudgeStatus(judgeStatus);
 					csesLogService.save(csesLog);
 					
 					//假设接口访问失败， 那就抛出异常
