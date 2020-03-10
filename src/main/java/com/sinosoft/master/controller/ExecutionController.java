@@ -180,9 +180,9 @@ public class ExecutionController {
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 
 					// 系统访问路劲的处理
-//					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
-//					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
-					String url = interfac.getUrl().trim();
+					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
+					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
+//					String url = interfac.getUrl().trim();
 //					System.out.println("---" + url + "----");
 					logger.info("访问路劲是" + url);
 					logger.info("请求报文 ：" + xml);
