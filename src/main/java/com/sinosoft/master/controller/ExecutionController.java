@@ -180,13 +180,20 @@ public class ExecutionController {
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 
 					// 系统访问路劲的处理
-					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
-					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
-					System.out.println("---" + url + "----");
+//					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
+//					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
+					String url = interfac.getUrl().trim();
+//					System.out.println("---" + url + "----");
 					logger.info("访问路劲是" + url);
 					logger.info("请求报文 ：" + xml);
 					Response res = businessFun.doPost(url, xml, new StringBuffer());
 
+					//标识码
+					String gidentification = "";
+					//返货错误代码
+					String judgeValue = "";
+					//判断访问是否成功
+					if (res.getResult() == 1) {
 					// 获得返回报文
 					String resXml = res.getResXml();
 					logger.info("返回报文" + resXml);
@@ -195,10 +202,16 @@ public class ExecutionController {
 					businessFun.thirdXmlHandle(resXml, interfac, map);
 
 					// 标识码
-					String gidentification = businessFun.getTagValue(resXml, interfac.getIdentification());
-					//业务错误代吗
-					String judgeStatus = businessFun.getTagValue(resXml, interfac.getJudgecode());
-
+					 gidentification = businessFun.getTagValue(resXml, interfac.getIdentification());
+					
+				
+						//业务错误代吗
+						String[] judeCode = interfac.getJudgecode().split("-");
+						 judgeValue = businessFun.getTagValue(resXml, judeCode[0]);
+						if (!judgeValue.equals( judeCode[1])) {
+							res.setResult(0); 
+							res.setResMessage("接口业务上访问失败，错误代码是：" + judgeValue);
+						} 
 					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
 					textArea2.append("接口响应时间" + res.getResponseTime() + "毫秒  \n");
 					textArea2.append("返回报文 " + resXml +" \n");
@@ -209,6 +222,10 @@ public class ExecutionController {
 					logger.info("接口响应时间" + res.getResponseTime() + " 毫秒 \n");
 					textArea2.append(" \n");
 					textArea2.append(" \n");
+					}else {
+						textArea2.append("该接口访问失败 ，错误信息是 " + res.getResMessage() + " \n");
+						logger.info("该接口访问失败 ，错误信息是 " + res.getResMessage());
+					}
 					
 					
 					
@@ -227,6 +244,8 @@ public class ExecutionController {
 					csesLog.setReqServiceName(interfac.getName());
 					//返回信息
 					csesLog.setResInfo(res.getResMessage());
+					// 返回的错误代码如 （42510）
+					csesLog.setJudgeCode(judgeValue);
 					//返回状态 物理方面
 					csesLog.setResult(res.getResult());
 					//标识码类型
@@ -237,8 +256,6 @@ public class ExecutionController {
 					csesLog.setExecuteName(execution.getName());
 					//地区代码
 					csesLog.setAreaCode(areaCode);
-					//业务代码
-					csesLog.setJudgeStatus(judgeStatus);
 					//是否定时执行
 					csesLog.setIsQuartz(identification);
 					csesLogService.save(csesLog);
