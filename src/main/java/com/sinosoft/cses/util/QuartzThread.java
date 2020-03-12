@@ -5,6 +5,12 @@ import java.util.Map;
 
 import javax.swing.JTextArea;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+
 import com.sinosoft.master.controller.ExecutionController;
 
 public class QuartzThread implements Runnable{
@@ -14,10 +20,11 @@ public class QuartzThread implements Runnable{
 	private JTextArea textArea_1 = null;
 	//地区中文
 	String area ="";
-	ExecutionController executionController =ApplicationContextProvider.getBean(ExecutionController.class);
+	@Autowired
+	ExecutionController executController = ApplicationContextProvider.getBean(ExecutionController.class);
 	@Override
 	public void run() {
-
+		
 		// 获取地区代码
 		Map<String, String> mapArea = AppCache.areaChin;
 		//判断是否存在<USER>标签
@@ -25,7 +32,7 @@ public class QuartzThread implements Runnable{
 		for(Map.Entry<String, String> a:map.entrySet()){
 			if(a.getKey().equalsIgnoreCase("<USER>")){
 				for(Map.Entry<String, String> b:mapArea.entrySet()){
-					if(b.getKey().contains(a.getValue().substring(4,a.getValue().length()))){
+					if(b.getKey().contains(a.getValue())){
 						area =b.getValue();
 						break;
 					}
@@ -35,9 +42,8 @@ public class QuartzThread implements Runnable{
 			}
 		}
 		if(flag==true){
-			executionController.doExecution(id, area, textArea_1, 1, map);
+			executController.doExecution(id, area, textArea_1, 1, map);
 		}else{
-			System.out.println("全局变量需要定义 USER 标签");
 			textArea_1.append("全局变量需要定义 USER 标签");
 		}
 		

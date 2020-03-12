@@ -46,6 +46,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.Font;
 
 /**
  * 主界面
@@ -194,7 +195,7 @@ public class mainFrame implements CommandLineRunner {
      * @wbp.parser.entryPoint
      */
     public mainFrame() {
-       //initialize();
+      // initialize();
     }
 
     /**
@@ -234,6 +235,7 @@ public class mainFrame implements CommandLineRunner {
         //全局自定义变量表格模型
         tablemodle = new DefaultTableModel(playerInfo, names);
         table = new JTable(tablemodle);
+        table.setFont(new Font("宋体", Font.PLAIN, 20));
         table.setBorder(UIManager.getBorder("Table.scrollPaneBorder"));
         table.setBounds(14, 55, 655, 326);
         JScrollPane scrollPane = new JScrollPane();
