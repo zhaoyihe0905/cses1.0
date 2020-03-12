@@ -16,6 +16,14 @@ public class SystemConfig {
 	public final static String PASSWORD = "password";
 	/**定时间隔 */
 	public final static String QUARTZINTERVALTIME = "quartzIntervalTime";
+	
+	/**连接超时 */
+	public final static String CONNECTTIMEOUT = "connectTimeOut";
+	
+	/**读取数据超时间隔 */
+	public final static String ReadTIMEOUT = "readTimeOut";
+	
+	
 
 	
 	

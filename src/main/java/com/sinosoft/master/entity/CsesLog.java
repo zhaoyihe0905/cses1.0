@@ -62,14 +62,20 @@ public class CsesLog extends BaseEntity{
 	/** 接口相应时间*/
 	private Integer responseTime = 0;
 	
-	/** 返回错误代码 */
-	private String judgeStatus;
+//	/** 判断业务长是否成功 */
+//	private String judgeStatus;
 	
-	/** 请求成功或者失败(物理方面)*/
+	/** 业务返回错误代码 */
+	private String judgeCode;
+	
+	/** 请求成功或者失败()*/
 	private Integer result ;
 
 	/** 请求接口名*/
 	private String reqServiceName = "";
+	
+	/** 是否定时*/
+	private Integer isQuartz;
 	
 //	/** 险种类型(1 商业 0 交强) */
 //	private String reqType = "";

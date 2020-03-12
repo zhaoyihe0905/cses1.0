@@ -87,6 +87,13 @@ public class BusinessFun {
 			 * 1、打开连接
 			 ******************************************************************/
 			httpConnection = (HttpURLConnection) new URL(url).openConnection();
+			
+			/** 设置连接主机超时*/
+			httpConnection.setConnectTimeout(Integer.valueOf(appCache.getParameterStringValue(SystemConfig.CONNECTTIMEOUT, AppConst.ALL)));
+			/** 设置读取数据超时*/
+			httpConnection.setReadTimeout(Integer.valueOf(appCache.getParameterStringValue(SystemConfig.ReadTIMEOUT, AppConst.ALL)));
+
+
 			//设置请求POST
 			httpConnection.setRequestMethod("POST");
 			httpConnection.setDoOutput(true);
@@ -141,7 +148,7 @@ public class BusinessFun {
 //			logger.info(strBuff.toString());
 			return response;
 		} catch (Exception e) {
-			strBuff.append("调用接口失败，错误信息：" + e.getMessage());
+			strBuff.append("调用接口失败，访问超时，错误信息：" + e.getMessage());
 //			logger.info(strBuff.toString());
 			//日志strBuff
 			response.setStrBuff(strBuff);
