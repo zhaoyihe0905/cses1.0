@@ -611,13 +611,17 @@ public class mainFrame implements CommandLineRunner {
 
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
         logger.info("删除业务场景列表选定项!第"+table_2.getRowCount()+"行! id为:"+table_2.getValueAt(table_2.getSelectedRow(), 2));
-        try{
-            executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
-            JOptionPane.showMessageDialog(null, "删除成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
-            logger.info("删除业务场景成功！");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "删除异常！", "标题", JOptionPane.ERROR_MESSAGE);
-            logger.error("删除业务场景失败！"+e.toString());
+        if(StringUtils.isEmpty(table_2.getValueAt(table_2.getSelectedRow(), 2))){
+            JOptionPane.showMessageDialog(null, "删除未保存数据成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            try{
+                executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
+                JOptionPane.showMessageDialog(null, "删除成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("删除业务场景成功！");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "删除异常！", "标题", JOptionPane.ERROR_MESSAGE);
+                logger.error("删除业务场景失败！"+e.toString());
+            }
         }
         tablemodle_2.removeRow(table_2.getSelectedRow());
     }
