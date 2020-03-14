@@ -626,8 +626,6 @@ public class mainFrame implements CommandLineRunner {
     * 业务列表保存
     **/
     private void saveexecution(JTable table2,JScrollPane scrollPane_2) {
-
-
         //定义参数list
         List<Execution> executionList = new ArrayList<>();
         //int rowCount = table2.getRowCount();
@@ -640,22 +638,22 @@ public class mainFrame implements CommandLineRunner {
         for (int row = 0; row < table2.getRowCount(); row++) {
             int a=0;
             //判断接口名是否存在
-            for (String interfac:interfacS) {
-                String valueAt = (String) table2.getValueAt(row, 1);
-                String[] result = valueAt.split(",");
-                List<String> list = new ArrayList<String>();
-                Collections.addAll(list, result);
-                for (int i = 0; i < list.size(); i++) {
+            String valueAt = (String) table2.getValueAt(row, 1);
+            String[] result = valueAt.split(",");
+            List<String> list = new ArrayList<String>();
+            Collections.addAll(list, result);
+            for (int i = 0; i < list.size(); i++) {
+                a=0;
+                for (String interfac:interfacS) {
                     String s = list.get(i);
                     if (list.get(i).equals(interfac)){
                         a++;
                     }
                 }
-                if (a<=0){
-                    JOptionPane.showMessageDialog(null, "第"+(row + 1)+"行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
+            }
+            if (a<=0){
+                JOptionPane.showMessageDialog(null, "第"+(row + 1)+"行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             if (table2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
