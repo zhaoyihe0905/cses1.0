@@ -185,8 +185,9 @@ public class BusinessFun {
 	 * 读取本地文件
 	 * @param path
 	 * @return
+	 * @throws Exception 
 	 */
-	public String readFile(String path){
+	public String readFile(String path) throws Exception{
 		File file = new File(path);
 		StringBuilder result = new StringBuilder();
 		try {
@@ -199,6 +200,7 @@ public class BusinessFun {
 			br.close();
 		}catch (Exception e){
 			e.printStackTrace();
+			throw e;
 		}
 		return result.toString();
 	}

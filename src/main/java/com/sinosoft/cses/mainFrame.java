@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import com.sinosoft.cses.util.*;
 import com.sinosoft.master.controller.ExecutionController;
 import com.sinosoft.master.controller.GlobalVariableController;
 import com.sinosoft.master.controller.SysConfigController;
@@ -26,24 +27,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.sinosoft.cses.util.AppCache;
-import com.sinosoft.cses.util.AppConst;
-import com.sinosoft.cses.util.BusinessFun;
-import com.sinosoft.cses.util.QuartzWork;
-import com.sinosoft.cses.util.SystemConfig;
 import com.sinosoft.master.controller.InterfacesController;
 import com.sinosoft.master.entity.Interfaces;
+import org.springframework.util.StringUtils;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.Font;
@@ -61,6 +53,10 @@ public class mainFrame implements CommandLineRunner {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private JFrame frame;
+
+    private Object[] value ;
+
+    private MultiComboBox mulit ;
     /**
      * 
      */
@@ -333,17 +329,49 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_3.setBounds(14, 83, 948, 420);
         panel3.add(scrollPane_3);
 
-        JLabel lblNewLabel_2 = new JLabel("业务场景:");
+        /*JLabel lblNewLabel_2 = new JLabel("业务场景:");
         lblNewLabel_2.setBounds(165, 35, 74, 18);
-        panel3.add(lblNewLabel_2);
+        panel3.add(lblNewLabel_2);*/
 
-        JComboBox<String> comboBox_2 = new JComboBox<String>();
-        comboBox_2.setBounds(253, 34, 185, 21);
+
+        JLabel label3 = new JLabel("业务场景：");
+        label3.setBounds(165, 35, 74, 18);
+        panel3.add(label3);
+
+        //启动项加载
+        List<Execution> e = AppCache.executions;
+        value = new String[e.size()];
+        for (int i = 0; i < e.size(); i++) {
+            value[i] = e.get(i).getName();
+        }
+        mulit = new MultiComboBox(value, new String[]{ "--请选择--" });
+        mulit.setBounds(253, 34, 185, 21);
+        panel3.add(mulit);
+        //定时界面重新加载
+        panel3.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent var1) {
+                panel3.remove(mulit);
+                List<Execution> e =AppCache.executions;
+                value = new String[e.size()];
+                for (int i = 0; i < e.size(); i++) {
+                    value[i] = e.get(i).getName();
+                }
+                mulit = new MultiComboBox(value, new String[]{ "--请选择--" });
+                mulit.setBounds(253, 34, 185, 21);
+                panel3.add(mulit);
+            }
+        });
+
+
+        /*JComboBox<String> comboBox_2 = new JComboBox<String>();
+        comboBox_2.setBounds(253, 34, 185, 21);*/
        /* for (Execution execution : AppCache.executions) {
             comboBox_2.addItem(execution.getName());
         }*/
+
         //定时界面重新加载
-        panel3.addComponentListener(new ComponentAdapter() {
+        /*panel3.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent var1) {
             	comboBox_2.removeAllItems();
@@ -352,19 +380,18 @@ public class mainFrame implements CommandLineRunner {
                  }
             }
         });
-        panel3.add(comboBox_2);
+        panel3.add(comboBox_2);*/
 
         JButton btnNewButton_10 = new JButton("执   行");
         btnNewButton_10.setBounds(805, 33, 96, 23);
         //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
-        btnNewButton_10.addActionListener(Event -> this.StartQuartz(textArea_1,comboBox_2.getSelectedItem().toString()));
+        btnNewButton_10.addActionListener(Event -> this.StartQuartz(textArea_1,Transformation(mulit)));
         panel3.add(btnNewButton_10);
 
         JButton btnNewButton_11 = new JButton("保    存");
         btnNewButton_11.setBounds(535, 33, 96, 23);
         panel3.add(btnNewButton_11);
         scrollPane_3.setViewportView(table_4);
-        
         textArea_1 = new JTextArea();
         scrollPane_3.setViewportView(textArea_1);
 
@@ -479,6 +506,23 @@ public class mainFrame implements CommandLineRunner {
         scrollPane_1.setViewportView(table_1);
     }
 
+    private String Transformation(MultiComboBox mulit) {
+        String values = "";
+        Object[] defaultValues = mulit.defaultValues;
+        for (int i = 0; i <defaultValues.length ; i++) {
+            if (StringUtils.isEmpty(values)){
+                values = (String)defaultValues[i];
+            }else {
+                values =values + ","+(String)defaultValues[i];
+            }
+        }
+        if (values.equals("--请选择--")){
+            //JOptionPane.showMessageDialog(null, "请选择业务场景！", "标题", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return values;
+    }
+
     private Object initAppCacheAndTable(JScrollPane scrollPane_sys) {
         // TODO Auto-generated method stub
         try {
@@ -569,8 +613,18 @@ public class mainFrame implements CommandLineRunner {
 
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
         logger.info("删除业务场景列表选定项!第"+table_2.getRowCount()+"行! id为:"+table_2.getValueAt(table_2.getSelectedRow(), 2));
-        executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
-        //System.out.println("删除业务场景列表选定项");
+        if(StringUtils.isEmpty(table_2.getValueAt(table_2.getSelectedRow(), 2))){
+            JOptionPane.showMessageDialog(null, "删除未保存数据成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            try{
+                executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
+                JOptionPane.showMessageDialog(null, "删除成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("删除业务场景成功！");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "删除异常！", "标题", JOptionPane.ERROR_MESSAGE);
+                logger.error("删除业务场景失败！"+e.toString());
+            }
+        }
         tablemodle_2.removeRow(table_2.getSelectedRow());
     }
 
@@ -581,7 +635,32 @@ public class mainFrame implements CommandLineRunner {
         //定义参数list
         List<Execution> executionList = new ArrayList<>();
         //int rowCount = table2.getRowCount();
+        List<Interfaces> interfaces = AppCache.interfaces;
+        List<String> interfacS=new ArrayList<>();
+        for (Interfaces interfac:interfaces) {
+            interfacS.add(interfac.getName());
+        }
+
         for (int row = 0; row < table2.getRowCount(); row++) {
+            int a=0;
+            //判断接口名是否存在
+            String valueAt = (String) table2.getValueAt(row, 1);
+            String[] result = valueAt.split(",");
+            List<String> list = new ArrayList<String>();
+            Collections.addAll(list, result);
+            for (int i = 0; i < list.size(); i++) {
+                a=0;
+                for (String interfac:interfacS) {
+                    String s = list.get(i);
+                    if (list.get(i).equals(interfac)){
+                        a++;
+                    }
+                }
+            }
+            if (a<=0){
+                JOptionPane.showMessageDialog(null, "第"+(row + 1)+"行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             if (table2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
                 execution.setName((String) table2.getValueAt(row, 0));
@@ -593,7 +672,7 @@ public class mainFrame implements CommandLineRunner {
             } else {
                 logger.error("第"+row+"行，第1列数据为空。保存失败！");
                 //System.out.println("新增一行的数据为空！");
-                JOptionPane.showMessageDialog(null, "第"+row+"行，第1两列数据为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "第"+row+"行，第1列数据为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
             }
         }
         //调用方法进行数据保存
@@ -759,6 +838,10 @@ public class mainFrame implements CommandLineRunner {
      * @throws Exception
      */
     public void StartQuartz(JTextArea textArea_1,String selected){
+        if (StringUtils.isEmpty(selected)){
+            JOptionPane.showMessageDialog(null, "请选择业务场景！", "标题", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     	try {
     		//实例化调度器
         	scheduler =StdSchedulerFactory.getDefaultScheduler();
