@@ -331,7 +331,6 @@ public class mainFrame implements CommandLineRunner {
         lblNewLabel_2.setBounds(165, 35, 74, 18);
         panel3.add(lblNewLabel_2);*/
 
-
         JLabel label3 = new JLabel("业务场景：");
         label3.setBounds(165, 35, 74, 18);
         panel3.add(label3);
@@ -613,6 +612,7 @@ public class mainFrame implements CommandLineRunner {
         logger.info("删除业务场景列表选定项!第"+table_2.getRowCount()+"行! id为:"+table_2.getValueAt(table_2.getSelectedRow(), 2));
         if(StringUtils.isEmpty(table_2.getValueAt(table_2.getSelectedRow(), 2))){
             JOptionPane.showMessageDialog(null, "删除未保存数据成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+            logger.info("删除未保存数据成功！");
         }else {
             try{
                 executionController.del((Integer) table_2.getValueAt(table_2.getSelectedRow(), 2));
