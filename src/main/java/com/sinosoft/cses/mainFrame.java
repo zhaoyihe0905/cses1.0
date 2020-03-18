@@ -611,7 +611,7 @@ public class mainFrame implements CommandLineRunner {
     private void deleteExecution(JTable table_2, DefaultTableModel tablemodle_2) {
         logger.info("删除业务场景列表选定项!第"+table_2.getRowCount()+"行! id为:"+table_2.getValueAt(table_2.getSelectedRow(), 2));
         if(StringUtils.isEmpty(table_2.getValueAt(table_2.getSelectedRow(), 2))){
-            JOptionPane.showMessageDialog(null, "删除未保存数据成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "删除成功！", "标题", JOptionPane.INFORMATION_MESSAGE);
             logger.info("删除未保存数据成功！");
         }else {
             try{
