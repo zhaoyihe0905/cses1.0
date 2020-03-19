@@ -42,7 +42,7 @@ insert into tb_sysconfig (area_code, company_code, flag, parametercode, paramete
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('ALL', 'ALL', '', 'quartzIntervalTime', '定时访问间隔', '00', '1', '', '1');
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('ALL', 'ALL', '', 'connectTimeOut', '连接超时时间', '00', '3000', '', '1');
 insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('ALL', 'ALL', '', 'readTimeOut', '读取超时时间', '00', '3000', '', '1');
-
+insert into tb_sysconfig (area_code, company_code, flag, parametercode, parameterdesc, parametertype, parametervalue, remark, valid_status) values ('ALL', 'ALL', '', 'configFileUrl', '配置文件地址', '00', 'E:\\air\\resouce', '', '1');
 
 --34个省市的地区代码
 insert into tb_code (code_type, code_code, code_name,  code_flag, remark, valid_status) values ('InsurerArea', '110000', '北京',  0, '', 1);

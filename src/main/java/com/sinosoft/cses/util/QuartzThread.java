@@ -1,7 +1,13 @@
 package com.sinosoft.cses.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JTextArea;
 
@@ -12,41 +18,43 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import com.sinosoft.master.controller.ExecutionController;
+import com.sinosoft.master.entity.Execution;
 
 public class QuartzThread implements Runnable{
-	private Integer id =null;
+	private String[] ids =null;
 	private Map<String,String> map = new HashMap<>();
 	//日志打印对象
 	private JTextArea textArea_1 = null;
 	//地区中文
 	String area ="";
+	//配置文件读取
+	public Properties prop = AppCache.prop;
 	@Autowired
 	ExecutionController executController = ApplicationContextProvider.getBean(ExecutionController.class);
 	@Override
 	public void run() {
-		
-		// 获取地区代码
-		Map<String, String> mapArea = AppCache.areaChin;
-		//判断是否存在<USER>标签
-		boolean flag =false;
-		for(Map.Entry<String, String> a:map.entrySet()){
-			if(a.getKey().equalsIgnoreCase("<USER>")){
-				for(Map.Entry<String, String> b:mapArea.entrySet()){
-					if(b.getKey().contains(a.getValue())){
-						area =b.getValue();
-						break;
-					}
+		AppCache appCache =new AppCache();
+		int id =0;
+		//不同业务场景串行
+		for(int i =0;i<ids.length;i++){
+			List<Execution> executions =AppCache.executions;
+			for(int k=0;k<executions.size();k++){
+        		Execution execution = executions.get(k);
+        		if(execution.getName().equals(ids[i])){
+        			id = execution.getId();
+        		}
+        	}
+			//需要从配置文件中读取并修改的字段
+			String configFields = prop.getProperty(area+".carInfo"); 
+			if(!configFields.isEmpty()){
+				String[] fileds =configFields.split(",");
+				for(int h =0;h<fileds.length;h++){
+					map.put("<"+fileds[i]+">", prop.getProperty(area+"."+id+"."+fileds[i]));
 				}
-				flag =true;
-				break;
 			}
-		}
-		if(flag==true){
+        	
 			executController.doExecution(id, area, textArea_1, 1, map);
-		}else{
-			textArea_1.append("全局变量需要定义 USER 标签");
 		}
-		
 	}
 	public Map<String, String> getMap() {
 		return map;
@@ -61,11 +69,18 @@ public class QuartzThread implements Runnable{
 	public void setTextArea_1(JTextArea textArea_1) {
 		this.textArea_1 = textArea_1;
 	}
-	public Integer getId() {
-		return id;
+	
+	public String[] getId() {
+		return ids;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String[] id) {
+		this.ids = id;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	

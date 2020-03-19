@@ -23,6 +23,8 @@ public class SystemConfig {
 	/**读取数据超时间隔 */
 	public final static String ReadTIMEOUT = "readTimeOut";
 	
+	/**配置文件地址*/
+	public final static String ConfigFileURL ="configFileUrl";
 	
 
 	

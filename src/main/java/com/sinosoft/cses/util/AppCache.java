@@ -1,10 +1,13 @@
 package com.sinosoft.cses.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JTextArea;
 
@@ -59,6 +62,8 @@ public class AppCache implements CommandLineRunner{
 	public static List<Interfaces> interfaces = new ArrayList<>();
 	/** 业务场景 */
 	public static List<Execution> executions = new ArrayList<>();
+	/**自定义配置文件*/
+	public static Properties prop = new Properties();
 	
 	@Autowired
 	private CsCodeService csCodeService;
@@ -90,6 +95,7 @@ public class AppCache implements CommandLineRunner{
 			initGlobalVariable();
 			initInterface();
 			initExceution();
+			initConfigProperties();
 			logger.info("开始初始化数据成功");
 		} catch (Exception e) {
 			logger.info("初始化数据失败");
@@ -221,7 +227,19 @@ public class AppCache implements CommandLineRunner{
 			logger.info("全局变量初始化失败");
 		}
 	}
-
+	/**
+	 * 初始化自定义配置文件
+	 */
+	public void initConfigProperties(){
+		try {
+			String configFileUrl = getParameterStringValue(SystemConfig.ConfigFileURL, AppConst.ALL);
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(configFileUrl+"/quartzConfig.properties"));
+			 prop.load(bufferedReader);
+			 logger.info("自定义配置文件初始化成功");
+		} catch (Exception e) {
+			logger.info("自定义配置文件初始化失败");
+		}
+	}
 	
 	/** 获得String
 	 * @throws Exception */

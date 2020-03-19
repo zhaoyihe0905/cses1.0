@@ -854,15 +854,10 @@ public class mainFrame implements CommandLineRunner {
         	//创建任务：被执行任务需要实现Job接口，定时任务会执行excute方法
         	//获取业务场景id
         	Integer id = null;
-        	List<Execution> executions =AppCache.executions;
-        	for(int i=0;i<executions.size();i++){
-        		Execution execution = executions.get(i);
-        		if(execution.getName().equals(selected)){
-        			id = execution.getId();
-        		}
-        	}
+        	String[] selectedList = selected.split(",");
+        	
         	JobDetail job =JobBuilder.newJob(QuartzWork.class).build();
-        	job.getJobDataMap().put("id", id);
+        	job.getJobDataMap().put("id", selectedList);
         	job.getJobDataMap().put("textArea", textArea_1);
         	//注册触发器和任务到调度器中
         	
