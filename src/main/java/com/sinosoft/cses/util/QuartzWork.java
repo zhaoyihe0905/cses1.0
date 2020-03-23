@@ -41,7 +41,16 @@ public class QuartzWork implements Job{
 			}
 		}
 		//获取配置文件地区代码
-		String[] areaChines = prop.getProperty("area").split(",");
+		String[] areaChines = null;
+		try {
+			areaChines = prop.getProperty("area").split(",");
+		} catch (Exception e) {
+			textArea_1.append("获取配置文件地区代码异常！"+e.getMessage());
+			textArea_1.append("\n");
+			textArea_1.append("******************定时任务启动失败******************");
+			return;
+		}
+
 		//创建线程
 		for(int i =0;i<areaChines.length;i++){
 			//单个线程使用的map，对于业务场景执行方法，等同于非定时情况下从全局变量获取的map			
