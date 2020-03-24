@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.swing.JTextArea;
 
@@ -33,7 +33,8 @@ public class QuartzThread implements Runnable{
 	ExecutionController executController = ApplicationContextProvider.getBean(ExecutionController.class);
 	@Override
 	public void run() {
-		AppCache appCache =new AppCache();
+		//AppCache appCache =new AppCache();
+		Map<String, String> globalVariable = AppCache.globalVariable;
 		int id =0;
 		//不同业务场景串行
 		for(int i =0;i<ids.length;i++){
@@ -55,7 +56,49 @@ public class QuartzThread implements Runnable{
 					map.put("<"+fileds[i]+">", prop.getProperty(area+"."+id+"."+fileds[i]));
 				}
 			}
-        	
+
+			Date date = new Date();
+			//遍历map中的键
+			for(String key:globalVariable.keySet()){
+				if (key.equals("<START_DATE>")){
+					String startDate = globalVariable.get(key);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+					try {
+						Date parse = sdf.parse(startDate);
+						while (date.getTime() > parse.getTime()){
+							Calendar c = Calendar.getInstance();
+							c.setTime(parse);
+							c.add(Calendar.DAY_OF_MONTH, 1);          //利用Calendar 实现 Date日期+1天
+							parse = c.getTime();
+							String newStartDate = sdf.format(parse);
+							globalVariable.put("<START_DATE>",newStartDate);
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+				if (key.equals("<END_DATE>")){
+					String endDate = globalVariable.get(key);
+					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
+					try {
+						Date parse1 = sdf1.parse(endDate);
+						if (date.getTime() > parse1.getTime()){
+							Calendar c = Calendar.getInstance();
+							c.setTime(parse1);
+							c.add(Calendar.YEAR, 1);          //利用Calendar 实现 Date日期+1年
+							parse1 = c.getTime();
+							String newEndDate = sdf1.format(parse1);
+							globalVariable.put("<END_DATE>",newEndDate);
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			//遍历map中的值
+			/*for(String value:globalVariable.values()){
+				System.out.println("value ="+value);
+			}*/
 			executController.doExecution(id, area, textArea_1, 1, map);
 		}
 	}

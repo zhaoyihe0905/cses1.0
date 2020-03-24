@@ -588,6 +588,8 @@ public class mainFrame implements CommandLineRunner {
 					map.put(key, AppCache.globalVariable.get(key));
 				}
 			}
+			//日志显示窗口设置只读
+            textArea2.setEditable(false);
             executionController.doExecution(id, area, textArea2, 0, map);
         } catch (Exception e) {
 
@@ -838,6 +840,8 @@ public class mainFrame implements CommandLineRunner {
      * @throws Exception
      */
     public void StartQuartz(JTextArea textArea_1,String selected){
+        //定时任务显示窗口设置为只读
+        textArea_1.setEditable(false);
         if (StringUtils.isEmpty(selected)){
             JOptionPane.showMessageDialog(null, "请选择业务场景！", "标题", JOptionPane.ERROR_MESSAGE);
             return;
