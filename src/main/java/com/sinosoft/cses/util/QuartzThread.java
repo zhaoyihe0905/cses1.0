@@ -44,6 +44,9 @@ public class QuartzThread implements Runnable{
         			id = execution.getId();
         		}
         	}
+			//用户名密码添加
+			map.put("<USER>", prop.getProperty(area+".username"));
+			map.put("<PASSWORD>", prop.getProperty(area+".password"));
 			//需要从配置文件中读取并修改的字段
 			String configFields = prop.getProperty(area+".carInfo"); 
 			if(!configFields.isEmpty()){
