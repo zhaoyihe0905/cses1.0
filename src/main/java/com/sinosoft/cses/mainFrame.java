@@ -651,8 +651,19 @@ public class mainFrame implements CommandLineRunner {
         for (Interfaces interfac:interfaces) {
             interfacS.add(interfac.getName());
         }
-
         for (int row = 0; row < table2.getRowCount(); row++) {
+            Object valueAt2 = table2.getValueAt(row, 0);
+            Object valueAt3 = table2.getValueAt(row, 1);
+            if (valueAt2 == null || "".equals(valueAt2)) {
+                logger.error("第"+row+"行，第1列数据为空。保存失败！");
+                JOptionPane.showMessageDialog(null, "第"+row+"行，业务场景名为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (valueAt3 == null || "".equals(valueAt3)) {
+                logger.error("第"+row+"行，第1列数据为空。保存失败！");
+                JOptionPane.showMessageDialog(null, "第"+row+"行，接口名为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int a=0;
             //判断接口名是否存在
             String valueAt = (String) table2.getValueAt(row, 1);
@@ -672,20 +683,13 @@ public class mainFrame implements CommandLineRunner {
                 JOptionPane.showMessageDialog(null, "第"+(row + 1)+"行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (table2.getValueAt(row, 0) != null) {
                 Execution execution = new Execution();
-                execution.setName((String) table2.getValueAt(row, 0));
+                execution.setName((String) valueAt2);
                 execution.setOrders((String) table2.getValueAt(row, 1));
-                Object valueAt1 = table2.getValueAt(row, 2);
                 if (table2.getValueAt(row, 2) != null) {
                     execution.setId((Integer) table2.getValueAt(row, 2));
                 }
                 executionList.add(execution);
-            } else {
-                logger.error("第"+row+"行，第1列数据为空。保存失败！");
-                //System.out.println("新增一行的数据为空！");
-                JOptionPane.showMessageDialog(null, "第"+row+"行，第1列数据为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
-            }
         }
         //调用方法进行数据保存
         try {
@@ -695,6 +699,7 @@ public class mainFrame implements CommandLineRunner {
             tablemodle_2.getDataVector().clear();
             Object[][] interfaceInfo2 = executionController.selectExecution(3);
             //tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "id"});
+            //禁用每行的第3列
             tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "ID"}){
                 @Override
                 public boolean isCellEditable(int row,int column){
@@ -791,7 +796,18 @@ public class mainFrame implements CommandLineRunner {
         //定义参数list
         List<Interfaces> interfacesList = new ArrayList<>();
         for (int row = 0; row < table.getRowCount(); row++) {
-            if (table.getValueAt(row, 0) != null && table.getValueAt(row, 1) != null) {
+            Object valueAt2 = table.getValueAt(row, 0);
+            Object valueAt3 = table.getValueAt(row, 1);
+            if (valueAt2 == null || "".equals(valueAt2)) {
+                logger.error("第"+row+"行，XML路径为空。保存失败！");
+                JOptionPane.showMessageDialog(null, "第"+row+"行，XML路径为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (valueAt3 == null || "".equals(valueAt3)) {
+                logger.error("第"+row+"行，接口名为空。保存失败！");
+                JOptionPane.showMessageDialog(null, "第"+row+"行，接口名为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
                 Interfaces interfaces = new Interfaces();
                 interfaces.setXmlName((String) table.getValueAt(row, 0));
                 interfaces.setName((String) table.getValueAt(row, 1));
@@ -804,7 +820,6 @@ public class mainFrame implements CommandLineRunner {
                     interfaces.setId((Integer) table.getValueAt(row, 7));
                 }
                 interfacesList.add(interfaces);
-            }
         }
         //调用方法进行数据保存
         logger.info("保存接口列表数据!");
