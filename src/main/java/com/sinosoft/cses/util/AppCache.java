@@ -1,7 +1,9 @@
 package com.sinosoft.cses.util;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -233,8 +235,10 @@ public class AppCache implements CommandLineRunner{
 	public void initConfigProperties(){
 		try {
 			String configFileUrl = getParameterStringValue(SystemConfig.ConfigFileURL, AppConst.ALL);
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(configFileUrl+"/quartzConfig.properties"));
-			 prop.load(bufferedReader);
+			//BufferedReader bufferedReader = new BufferedReader(new FileReader(configFileUrl+"/quartzConfig.properties"));
+			//解决读取文件乱码问题
+			prop.load(new InputStreamReader(new FileInputStream(configFileUrl+"/quartzConfig.properties"), "UTF-8"));
+			//prop.load(bufferedReader);
 			 logger.info("自定义配置文件初始化成功");
 		} catch (Exception e) {
 			logger.info("自定义配置文件初始化失败");
