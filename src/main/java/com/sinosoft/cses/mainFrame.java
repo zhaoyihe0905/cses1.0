@@ -391,14 +391,14 @@ public class mainFrame implements CommandLineRunner {
         panel3.add(comboBox_2);*/
 
         JButton btnNewButton_10 = new JButton("执   行");
-        btnNewButton_10.setBounds(805, 33, 96, 23);
+        btnNewButton_10.setBounds(535, 33, 96, 23);
         //btnNewButton_10.addActionListener(Event -> this.doexecution(table_2, tablemodle_2, comboBox_1));
         btnNewButton_10.addActionListener(Event -> this.StartQuartz(textArea_1,Transformation(mulit)));
         panel3.add(btnNewButton_10);
 
-        JButton btnNewButton_11 = new JButton("保    存");
-        btnNewButton_11.setBounds(535, 33, 96, 23);
-        panel3.add(btnNewButton_11);
+        //JButton btnNewButton_11 = new JButton("保    存");
+        //btnNewButton_11.setBounds(535, 33, 96, 23);
+        //panel3.add(btnNewButton_11);
         scrollPane_3.setViewportView(table_4);
         textArea_1 = new JTextArea();
         scrollPane_3.setViewportView(textArea_1);
