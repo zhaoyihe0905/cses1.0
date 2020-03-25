@@ -261,8 +261,17 @@ public class mainFrame implements CommandLineRunner {
         JPanel panel2 = new JPanel();
         //加载业务场景列表界面
         Object[][] interfaceInfo2 = executionController.selectExecution(3);
-        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", ""});
-
+        //tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "ID"});
+        tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "ID"}){
+            @Override
+            public boolean isCellEditable(int row,int column){
+                if(column == 2){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        };
         mainPanel.addTab("业务场景", null, panel2, null);
         panel2.setLayout(null);
 
@@ -287,14 +296,14 @@ public class mainFrame implements CommandLineRunner {
         btnNewButton_6.setBounds(383, 33, 96, 23);
         panel2.add(btnNewButton_6);
         table_2 = new JTable(tablemodle_2);
-        TableColumnModel tcm2 = table_2.getColumnModel();
+        /*TableColumnModel tcm2 = table_2.getColumnModel();
         TableColumn tc2 = tcm2.getColumn(2);
         tc2.setMaxWidth(0);
         tc2.setPreferredWidth(0);
         tc2.setMinWidth(0);
         tc2.setWidth(0);
         table_2.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
-        table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+        table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);*/
 
         JScrollPane scrollPane_2 = new JScrollPane();
         //scrollPane_2.setBounds(42, 84, 556, 280);
@@ -667,6 +676,7 @@ public class mainFrame implements CommandLineRunner {
                 Execution execution = new Execution();
                 execution.setName((String) table2.getValueAt(row, 0));
                 execution.setOrders((String) table2.getValueAt(row, 1));
+                Object valueAt1 = table2.getValueAt(row, 2);
                 if (table2.getValueAt(row, 2) != null) {
                     execution.setId((Integer) table2.getValueAt(row, 2));
                 }
@@ -684,16 +694,27 @@ public class mainFrame implements CommandLineRunner {
             //重新加载业务场景列表界面
             tablemodle_2.getDataVector().clear();
             Object[][] interfaceInfo2 = executionController.selectExecution(3);
-            tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", ""});
+            //tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "id"});
+            tablemodle_2 = new DefaultTableModel(interfaceInfo2, new String[]{"业务场景", "接口名", "ID"}){
+                @Override
+                public boolean isCellEditable(int row,int column){
+                    if(column == 2){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            };
             table_2 = new JTable(tablemodle_2);
-            TableColumnModel tcm2 = table_2.getColumnModel();
+            /*TableColumnModel tcm2 = table_2.getColumnModel();
             TableColumn tc2 = tcm2.getColumn(2);
+
             tc2.setMaxWidth(0);
             tc2.setPreferredWidth(0);
             tc2.setMinWidth(0);
             tc2.setWidth(0);
             table_2.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
-            table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+            table_2.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);*/
             scrollPane_2.setViewportView(table_2);
 
             logger.info("保存业务数据成功！");

@@ -365,14 +365,20 @@ public class BusinessFun {
 		
 		//起保日期的处理
 		
-		Date start_date = DateUtils.addDay(new Date(), +5);
+		//Date start_date = DateUtils.addDay(new Date(), +5);
+		String start_dateString = AppCache.globalVariable.get("<START_DATE>");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+		Date start_date = sdf.parse(start_dateString);
 		xml = replaceVariable(xml, AppConst.START_DATE, DateUtils.toString(start_date, DateUtils.YYYYMMDDHHmm));
 		
 		//终包日期的处理
-        Calendar calendar = new GregorianCalendar();
+        /*Calendar calendar = new GregorianCalendar();
         calendar.setTime(start_date);
         calendar.add(Calendar.YEAR, 1);
-        Date stop_date = calendar.getTime();
+        Date stop_date = calendar.getTime();*/
+		String end_dateString = AppCache.globalVariable.get("<END_DATE>");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
+		Date stop_date = sdf1.parse(end_dateString);
         xml = replaceVariable(xml, AppConst.STOP_DATE, DateUtils.toString(stop_date, DateUtils.YYYYMMDDHHmm));
         
         

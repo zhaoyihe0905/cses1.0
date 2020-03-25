@@ -49,11 +49,13 @@ public class QuartzThread implements Runnable{
 			map.put("<USER>", prop.getProperty(area+".username"));
 			map.put("<PASSWORD>", prop.getProperty(area+".password"));
 			//需要从配置文件中读取并修改的字段
-			String configFields = prop.getProperty(area+".carInfo"); 
+			String configFields = prop.getProperty(area+".carInfo");
 			if(!configFields.isEmpty()){
 				String[] fileds =configFields.split(",");
 				for(int h =0;h<fileds.length;h++){
-					map.put("<"+fileds[i]+">", prop.getProperty(area+"."+id+"."+fileds[i]));
+					//map.put("<"+fileds[i]+">", prop.getProperty(area+"."+id+"."+fileds[i]));
+					System.out.println(prop.getProperty(area+"."+id+"."+fileds[h]));
+					map.put("<"+fileds[h]+">", prop.getProperty(area+"."+id+"."+fileds[h]));
 				}
 			}
 
