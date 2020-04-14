@@ -1,10 +1,6 @@
 package com.sinosoft.master.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -123,8 +119,9 @@ public class ExecutionController {
 	 * @param map            全局变量map
 	 */
 	public void doExecution(Integer id, String area, JTextArea textArea2, Integer identification, Map<String, String> map) {
+		//过滤空值
+		removeNullValue(map);
 
-		
 		//判断是不是定时
 			// 获得当前的拼音
 			try {
@@ -162,9 +159,10 @@ public class ExecutionController {
 					String xml = businessFun.readFile(interfac.getXmlName()).trim();
 
 //					//进行第一步处理
+					//todo 这儿没区分交商险
 					xml = businessFun.firstXmlHandle(xml, areaCode);
-					// 进行第二部处理， 和全局变量进行替换
 
+					// 进行第二部处理， 和全局变量进行替换
 					xml = businessFun.SecondXmlHandle(xml, interfac, map,logger);
 
 					// 设置自动换行
@@ -174,10 +172,16 @@ public class ExecutionController {
 					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
 					logger.info("开始执行 " + interfac.getName());
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
-
+					String url = null;
 					// 系统访问路劲的处理
-					String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
-					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();
+					if (execution.getName().contains("商业")){
+						url = appCache.getParameterStringValue("a"+SystemConfig.URL, areaCode).trim();
+					}else if (execution.getName().contains("交强")){
+						url = appCache.getParameterStringValue("i"+SystemConfig.URL, areaCode).trim();
+					}
+
+					/*String url = appCache.getParameterStringValue(SystemConfig.URL, areaCode).trim();
+					url = interfac.getUrl().replaceAll("localhost:8080", url).trim();*/
 //					String url = interfac.getUrl().trim();
 //					System.out.println("---" + url + "----");
 					logger.info("访问路劲是" + url);
@@ -258,6 +262,7 @@ public class ExecutionController {
 					
 					//假设接口访问失败， 那就抛出异常
 					if (res.getResult() == 0) {
+						textArea2.append("接口访问异常！" + res.getResMessage() + " \n");
 						throw new Exception(res.getResMessage());
 					}
 
@@ -267,11 +272,73 @@ public class ExecutionController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				textArea2.append("接口访问失败" + e.getMessage().toString()+"\n");
+				textArea2.append("接口访问失败，" + e.getMessage().toString()+"\n");
 				logger.info("接口访问失败:" + e.getMessage());
 			}
 
 			//假设是定时
 	}
 
+
+	/**
+	 * 移除map中的value空值
+	 * @param map
+	 * @return
+	 */
+	public static void removeNullValue(Map map){
+		Set set = map.keySet();
+		for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+			Object obj = (Object) iterator.next();
+			Object value =(Object)map.get(obj);
+			remove(value, iterator);
+		}
+	}
+
+
+	/**
+	 * 移除map中的空值
+	 *
+	 * Iterator 是工作在一个独立的线程中，并且拥有一个 mutex 锁。
+	 * Iterator 被创建之后会建立一个指向原来对象的单链索引表，当原来的对象数量发生变化时，这个索引表的内容不会同步改变，
+	 * 所以当索引指针往后移动的时候就找不到要迭代的对象，所以按照 fail-fast 原则 Iterator 会马上抛出 java.util.ConcurrentModificationException 异常。
+	 * 所以 Iterator 在工作的时候是不允许被迭代的对象被改变的。
+	 * 但你可以使用 Iterator 本身的方法 remove() 来删除对象， Iterator.remove() 方法会在删除当前迭代对象的同时维护索引的一致性。
+	 * @param obj
+	 * @param iterator
+	 */
+	private static void remove(Object obj,Iterator iterator){
+		if(obj instanceof String){
+			String str = (String)obj;
+			if(isEmpty(str)){  //过滤掉为null和""的值 主函数输出结果map：{2=BB, 1=AA, 5=CC, 8=  }
+//            if("".equals(str.trim())){  //过滤掉为null、""和" "的值 主函数输出结果map：{2=BB, 1=AA, 5=CC}
+				iterator.remove();
+			}
+
+		}else if(obj instanceof Collection){
+			Collection col = (Collection)obj;
+			if(col==null||col.isEmpty()){
+				iterator.remove();
+			}
+
+		}else if(obj instanceof Map){
+			Map temp = (Map)obj;
+			if(temp==null||temp.isEmpty()){
+				iterator.remove();
+			}
+
+		}else if(obj instanceof Object[]){
+			Object[] array =(Object[])obj;
+			if(array==null||array.length<=0){
+				iterator.remove();
+			}
+		}else{
+			if(obj==null){
+				iterator.remove();
+			}
+		}
+	}
+
+	public static boolean isEmpty(Object obj){
+		return obj == null || obj.toString().length() == 0;
+	}
 }

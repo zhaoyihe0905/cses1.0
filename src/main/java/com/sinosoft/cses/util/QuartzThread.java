@@ -36,8 +36,11 @@ public class QuartzThread implements Runnable{
 		//AppCache appCache =new AppCache();
 		Map<String, String> globalVariable = AppCache.globalVariable;
 		int id =0;
+
 		//不同业务场景串行
 		for(int i =0;i<ids.length;i++){
+			//重置 避免数据覆盖
+			map = new HashMap<>();
 			List<Execution> executions =AppCache.executions;
 			for(int k=0;k<executions.size();k++){
         		Execution execution = executions.get(k);
@@ -45,9 +48,17 @@ public class QuartzThread implements Runnable{
         			id = execution.getId();
         		}
         	}
-			//用户名密码添加
-			map.put("<USER>", prop.getProperty(area+".username"));
-			map.put("<PASSWORD>", prop.getProperty(area+".password"));
+			/*for(int j=0;j<ids.length;j++){
+				if (ids[j].contains("商业")){
+					//用户名密码添加
+					map.put("<User>", prop.getProperty(area+".username"));
+					map.put("<Password>", prop.getProperty(area+".password"));
+				}else if (ids[j].contains("交强")){
+					//用户名密码添加
+					map.put("<USER>", prop.getProperty(area+".username"));
+					map.put("<PASSWORD>", prop.getProperty(area+".password"));
+				}
+			}*/
 			//需要从配置文件中读取并修改的字段
 			String configFields = prop.getProperty(area+".carInfo");
 			if(!configFields.isEmpty()){
@@ -61,8 +72,8 @@ public class QuartzThread implements Runnable{
 
 			Date date = new Date();
 			//遍历map中的键
-			for(String key:globalVariable.keySet()){
-				if (key.equals("<START_DATE>")){
+			/*for(String key:globalVariable.keySet()){
+				if (key.equalsIgnoreCase("<START_DATE>")){
 					String startDate = globalVariable.get(key);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 					try {
@@ -79,7 +90,7 @@ public class QuartzThread implements Runnable{
 						e.printStackTrace();
 					}
 				}
-				if (key.equals("<END_DATE>")){
+				if (key.equalsIgnoreCase("<END_DATE>")){
 					String endDate = globalVariable.get(key);
 					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
 					try {
@@ -96,7 +107,7 @@ public class QuartzThread implements Runnable{
 						e.printStackTrace();
 					}
 				}
-			}
+			}*/
 			//遍历map中的值
 			/*for(String value:globalVariable.values()){
 				System.out.println("value ="+value);
