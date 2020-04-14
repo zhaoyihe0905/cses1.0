@@ -23,6 +23,7 @@ public class CsesApplication {
 //    	SpringApplicationBuilder builder = new SpringApplicationBuilder(mainFrame.class);
 //    	builder.headless(false).web(false).run(args);
 //        SpringApplication.run(CsesApplication.class, args);
+    	
     	ConfigurableApplicationContext context = new SpringApplicationBuilder(
     			CsesApplication.class).headless(false).run(args);
 
