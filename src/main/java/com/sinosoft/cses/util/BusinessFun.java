@@ -436,6 +436,28 @@ public class BusinessFun {
 		return xml;
 	}
 
+	/**
+	 * 进行Xml报文的第一步处理（“商业险”用户名密码）
+	 * @param xml
+	 * @param areaCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String firstXmlHandleSY(String xml, String areaCode) throws Exception {
+		//用户名的处理
+		xml = replaceVariable(xml, AppConst.User, appCache.getParameterStringValue(SystemConfig.USER, areaCode));
+
+
+		//密码的处理
+		xml = replaceVariable(xml, AppConst.Password, appCache.getParameterStringValue(SystemConfig.PASSWORD, areaCode));
+
+		return xml;
+	}
+
+
+
+
+
 	/** 对报文进行第二部处理
 	 * @param map 
 	 * @param logger2 */

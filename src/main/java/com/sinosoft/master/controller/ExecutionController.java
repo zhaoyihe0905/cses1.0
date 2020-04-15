@@ -159,8 +159,12 @@ public class ExecutionController {
 					String xml = businessFun.readFile(interfac.getXmlName()).trim();
 
 //					//进行第一步处理
-					//todo 这儿没区分交商险
-					xml = businessFun.firstXmlHandle(xml, areaCode);
+					//xml = businessFun.firstXmlHandle(xml, areaCode);
+					if (execution.getName().contains("商业")){
+						xml = businessFun.firstXmlHandleSY(xml, areaCode);
+					}else if (execution.getName().contains("交强")){
+						xml = businessFun.firstXmlHandle(xml, areaCode);
+					}
 
 					// 进行第二部处理， 和全局变量进行替换
 					xml = businessFun.SecondXmlHandle(xml, interfac, map,logger);
