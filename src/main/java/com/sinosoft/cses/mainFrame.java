@@ -703,25 +703,27 @@ public class mainFrame implements CommandLineRunner {
                 JOptionPane.showMessageDialog(null, "第"+row+"行，接口名为空。保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int a=0;
-            //判断接口名是否存在
-            String valueAt = (String) table2.getValueAt(row, 1);
-            String[] result = valueAt.split(",");
-            List<String> list = new ArrayList<String>();
-            Collections.addAll(list, result);
-            for (int i = 0; i < list.size(); i++) {
-                a=0;
-                for (String interfac:interfacS) {
-                    String s = list.get(i);
-                    if (list.get(i).equals(interfac)){
-                        a++;
+
+            if (valueAt2.toString().contains("商业") || valueAt2.toString().contains("交强")) {
+                int a = 0;
+                //判断接口名是否存在
+                String valueAt = (String) table2.getValueAt(row, 1);
+                String[] result = valueAt.split(",");
+                List<String> list = new ArrayList<String>();
+                Collections.addAll(list, result);
+                for (int i = 0; i < list.size(); i++) {
+                    a = 0;
+                    for (String interfac : interfacS) {
+                        String s = list.get(i);
+                        if (list.get(i).equals(interfac)) {
+                            a++;
+                        }
                     }
                 }
-            }
-            if (a<=0){
-                JOptionPane.showMessageDialog(null, "第"+(row + 1)+"行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+                if (a <= 0) {
+                    JOptionPane.showMessageDialog(null, "第" + (row + 1) + "行，第2列接口名异常！保存失败！", "标题", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 Execution execution = new Execution();
                 execution.setName((String) valueAt2);
                 execution.setOrders((String) table2.getValueAt(row, 1));
@@ -729,6 +731,11 @@ public class mainFrame implements CommandLineRunner {
                     execution.setId((Integer) table2.getValueAt(row, 2));
                 }
                 executionList.add(execution);
+            }else {
+                logger.error("第"+row+"行业务场景名未区分交商险！");
+                JOptionPane.showMessageDialog(null, "保存失败！第"+row+"行，业务场景名称请包含“交强”或者“商业”字符，以区分交商险！", "标题", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         //调用方法进行数据保存
         try {
@@ -767,6 +774,7 @@ public class mainFrame implements CommandLineRunner {
             logger.error("保存业务数据异常！");
             JOptionPane.showMessageDialog(null, "保存业务数据异常", "标题", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
 
