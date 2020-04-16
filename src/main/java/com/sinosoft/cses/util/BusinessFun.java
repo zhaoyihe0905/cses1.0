@@ -357,12 +357,12 @@ public class BusinessFun {
 	public String firstXmlHandle(String xml, String areaCode) throws Exception {
 		
 		//保单归属地市的处理
-		String cityCode = areaCode.substring(0, 2) + "0100";
-		xml = replaceVariable(xml, AppConst.CITY_CODE, cityCode);
+		/*String cityCode = areaCode.substring(0, 2) + "0100";
+		xml = replaceVariable(xml, AppConst.CITY_CODE, cityCode);*/
 		
 		//保单归属地县的处理
-		String countyCode = cityCode.substring(0, 4) + "05";
-		xml = replaceVariable(xml, AppConst.COUNTRY_CODE, countyCode);
+		/*String countyCode = cityCode.substring(0, 4) + "05";
+		xml = replaceVariable(xml, AppConst.COUNTRY_CODE, countyCode);*/
 		
 		//起保日期的处理
 		Date date = new Date();
@@ -450,6 +450,64 @@ public class BusinessFun {
 
 		//密码的处理
 		xml = replaceVariable(xml, AppConst.Password, appCache.getParameterStringValue(SystemConfig.PASSWORD, areaCode));
+
+
+		//起保日期的处理
+		Date date = new Date();
+		//遍历map中的键
+		for(String key:AppCache.globalVariable.keySet()){
+			if (key.equals("<EffectiveDate>")){
+				String startDate = AppCache.globalVariable.get(key);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+				try {
+					Date parse = sdf.parse(startDate);
+					while (date.getTime() > parse.getTime()){
+						Calendar c = Calendar.getInstance();
+						c.setTime(parse);
+						c.add(Calendar.DAY_OF_MONTH, 1);          //利用Calendar 实现 Date日期+1天
+						parse = c.getTime();
+						String newStartDate = sdf.format(parse);
+						AppCache.globalVariable.put("<EffectiveDate>",newStartDate);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (key.equals("<ExpireDate>")){
+				String endDate = AppCache.globalVariable.get(key);
+				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
+				try {
+					Date parse1 = sdf1.parse(endDate);
+					if (date.getTime() > parse1.getTime()){
+						Calendar c = Calendar.getInstance();
+						c.setTime(parse1);
+						c.add(Calendar.YEAR, 1);          //利用Calendar 实现 Date日期+1年
+						parse1 = c.getTime();
+						String newEndDate = sdf1.format(parse1);
+						AppCache.globalVariable.put("<ExpireDate>",newEndDate);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+
+		//Date start_date = DateUtils.addDay(new Date(), +5);
+		String start_dateString = AppCache.globalVariable.get("<EffectiveDate>");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+		Date start_date = sdf.parse(start_dateString);
+		xml = replaceVariable(xml, AppConst.EffectiveDate, DateUtils.toString(start_date, DateUtils.YYYYMMDDHHmm));
+
+		//终包日期的处理
+        /*Calendar calendar = new GregorianCalendar();
+        calendar.setTime(start_date);
+        calendar.add(Calendar.YEAR, 1);
+        Date stop_date = calendar.getTime();*/
+		String end_dateString = AppCache.globalVariable.get("<ExpireDate>");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
+		Date stop_date = sdf1.parse(end_dateString);
+		xml = replaceVariable(xml, AppConst.ExpireDate, DateUtils.toString(stop_date, DateUtils.YYYYMMDDHHmm));
 
 		return xml;
 	}

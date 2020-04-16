@@ -166,11 +166,18 @@ public class AppConst implements CARequestTypeConst, CIRequestTypeConst, Global{
 	/** 交强密码*/
 	public static final String PASSWORD = "<PASSWORD>";
 
-		/** 商业用户名*/
-		public static final String User = "<User>";
+	/** 商业用户名*/
+	public static final String User = "<User>";
 
-		/** 商业密码*/
-		public static final String Password = "<Password>";
+	/** 商业密码*/
+	public static final String Password = "<Password>";
+
+	/** 商业起保日期*/
+	public static final String EffectiveDate = "<EffectiveDate>";
+
+	/** 商业密码*/
+	public static final String ExpireDate = "<ExpireDate>";
+
 	}
 	
 	
