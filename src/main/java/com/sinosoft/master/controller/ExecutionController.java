@@ -1,5 +1,7 @@
 package com.sinosoft.master.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.JTextArea;
@@ -164,6 +166,45 @@ public class ExecutionController {
 						xml = businessFun.firstXmlHandleSY(xml, areaCode);
 					}else if (execution.getName().contains("交强")){
 						xml = businessFun.firstXmlHandle(xml, areaCode);
+					}
+
+					//起保日期的处理
+					Date date = new Date();
+					for(String key:map.keySet()){
+						if (key.equalsIgnoreCase("<START_DATE>")){
+							String startDate = map.get(key);
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+							try {
+								Date parse = sdf.parse(startDate);
+								while (date.getTime() > parse.getTime()){
+									Calendar c = Calendar.getInstance();
+									c.setTime(parse);
+									c.add(Calendar.DAY_OF_MONTH, 1);          //利用Calendar 实现 Date日期+1天
+									parse = c.getTime();
+									String newStartDate = sdf.format(parse);
+									map.put("<START_DATE>",newStartDate);
+								}
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+						}
+						if (key.equalsIgnoreCase("<END_DATE>")){
+							String endDate = map.get(key);
+							SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
+							try {
+								Date parse1 = sdf1.parse(endDate);
+								if (date.getTime() > parse1.getTime()){
+									Calendar c = Calendar.getInstance();
+									c.setTime(parse1);
+									c.add(Calendar.YEAR, 1);          //利用Calendar 实现 Date日期+1年
+									parse1 = c.getTime();
+									String newEndDate = sdf1.format(parse1);
+									map.put("<END_DATE>",newEndDate);
+								}
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+						}
 					}
 
 					// 进行第二部处理， 和全局变量进行替换

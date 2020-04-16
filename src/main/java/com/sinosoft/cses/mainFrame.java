@@ -592,49 +592,9 @@ public class mainFrame implements CommandLineRunner {
 
             String area = (String) comboBox_1.getSelectedItem();
             
-          //获得全局变量的map,区分是定时还是非定时的全局变量
-            Date date = new Date();
 			Map<String, String> map = new HashMap<>();
 			for (String key : AppCache.globalVariable.keySet()) {
-				/*if (!key.endsWith("*")) {
-					map.put(key, AppCache.globalVariable.get(key));
-				}*/
-                //起保日期的处理
-                    if (key.equals("<START_DATE>")){
-                        String startDate = AppCache.globalVariable.get(key);
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                        try {
-                            Date parse = sdf.parse(startDate);
-                            while (date.getTime() > parse.getTime()){
-                                Calendar c = Calendar.getInstance();
-                                c.setTime(parse);
-                                c.add(Calendar.DAY_OF_MONTH, 1);          //利用Calendar 实现 Date日期+1天
-                                parse = c.getTime();
-                                String newStartDate = sdf.format(parse);
-                                map.put("<START_DATE>",newStartDate);
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (key.equals("<END_DATE>")){
-                        String endDate = AppCache.globalVariable.get(key);
-                        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
-                        try {
-                            Date parse1 = sdf1.parse(endDate);
-                            if (date.getTime() > parse1.getTime()){
-                                Calendar c = Calendar.getInstance();
-                                c.setTime(parse1);
-                                c.add(Calendar.YEAR, 1);          //利用Calendar 实现 Date日期+1年
-                                parse1 = c.getTime();
-                                String newEndDate = sdf1.format(parse1);
-                                map.put("<END_DATE>",newEndDate);
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }else {
-                        map.put(key, AppCache.globalVariable.get(key));
-                    }
+                map.put(key, AppCache.globalVariable.get(key));
 			}
 			//日志显示窗口设置只读
             textArea2.setEditable(false);
