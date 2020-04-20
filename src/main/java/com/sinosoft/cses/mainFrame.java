@@ -202,7 +202,7 @@ public class mainFrame implements CommandLineRunner {
      * @wbp.parser.entryPoint
      */
     private void initialize() {
-        frame = new JFrame("客户服务体验系统");
+        frame = new JFrame("车险平台出单监控工具");
         frame.setBounds(100, 100, 1134, 581);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);

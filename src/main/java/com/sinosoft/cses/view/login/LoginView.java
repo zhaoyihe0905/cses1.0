@@ -22,7 +22,7 @@ public class LoginView extends JFrame {
 
 	public LoginView(){
         //第一步：设置窗口
-        this.setTitle("客服服务体验系统");
+        this.setTitle("车险平台出单监控工具");
         this.setSize(350,250);
         //窗口居中
         this.CenterWin();
