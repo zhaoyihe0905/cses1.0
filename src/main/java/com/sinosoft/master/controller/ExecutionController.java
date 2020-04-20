@@ -123,7 +123,7 @@ public class ExecutionController {
 	public void doExecution(Integer id, String area, JTextArea textArea2, Integer identification, Map<String, String> map) {
 		//过滤空值
 		removeNullValue(map);
-
+		StringBuffer strBuff = new StringBuffer();
 		//判断是不是定时
 			// 获得当前的拼音
 			try {
@@ -138,11 +138,16 @@ public class ExecutionController {
 				String orders = execution.getOrders();
 				String areaCode = AppCache.areaEng.get(area);
 
-				textArea2.append("当前业务场景是" + execution.getName() + " \n");
-				textArea2.append("当前地区是" + area + ":" + areaCode + " \n");
-				textArea2.append("当前业务场景的uuid是" + uuid + " \n");
-				textArea2.append(" \n");
-				textArea2.append(" \n");
+//				textArea2.append("当前业务场景是" + execution.getName() + " \n");
+//				textArea2.append("当前地区是" + area + ":" + areaCode + " \n");
+//				textArea2.append("当前业务场景的uuid是" + uuid + " \n");
+//				textArea2.append(" \n");
+//				textArea2.append(" \n");
+				strBuff.append("当前业务场景是" + execution.getName() + " \n");
+				strBuff.append("当前地区是" + area + ":" + areaCode + " \n");
+				strBuff.append("当前业务场景的uuid是" + uuid + " \n");
+				strBuff.append(" \n");
+				strBuff.append(" \n");
 				
 				logger.info("当前业务场景是" + execution.getName());
 				logger.info("当前地区是" + area + ":" + areaCode );
@@ -213,8 +218,10 @@ public class ExecutionController {
 					// 设置自动换行
 					textArea2.setLineWrap(true);
 					// 根据全局变量对变量进行处理
-					textArea2.append("开始执行 " + interfac.getName() + "    \n");
-					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
+					strBuff.append("开始执行 " + interfac.getName() + "    \n");
+					strBuff.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
+//					textArea2.append("开始执行 " + interfac.getName() + "    \n");
+//					textArea2.append("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL) + " \n");
 					logger.info("开始执行 " + interfac.getName());
 					logger.info("执行时间开始时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 					String url = null;
@@ -257,18 +264,25 @@ public class ExecutionController {
 							res.setResult(0); 
 							res.setResMessage("接口业务上访问失败，错误代码是：" + judgeValue);
 						} 
-					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
-					textArea2.append("接口响应时间" + res.getResponseTime() + "毫秒  \n");
-					textArea2.append("返回报文 " + resXml +" \n");
-					textArea2.append("接口直接结束时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
+//					textArea2.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
+//					textArea2.append("接口响应时间" + res.getResponseTime() + "毫秒  \n");
+//					textArea2.append("返回报文 " + resXml +" \n");
+//					textArea2.append("接口直接结束时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
+						strBuff.append("该接口标识码:" + interfac.getIdentification() + ":" + gidentification + "\n");
+						strBuff.append("接口响应时间" + res.getResponseTime() + "毫秒  \n");
+						strBuff.append("返回报文 " + resXml +" \n");
+						strBuff.append("接口直接结束时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 					
 					logger.info("该接口标识码:" + interfac.getIdentification() + ":" + gidentification );
 					logger.info("执行时间结束时间时间 " + DateUtils.toString(new Date(), DateUtils.YYYYMMDDDETAIL));
 					logger.info("接口响应时间" + res.getResponseTime() + " 毫秒 \n");
-					textArea2.append(" \n");
-					textArea2.append(" \n");
+//					textArea2.append(" \n");
+//					textArea2.append(" \n");
+					strBuff.append(" \n");
+					strBuff.append(" \n");
 					}else {
-						textArea2.append("该接口访问失败 ，错误信息是 " + res.getResMessage() + " \n");
+//						textArea2.append("该接口访问失败 ，错误信息是 " + res.getResMessage() + " \n");
+						strBuff.append("该接口访问失败 ，错误信息是 " + res.getResMessage() + " \n");
 						logger.info("该接口访问失败 ，错误信息是 " + res.getResMessage());
 					}
 					
@@ -307,7 +321,8 @@ public class ExecutionController {
 					
 					//假设接口访问失败， 那就抛出异常
 					if (res.getResult() == 0) {
-						textArea2.append("接口访问异常！" + res.getResMessage() + " \n");
+//						strBuff.append("接口访问异常！" + res.getResMessage() + " \n");
+//						textArea2.append("接口访问异常！" + res.getResMessage() + " \n");
 						throw new Exception(res.getResMessage());
 					}
 
@@ -317,9 +332,12 @@ public class ExecutionController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				textArea2.append("接口访问失败，" + e.getMessage().toString()+"\n");
+//				textArea2.append("接口访问失败，" + e.getMessage().toString()+"\n");
+				strBuff.append("接口访问失败，" + e.getMessage().toString()+"\n");
 				logger.info("接口访问失败:" + e.getMessage());
 			}
+			
+			textArea2.append(strBuff.toString() + "\n");
 
 			//假设是定时
 	}
